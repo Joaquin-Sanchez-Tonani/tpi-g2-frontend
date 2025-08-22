@@ -12,7 +12,7 @@ Fork the repo:
 Clone it locally:
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/tpi-g2-frontend.git
+git clone https://github.com/Joaquin-Sanchez-Tonani/tpi-g2-frontend
 cd tpi-g2-frontend
 npm install  # OR npm i
 npm run dev
