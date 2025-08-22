@@ -1,0 +1,12 @@
+.error-content-bg{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.error-content{
+    background-color: rgba(0, 0, 0, 0.795);
+    padding: 50px;
+    color: var(--primary-color);
+}

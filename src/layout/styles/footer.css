@@ -1,0 +1,53 @@
+.content{
+    min-height: 100dvh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
+footer{
+    background-color: var(--bg-color);
+    display: flex;
+    flex-direction: column;
+    align-items: space-evenly;
+    padding: 100px 10%;
+    color: white;
+}
+
+footer section{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.lines{
+    height: 1px;
+    width: 100%;
+    background-color: rgba(172, 172, 172, 0.973);
+    background: linear-gradient(to right,rgba(255, 255, 255, 0) , rgb(255, 255, 255),rgba(255, 255, 255, 0) );
+    border-radius: 20px;
+}
+
+.polities{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0 0 0;
+}
+
+h4{
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+.nav-redirection{
+    font-size: 15px;
+}
+
+.nav-redirection i{
+    font-size: 19px;
+}
+
+.nav-ul{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
