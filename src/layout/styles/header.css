@@ -1,14 +1,18 @@
 header{
-    background-color: rgb(27, 66, 100);
+    position: fixed;
+    width: 100%;
+    background-color: rgba(27, 66, 100, 0.774);
     height: 90px;
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 1;
+    backdrop-filter: blur(5px);
 }
 
 header nav{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
 }
@@ -17,13 +21,19 @@ header nav{
     color: white;
     gap: 10px;
     cursor: pointer;
+    padding-left: 15%;
+    justify-content: left;
 }
 
 .nav-logo, .nav-login{
     width: 20%;
     display: flex;
-    justify-content: center;
     align-items: center;
+}
+
+.nav-login{
+    justify-content: right;
+    padding-right: 15%;
 }
 
 i{
@@ -43,7 +53,7 @@ header nav ul li{
 }
 
 .nav-link{
-    background-color: rgba(56, 100, 139, 0.534);
+    background-color: var(--secundary-color);
     padding: 10px 25px;
     border-radius: 4px;
     color: white;
@@ -51,6 +61,6 @@ header nav ul li{
 }
 
 .nav-link:hover{
-    background-color: rgba(23, 57, 87, 0.397);
+    background-color: rgba(48, 129, 206, 0.712);
     transition: ease-out .5s;
 }

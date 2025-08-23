@@ -3,10 +3,14 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    height: 100dvh;
+    background-color: rgba(0, 0, 0, 0.493);
 }
 
 .error-content{
-    background-color: rgba(0, 0, 0, 0.795);
+    background-color: rgba(141, 14, 14, 0.795);
     padding: 50px;
+    margin: 10%;
     color: var(--primary-color);
+    border-radius: 20px;
 }

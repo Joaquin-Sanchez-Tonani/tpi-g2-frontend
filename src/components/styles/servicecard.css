@@ -1,0 +1,43 @@
+.service-card-article{
+    flex-basis: 300px;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 0px var(--bg-color);
+    flex-grow: 1 1;
+    max-width: 500px;
+}
+
+.service-card-article div{
+    position: relative;
+}
+
+.service-card-article div i{
+    position: absolute;
+    bottom: -20px;
+    left: 20px;
+    font-size: 30px;
+    color: rgb(255, 255, 255);
+    background-color: var(--bg-color);
+    padding: 10px;
+    border-radius: 50%;
+    border: 8px solid white;
+}
+
+.service-card-article-img{
+    width: 100%;
+    display: block;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.service-card-article-h3{
+    font-size: 20px;
+    padding: 20px 0 0 20px;
+}
+
+.service-card-article-p{
+    font-size: 15px;
+    overflow-y: auto;
+    padding:5px 20px 20px 20px;
+    max-height: 140px;
+}

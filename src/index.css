@@ -5,16 +5,20 @@
 
   color-scheme: light dark;
   color: rgba(0, 0, 0, 0.87);
-  background-color: #f8f8f8;
+  background-color: var(--primary-color);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
+  
   --bg-color: rgb(27, 66, 100);
-  --primary-color: rgb(243, 243, 243);
-  --secundary-color: rgba(48, 93, 177, 0.555);
+  --primary-color: rgb(235, 235, 235);
+  --secundary-color: rgba(41, 85, 126, 0.555);
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 *{
