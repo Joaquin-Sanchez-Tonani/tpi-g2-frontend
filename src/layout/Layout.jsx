@@ -17,10 +17,13 @@ const Layout = () =>{
                             <Link className="nav-link" to="">Inicio</Link>
                         </li>
                         <li>
-                            <Link className="nav-link" to="about_us">Especialistas</Link>
+                            <Link className="nav-link" to="specialists">Especialistas</Link>
                         </li>
                         <li>
                             <Link className="nav-link" to="contact_us">Contáctanos</Link>
+                        </li>
+                        <li>
+                            <Link className="nav-link" to="contact_us">Turnos</Link>
                         </li>
                     </ul>
                     <div className="nav-login">
