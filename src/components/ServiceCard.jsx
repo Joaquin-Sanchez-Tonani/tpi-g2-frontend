@@ -1,6 +1,6 @@
 import './styles/servicecard.css'
 
-const ServiceCard = ({image, title, description, icon}) =>{
+const ServiceCard = ({ image, title, description, icon }) =>{
     return(
         <article className='service-card-article'>
             <div>

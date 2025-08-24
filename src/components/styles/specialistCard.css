@@ -1,0 +1,26 @@
+.specialist-card-article{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    flex-basis: 300px;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 0px var(--bg-color);
+    flex-grow: 1 1;
+    max-width: 400px;
+    margin: 10px 10px 10px 10px;
+}
+
+.specialist-card-img{
+    border-radius: 20%;
+    width: 100px;
+    padding: 10px 10px 10px 10px;
+}
+
+.specialist-card{
+    
+    padding: 100px 100px 10px 100px;
+    align-items: center;
+}
