@@ -1,10 +1,10 @@
 import './styles/servicecard.css'
 
-const ServiceCard = ({ title, description, icon}) =>{
+const ServiceCard = ({ image, title, description, icon }) =>{
     return(
         <article className='service-card-article'>
             <div>
-                <img className="service-card-article-img"  alt={title} />
+                <img className="service-card-article-img" src={image} alt={title} />
                 {icon}
             </div>
             <h3 className="service-card-article-h3">{title}</h3>
