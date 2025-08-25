@@ -13,6 +13,7 @@ export const Specialists = () => {
                 <h1 className="title-specialist-card">Los mejores profesionales,</h1>
                 <h1 className="title-specialist-card">siempre a tu disposicion</h1>
             </div>
+            {/* Agregar un nav para filtrar según especialidad. (mapear un estado) */}
             <div className="specialist-card">
                         {DATASpecialist.map((specialist) => <SpecialistCard 
                                                             key={specialist.id} 

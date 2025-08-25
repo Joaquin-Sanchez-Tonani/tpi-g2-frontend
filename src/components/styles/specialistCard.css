@@ -1,6 +1,6 @@
 .specialist-card {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 40px;
     justify-content: center;
     align-items: stretch;
@@ -10,32 +10,31 @@
 
 .specialist-card-article {
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
+    align-items: left;
     justify-content: center;
-    flex: 1 1 300px;
+    flex: 1 1;
     background-color: white;
     border-radius: 20px;
-    box-shadow: 0 4px 0px var(--bg-color);
-    width: 400px;
-    max-width: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.212);
+    width: 250px;
     margin: 0 auto;
 }
 
 .specialist-card-img {
-    border-radius: 20%;
-    width: 100px;
-    padding: 10px;
+    width: 100%;
+    object-fit: contain;
+    max-height: 150px;
+    border-bottom: 1px solid rgb(192, 192, 192);
 }
 
 .specialist-card-div {
-    padding: 2% 15%;
-    padding-bottom: 0px;
+    padding: 120px 15%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 40px;
-    min-height: calc(100dvh - 10%);
+    min-height: calc(100dvh - 10dvh);
 }
 
 .title-specialist-card {
@@ -43,8 +42,20 @@
     color: var(--bg-color);
 }
 
-.specialist-card-div p {
-    font-size: 17px;
+.specialist-card-div li {
+    font-size: 15px;
     font-weight: 500;
-    color: rgb(167, 167, 167);
+    font-family :Verdana, Geneva, Tahoma, sans-serif;
+    color: rgb(99, 99, 99);
+    text-transform: lowercase;
+}
+
+.specialist-card-div h2{
+    font-size: 20px;
+    color: rgb(43, 43, 43);
+}
+
+.specialist-card div{
+    padding: 15px;
+    height: 40%;
 }

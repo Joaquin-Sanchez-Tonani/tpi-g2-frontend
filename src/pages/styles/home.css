@@ -5,6 +5,8 @@ main{
 .welcome-card{
     position: relative;
     width: 100%;
+        overflow: hidden;
+
 }
 
 .welcome-card-img{
@@ -18,25 +20,54 @@ main{
 
 .welcome-card-content{
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100dvh;
     text-align: center;
-    padding: 0 25%;
+    padding: 0 15%;
+    animation: init 1s ease-out;
 }
 
 .welcome-card-content-h2{
-    font-size: 70px;
+    line-height: 1;
+    font-size: 40px;
     text-transform: uppercase;
+    color: rgb(150, 150, 150);
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, Helvetica, sans-serif;
+    letter-spacing: 30px;
+    text-align: left;
+}
+
+.welcome-card-content-h2 strong{
+    line-height: .72;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 230px;
     color: var(--primary-color);
 }
 
 .welcome-card-content-p{
     font-size: 20px;
-    color: rgb(216, 216, 216);
+    color: rgb(150, 150, 150);
     text-align: center;
+    text-align: right;
+    border-radius: 15px;
 }
+
+@keyframes init {
+    from{
+        transform: translateX(70%);
+        opacity: 0;
+        scale: 20%;
+    }
+    to{
+        transform: translateX(0);
+        opacity: 1;
+        scale: 100%;
+    }
+}
+
 
 .home-arrow{
     position: absolute;
@@ -60,13 +91,14 @@ main{
 }
 
 .service-card{
-    padding: 5% 15%;
+    padding: 5dvh 15%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 40px;
-    min-height: calc(100dvh - 10%);
+    min-height: calc(100dvh - 10dvh);
 }
+
 
 .service-card-div h3{
     font-size: 40px;

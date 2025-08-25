@@ -2,7 +2,7 @@
     flex-basis: 300px;
     background-color: white;
     border-radius: 20px;
-    box-shadow: 0 4px 0px var(--bg-color);
+    box-shadow: 0 4px 5px var(--bg-color);
     flex-grow: 1 1;
     max-width: 500px;
 }

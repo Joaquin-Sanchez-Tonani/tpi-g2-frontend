@@ -9,7 +9,7 @@ const Home = () =>{
             <div className='welcome-card'>
                 <img className='welcome-card-img' src={initial} alt="doctores img" />
                 <div className='welcome-card-content'>
-                    <h2 className='welcome-card-content-h2'>Clinica San Roque</h2>
+                    <h2 className='welcome-card-content-h2'>Clínica <strong>Vita Nova</strong></h2>
                     <p className='welcome-card-content-p'>Brindamos atención médica de calidad, con confianza, calidez y compromiso, porque tu salud merece lo mejor en cada visita.</p>
                 </div>
                 <a href="#services"><i className="home-arrow fi fi-br-angle-down"></i></a>
