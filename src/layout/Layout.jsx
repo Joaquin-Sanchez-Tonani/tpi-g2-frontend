@@ -41,7 +41,7 @@ const Layout = () =>{
                         <nav>
                             <ul className="nav-ul">
                                 <li><Link className="nav-redirection" to="">Inicio</Link></li>
-                                <li><Link className="nav-redirection" to="about_us">Especialistas</Link></li>
+                                <li><Link className="nav-redirection" to="specialists">Especialistas</Link></li>
                                 <li><Link className="nav-redirection" to="contact_us">Contáctanos</Link></li>
                             </ul>
                         </nav>
