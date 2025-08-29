@@ -1,0 +1,70 @@
+.login-card{
+    flex-basis: 300px;
+    background-color: white;
+    border-radius: 15px;
+    flex-grow: 1 1;
+    max-width: 500px;
+    border-color: white;
+}
+
+.login-card div{
+    position: relative;
+}
+
+.login-image-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #ffffff;
+    height: 100vh;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.login-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.login-card-container{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    min-height: unset;
+}
+
+/* todo el contenido de la pagina */
+.login-card-layout {
+    min-height: unset;
+    height: 100%;
+    display: flex;
+    background-color: white;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+}
+
+.header-input-card{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.box-input{
+    border-radius: 10px;
+    width: 100%;
+}
+
+.box-input-container{
+    margin-bottom: 1.5rem;
+}
+
+.boton-submit{
+    background-color: #312b9f;
+    border-color: #312b9f;
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
