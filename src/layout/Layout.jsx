@@ -26,9 +26,11 @@ const Layout = () =>{
                             <Link className="nav-link" to="contact_us">Turnos</Link>
                         </li>
                     </ul>
-                    <div className="nav-login">
-                        <i className="fi fi-rs-private-account"></i>
-                    </div>
+                    <Link to="login" style={{ textDecoration: "none"}}> {/* linkea a login con la foto */}
+                        <div className="nav-login">
+                            <i className="fi fi-rs-private-account"></i>
+                        </div>
+                    </Link>
                 </nav>
             </header>
             <Outlet />  {/* Render child pages */}
