@@ -6,7 +6,7 @@ header{
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1;
+    z-index: 999;
     backdrop-filter: blur(5px);
 }
 
@@ -23,6 +23,11 @@ header nav{
     cursor: pointer;
     padding-left: 15%;
     justify-content: left;
+}
+
+.nav-logo h1{
+    font-size: 20px;
+    text-wrap: nowrap;
 }
 
 .nav-logo, .nav-login{
@@ -56,11 +61,16 @@ header nav ul li{
     background-color: var(--secundary-color);
     padding: 10px 25px;
     border-radius: 4px;
-    color: white;
+    color: var(--primary-color);
     transition: ease-in .5s;
 }
 
 .nav-link:hover{
-    background-color: rgba(48, 129, 206, 0.712);
+    background-color: rgba(25, 108, 185, 0.712);
     transition: ease-out .5s;
+    color: var(--primary-color);
+}
+
+.nav-link:focus{
+    color: var(--primary-color);
 }

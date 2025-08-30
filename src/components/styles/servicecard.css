@@ -13,14 +13,14 @@
 
 .service-card-article div i{
     position: absolute;
-    bottom: -20px;
+    bottom: -25px;
     left: 20px;
-    font-size: 30px;
+    font-size: 20px;
     color: rgb(255, 255, 255);
     background-color: var(--bg-color);
     padding: 10px;
     border-radius: 50%;
-    border: 8px solid white;
+    border: 10px solid white;
 }
 
 .service-card-article-img{
@@ -36,8 +36,8 @@
 }
 
 .service-card-article-p{
-    font-size: 15px;
+    font-size: 14px;
     overflow-y: auto;
-    padding:5px 20px 20px 20px;
-    max-height: 140px;
+    padding: 7px 20px 10px 20px;
+    max-height: 170px;
 }

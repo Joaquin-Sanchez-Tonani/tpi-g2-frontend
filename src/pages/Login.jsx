@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
 import { FormGroup, Form, Button, Card, Row, Col } from "react-bootstrap";
-import { initialErrors } from "./LoginData";
+import { initialErrors } from "../components/auth/login/LoginData";
 import { useNavigate } from "react-router-dom";
-import "./login.css";
-import imagenLogin from "../../../assets/imagenLogin.jpg";
+import "../pages/styles/login.css"
+import imagenLogin from "../assets/imagenLogin.jpg";
 
 const Login = () => {
   const [email, setEmail] = useState("");
