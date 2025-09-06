@@ -65,7 +65,7 @@ const Login = () => {
         <Card className="login-card">
           <Card.Body>
             <Row className="header-input-card">
-              <h2>Inicie Sesión</h2>
+              <h2>Registrate</h2>
             </Row>
             <Form onSubmit={handleLogin}>
               <FormGroup className="box-input-container" noValidate >
@@ -79,8 +79,7 @@ const Login = () => {
                   onChange={handleEmail}
                   value={email}
                 />
-                {/* {errors.emailEmpty && } */}
-                {/* {errors.email && <p class="alert alert-warning" role="alert">El email ingresado es invalido</p>} */}
+
               </FormGroup>
               <FormGroup className="box-input-container">
                 <Form.Label>Password</Form.Label>
@@ -93,21 +92,25 @@ const Login = () => {
                   onChange={handlePassword}
                   value={password}
                 />
-                {/* {errors.password && (
-                  // <p class="alert alert-warning" role="alert">
-                  //   La contraseña es obligatoria y debe contener al menos 8
-                  //   caracteres
-                  // </p>
-                )} */}
+              </FormGroup>
+
+                <FormGroup className="box-input-container">
+                <Form.Label>repeat the password</Form.Label>
+                <Form.Control
+                  className="box-input"
+                  type="password"
+              
+                  ref={passwordRef}
+                  placeholder="Contraseña"
+                  onChange={handlePassword}
+                  value={password}
+                />
               </FormGroup>
               <Button className="boton-submit" type="submit">
                 Iniciar sesión
               </Button>
             </Form>
-
-            <button onClick={() => navTurno("/register")}>No tienes cuenta? registrete aqui</button>      
           </Card.Body>
-
         </Card>
       </div>
     </div>
