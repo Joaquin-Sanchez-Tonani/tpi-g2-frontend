@@ -7,7 +7,7 @@ import imagenLogin from "../assets/imagenLogin.jpg";
     import 'alertifyjs/build/css/alertify.css';
     import 'alertifyjs/build/css/themes/default.min.css'; // Or another theme like bootstrap.min.css
 
-const Login = () => {
+const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -117,4 +117,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

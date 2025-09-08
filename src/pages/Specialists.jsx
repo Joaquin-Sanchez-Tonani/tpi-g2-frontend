@@ -24,11 +24,13 @@ export const Specialists = () => {
                     e.preventDefault(); // evita que se recargue la página
                     console.log("Formulario enviado");
                 }}>
-                    <label htmlFor="pais">Buscador de especialistas: </label>
-                    <button value="Radiología" onClick={(e) => specialityFilter(e.target.value)}>Radiología</button>
-                    <button value="Pediatría" onClick={(e) => specialityFilter(e.target.value)}>Pediatría</button>
-                    <button value="Odontología" onClick={(e) => specialityFilter(e.target.value)}>Odontología</button>
-                    <button value="Vacunación" onClick={(e) => specialityFilter(e.target.value)}>Vacunación</button>
+                <label className="specialist-label">Seleccione una especialidad </label>
+                     <div className="specialist-div-buttoms">
+                        <button className="nav-link" value="Radiología" onClick={(e) => specialityFilter(e.target.value)}>Radiología</button>
+                        <button className="nav-link" value="Pediatría" onClick={(e) => specialityFilter(e.target.value)}>Pediatría</button>
+                        <button className="nav-link" value="Odontología" onClick={(e) => specialityFilter(e.target.value)}>Odontología</button>
+                        <button className="nav-link" value="Vacunación" onClick={(e) => specialityFilter(e.target.value)}>Vacunación</button>
+                    </div>
                 </form>
                 <div className="specialist-card">
                     {speciality.map((specialist) => <SpecialistCard
@@ -38,34 +40,9 @@ export const Specialists = () => {
                         img={specialist.img} />)}
                 </div>
             </div>
-<<<<<<< HEAD
 
-            <form onSubmit={(e) => {
-                e.preventDefault(); 
-                console.log("Formulario enviado");
-            }}>
-                <label className="specialist-label">Seleccione una especialidad </label>
-                    <div className="specialist-div-buttoms">
-                        <button className="nav-link" value="Radiología" onClick={(e) => specialityFilter(e.target.value)}>Radiología</button>
-                        <button className="nav-link" value="Pediatría" onClick={(e) => specialityFilter(e.target.value)}>Pediatría</button>
-                        <button className="nav-link" value="Odontología" onClick={(e) => specialityFilter(e.target.value)}>Odontología</button>
-                        <button className="nav-link" value="Vacunación" onClick={(e) => specialityFilter(e.target.value)}>Vacunación</button>
-                    </div>
-    
-            </form>
-
-            <div className="specialist-card">
-                        {speciality.map((specialist) => <SpecialistCard 
-                                                            key={specialist.id} 
-                                                            name={specialist.name}
-                                                            specialty={specialist.speciality}
-                                                            img={specialist.img}/>)}
-            </div>
-        </div> 
+        
         </>              
-=======
-        </>
->>>>>>> 360b2f2b21ee08b84708d1773369e7769351426b
     )
 
 
