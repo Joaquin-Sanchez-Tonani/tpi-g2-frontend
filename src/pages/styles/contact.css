@@ -1,0 +1,11 @@
+.container-formContact{
+    display: flex;
+    margin-top: 150px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.contact-form{
+    width: 600px;
+}
