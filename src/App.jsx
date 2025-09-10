@@ -6,7 +6,6 @@ import Layout from './layout/Layout';
 import Login from './pages/Login';
 import ScrollToTop from './components/ScrollToTop';
 import { Specialists } from './pages/Specialists';
-import ContactForm from './components/contactForm';
 import Contacto from './pages/Contacto';
 
 function App() {
