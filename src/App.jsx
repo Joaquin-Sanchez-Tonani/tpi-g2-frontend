@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import ScrollToTop from './components/ScrollToTop';
 import { Specialists } from './pages/Specialists';
 import Register from "./pages/Register"
+import Appointment from './pages/Appointment';
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
             <Route  path="/" element={<Layout />}>
                 <Route index element={<Home />}/>
                 <Route path="/specialists" element={<Specialists/>}/>
+                <Route path="/appointment" element={<Appointment/>}/>
                 <Route path="/*" element={<PageNotFound />}/>
             </Route>
             <Route path="/login" element={<Login />} />
