@@ -10,7 +10,6 @@ const Layout = () =>{
                 <nav>
                     <div className="nav-logo">
                         <i className="fi fi-ss-asterik"></i>
-                        <h1>Clínica TPI</h1>
                     </div>
                     <div>
                         <ul>
@@ -24,7 +23,7 @@ const Layout = () =>{
                                 <Link className="nav-link" to="contact_us">Contáctanos</Link>
                             </li>
                             <li>
-                                <Link className="nav-link" to="contact_us">Turnos</Link>
+                                <Link className="nav-link" to="turnos">Turnos</Link>
                             </li>
                         </ul>
                     </div>
