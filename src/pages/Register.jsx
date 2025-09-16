@@ -1,16 +1,19 @@
 import { useRef, useState } from "react";
 import { FormGroup, Form, Button, Card, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import "../pages/styles/login.css";
+import "../pages/styles/login.css"
 import imagenLogin from "../assets/imagenLogin.jpg";
-import alertify from "alertifyjs";
-import "alertifyjs/build/css/alertify.css";
-import "alertifyjs/build/css/themes/default.min.css"; // Or another theme like bootstrap.min.css
+   import alertify from 'alertifyjs';
+    import 'alertifyjs/build/css/alertify.css';
+    import 'alertifyjs/build/css/themes/default.min.css'; // Or another theme like bootstrap.min.css
 
-const Login = () => {
+const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+
   const EMAILREGEX = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+
 
   const navTurno = useNavigate();
 
@@ -28,39 +31,29 @@ const Login = () => {
   const handleLogin = (event) => {
     event.preventDefault();
 
-    if (!email) {
-      emailRef.current.focus();
-      alertify.error("Debes ingresar un email");
+
+    if(!email){
+      emailRef.current.focus(); 
+      alertify.error('Debes ingresar un email')
       return;
     }
 
-    if (!EMAILREGEX.test(email)) {
-      emailRef.current.focus();
-      alertify.error("El email ingresado es invalido");
+    if(!EMAILREGEX.test(email)){
+      emailRef.current.focus(); 
+      alertify.error('El email ingresado es invalido')
 
       return;
     }
     if (!password.length || password.length < 8) {
-      alertify.error("Contraseña incorrecta");
+      alertify.error('Contraseña incorrecta')
       passwordRef.current.focus(); // ubica el cursor en la linea de password para que el usuario vuelva a escribir
       return;
     }
 
-    fetch("http://localhost:3000/auth/login", {
-      method: "POST", // or 'PUT'
-      body: JSON.stringify({ email: email, password: password }),
-      // data can be `string` or {object}!
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {!data.ok ? alertify.error(data.message) : alertify.success(data.message);
-                      return data;})
-      .then((result) => result.ok && navTurno("/"))
-      .catch((error) => console.error("Error:", error))
+    
     setEmail("");
     setPassword("");
+    navTurno("/");
   };
 
   return (
@@ -72,47 +65,51 @@ const Login = () => {
         <Card className="login-card">
           <Card.Body>
             <Row className="header-input-card">
-              <h2>Inicie Sesión</h2>
+              <h2>Registrate</h2>
             </Row>
             <Form onSubmit={handleLogin}>
-              <FormGroup className="box-input-container" noValidate>
+              <FormGroup className="box-input-container" noValidate >
                 <Form.Label>Email</Form.Label>
                 <Form.Control
                   className="box-input"
                   type="text"
+              
                   ref={emailRef}
                   placeholder="Ingrese su email"
                   onChange={handleEmail}
                   value={email}
                 />
-                {/* {errors.emailEmpty && } */}
-                {/* {errors.email && <p class="alert alert-warning" role="alert">El email ingresado es invalido</p>} */}
+
               </FormGroup>
               <FormGroup className="box-input-container">
                 <Form.Label>Password</Form.Label>
                 <Form.Control
                   className="box-input"
                   type="password"
+              
                   ref={passwordRef}
                   placeholder="Contraseña"
                   onChange={handlePassword}
                   value={password}
                 />
-                {/* {errors.password && (
-                  // <p class="alert alert-warning" role="alert">
-                  //   La contraseña es obligatoria y debe contener al menos 8
-                  //   caracteres
-                  // </p>
-                )} */}
+              </FormGroup>
+
+                <FormGroup className="box-input-container">
+                <Form.Label>repeat the password</Form.Label>
+                <Form.Control
+                  className="box-input"
+                  type="password"
+              
+                  ref={passwordRef}
+                  placeholder="Contraseña"
+                  onChange={handlePassword}
+                  value={password}
+                />
               </FormGroup>
               <Button className="boton-submit" type="submit">
                 Iniciar sesión
               </Button>
             </Form>
-
-            <button onClick={() => navTurno("/register")}>
-              No tienes cuenta? registrete aqui
-            </button>
           </Card.Body>
         </Card>
       </div>
@@ -120,4 +117,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

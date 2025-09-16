@@ -12,20 +12,22 @@ const Layout = () =>{
                         <i className="fi fi-ss-asterik"></i>
                         <h1>Clínica TPI</h1>
                     </div>
-                    <ul>
-                        <li>
-                            <Link className="nav-link" to="">Inicio</Link>
-                        </li>
-                        <li>
-                            <Link className="nav-link" to="specialists">Especialistas</Link>
-                        </li>
-                        <li>
-                            <Link className="nav-link" to="contact_us">Contáctanos</Link>
-                        </li>
-                        <li>
-                            <Link className="nav-link" to="contact_us">Turnos</Link>
-                        </li>
-                    </ul>
+                    <div>
+                        <ul>
+                            <li>
+                                <Link className="nav-link" to="">Inicio</Link>
+                            </li>
+                            <li>
+                                <Link className="nav-link" to="specialists">Especialistas</Link>
+                            </li>
+                            <li>
+                                <Link className="nav-link" to="contact_us">Contáctanos</Link>
+                            </li>
+                            <li>
+                                <Link className="nav-link" to="contact_us">Turnos</Link>
+                            </li>
+                        </ul>
+                    </div>
                     <div className="nav-login">
                         <Link to="login" style={{ textDecoration: "none"}}> {/* linkea a login con la foto */}
                                 <i className="fi fi-rs-private-account"></i>
