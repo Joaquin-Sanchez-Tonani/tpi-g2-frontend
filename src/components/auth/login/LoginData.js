@@ -1,4 +1,5 @@
 export const initialErrors = () => ({
     email: false,
-    password: false
+    password: false,
+    emailEmpty: false,
 });

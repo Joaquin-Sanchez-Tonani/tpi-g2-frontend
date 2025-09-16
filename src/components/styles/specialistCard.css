@@ -59,3 +59,13 @@
     padding: 15px;
     height: 40%;
 }
+
+.specialist-article-buttom{
+    background-color: rgba(66, 170, 66, 0.664);
+    /* border-radius: 40%; */
+    /* display: flex; */
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    /* margin: 0px 20px 0px 20px; */
+}

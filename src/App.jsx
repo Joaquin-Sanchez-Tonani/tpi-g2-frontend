@@ -6,6 +6,7 @@ import Layout from './layout/Layout';
 import Login from './pages/Login';
 import ScrollToTop from './components/ScrollToTop';
 import { Specialists } from './pages/Specialists';
+import Register from "./pages/Register"
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
                 <Route path="/*" element={<PageNotFound />}/>
             </Route>
             <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
         </Routes>
     </BrowserRouter>
   )
