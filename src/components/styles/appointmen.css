@@ -1,0 +1,8 @@
+.appointmen_container{
+    width:90%;
+    display: flex;
+}
+
+.appointmen-select{
+   margin: 2%;
+}
