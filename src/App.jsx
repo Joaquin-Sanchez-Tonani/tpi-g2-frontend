@@ -8,6 +8,9 @@ import ScrollToTop from './components/ScrollToTop';
 import { Specialists } from './pages/Specialists';
 import Contacto from './pages/Contacto';
 import Register from "./pages/Register"
+import Appointment from './components/Appointment';
+import Guard from './components/auth/Guard';
+import Administration from './components/Administration';
 
 
 function App() {
@@ -19,11 +22,17 @@ function App() {
             <Route  path="/" element={<Layout />}>
                 <Route index element={<Home />}/>
                 <Route path="/specialists" element={<Specialists/>}/>
+                <Route path="/appointment" element={<Appointment />} />
                 <Route path="/contact_us" element={<Contacto/>}/>
                 <Route path="/*" element={<PageNotFound />}/>
             </Route>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/administration" element={
+              <Guard token={localStorage.getItem("token") ?? null}>
+                <Administration />
+              </Guard>
+            } />
         </Routes>
     </BrowserRouter>
   )

@@ -1,3 +1,7 @@
+.header-input-card{
+    display: flex;
+}
+
 .login-card{
     flex-basis: 300px;
     background-color: white;
@@ -37,6 +41,8 @@
     align-items: center;
     background-color: white;
     min-height: unset;
+        transition: .5s;
+
 }
 
 /* todo el contenido de la pagina */
@@ -64,4 +70,22 @@
 
 .card-body{
     width: 400px;
+}
+
+.toRegister{
+    background-color: #312b9f00;
+    font-size: 15px;
+    border: none;
+    color: rgb(56, 56, 56);
+    display: flex;
+    align-items: center;
+}
+
+.toRegister:hover{
+    background-color: rgba(255, 0, 0, 0);
+    color: rgb(112, 20, 155);
+}
+
+.fi-rr-arrow-small-right,.fi-tr-insert-alt{
+    color: rgb(37, 37, 37);
 }

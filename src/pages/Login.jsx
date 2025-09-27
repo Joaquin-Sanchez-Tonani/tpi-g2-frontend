@@ -47,17 +47,15 @@ const Login = () => {
     }
 
     fetch("http://localhost:3000/auth/login", {
-      method: "POST", // or 'PUT'
+      method: "POST",
       body: JSON.stringify({ email: email, password: password }),
-      // data can be `string` or {object}!
       headers: {
         "Content-Type": "application/json",
       },
     })
       .then((res) => res.json())
-      .then((data) => {!data.ok ? alertify.error(data.message) : alertify.success(data.message);
-                      return data;})
-      .then((result) => result.ok && navTurno("/"))
+      .then((data) => {!data.ok ? alertify.error(data.message) : alertify.success(data.message); return data;})
+      .then((result) => {localStorage.setItem("token",result.token); result.ok && navTurno("/");})
       .catch((error) => console.error("Error:", error))
     setEmail("");
     setPassword("");
@@ -72,7 +70,8 @@ const Login = () => {
         <Card className="login-card">
           <Card.Body>
             <Row className="header-input-card">
-              <h2>Inicie Sesión</h2>
+              <Button className="toRegister" onClick={() => navTurno("/")}><i className="fi fi-tr-insert-alt"></i></Button>
+              <h2>Inicie Sesión</h2> 
             </Row>
             <Form onSubmit={handleLogin}>
               <FormGroup className="box-input-container" noValidate>
@@ -110,9 +109,9 @@ const Login = () => {
               </Button>
             </Form>
 
-            <button onClick={() => navTurno("/register")}>
-              No tienes cuenta? registrete aqui
-            </button>
+            <Button className="toRegister" onClick={() => navTurno("/register")}>
+              <i className="fi fi-rr-arrow-small-right"></i>No tienes cuenta? registrete aqui
+            </Button>
           </Card.Body>
         </Card>
       </div>

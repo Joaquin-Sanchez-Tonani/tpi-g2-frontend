@@ -8,7 +8,7 @@
 }
 
 .error-content{
-    background-color: rgba(141, 14, 14, 0.795);
+    background-color: rgba(119, 13, 13, 0.795);
     padding: 50px;
     margin: 10%;
     color: var(--primary-color);

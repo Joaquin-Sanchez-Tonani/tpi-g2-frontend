@@ -2,8 +2,10 @@ import { Outlet, Link } from "react-router-dom"
 
 import './styles/header.css'
 import './styles/footer.css'
+import { useEffect } from "react"
 
 const Layout = () =>{
+    
     return(
         <div className="content">
             <header>
@@ -20,10 +22,10 @@ const Layout = () =>{
                                 <Link className="nav-link" to="specialists">Especialistas</Link>
                             </li>
                             <li>
-                                <Link className="nav-link" to="contact_us">Contáctanos</Link>
+                                <Link className="nav-link" to="appointment">Turnos</Link>
                             </li>
                             <li>
-                                <Link className="nav-link" to="turnos">Turnos</Link>
+                                <Link className="nav-link" to="contact_us">Contáctanos</Link>
                             </li>
                         </ul>
                     </div>
@@ -45,17 +47,18 @@ const Layout = () =>{
                             <ul className="nav-ul">
                                 <li><Link className="nav-redirection" to="">Inicio</Link></li>
                                 <li><Link className="nav-redirection" to="specialists">Especialistas</Link></li>
+                                <li><Link className="nav-redirection" to="appointment">Turnos</Link></li>
                                 <li><Link className="nav-redirection" to="contact_us">Contáctanos</Link></li>
                             </ul>
                         </nav>
                     </article>
                     <article>
-                        <h4>Seguinos</h4>
+                        <h4>Seguinos en nuestras redes</h4>
                         <nav>
                             <ul className="nav-ul">
-                                <li><a className="nav-redirection" target="_blank" href="https://www.youtube.com"><i className="fi fi-brands-youtube"></i></a></li>
-                                <li><a className="nav-redirection" target="_blank" href="https://www.instagram.com"><i className="fi fi-brands-instagram"></i></a></li>
-                                <li><a className="nav-redirection" target="_blank" href="https://www.x.com"><i className="fi fi-brands-twitter-alt"></i></a></li>
+                                <li><a className="nav-redirection" target="_blank" href="https://www.youtube.com"><i className="fi fi-brands-youtube"></i>Youtube</a></li>
+                                <li><a className="nav-redirection" target="_blank" href="https://www.instagram.com"><i className="fi fi-brands-instagram"></i>Instagram</a></li>
+                                <li><a className="nav-redirection" target="_blank" href="https://www.x.com"><i className="fi fi-brands-twitter-alt"></i>X (ex twitter)</a></li>
                             </ul>
                         </nav>
                     </article>
