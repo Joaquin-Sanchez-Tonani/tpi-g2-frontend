@@ -29,7 +29,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/administration" element={
-              <Guard token={localStorage.getItem("token") ?? null}>
+              <Guard >
                 <Administration />
               </Guard>
             } />

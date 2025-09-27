@@ -2,11 +2,29 @@ import { Outlet, Link } from "react-router-dom"
 
 import './styles/header.css'
 import './styles/footer.css'
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
-const Layout = () =>{
-    
-    return(
+const Layout = () => {
+    const [isAdmin, setIsAdmin] = useState(false);
+
+    useEffect(() => {
+        const token = localStorage.getItem("token"); 
+
+        fetch("http://localhost:3000/auth/isAdmin", {
+            method: "GET", 
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log("Response:", data);
+                if (data.ok) setIsAdmin(true);
+            })
+            .catch(err => console.error("Error:", err));
+    }, []);
+    return (
         <div className="content">
             <header>
                 <nav>
@@ -27,11 +45,16 @@ const Layout = () =>{
                             <li>
                                 <Link className="nav-link" to="contact_us">Contáctanos</Link>
                             </li>
+                            {isAdmin ? 
+                            <li>
+                                <Link className="nav-link" style={{background: "green"}} to="administration">Panel de administración</Link>
+                            </li> : null
+                            }
                         </ul>
                     </div>
                     <div className="nav-login">
-                        <Link to="login" style={{ textDecoration: "none"}}> {/* linkea a login con la foto */}
-                                <i className="fi fi-rs-private-account"></i>
+                        <Link to="login" style={{ textDecoration: "none" }}> {/* linkea a login con la foto */}
+                            <i className="fi fi-rs-private-account"></i>
                         </Link>
                     </div>
                 </nav>
