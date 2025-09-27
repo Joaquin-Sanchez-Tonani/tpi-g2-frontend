@@ -5,10 +5,8 @@
   background: #f0f7fc; /* azul muy suave que combina con el borde */
   border-radius: 14px; /* para redondear como el formulario */
   border: 3px solid #cfe2f3; /* borde exterior clarito */
+  margin-bottom: 60px;
 }
-/*  body{
-   background-color: #47dbe036; 
-} */
 .buttonSubmit{
     background-color: var(--secundary-color);
     padding: 10px 25px;

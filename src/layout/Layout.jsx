@@ -2,15 +2,34 @@ import { Outlet, Link } from "react-router-dom"
 
 import './styles/header.css'
 import './styles/footer.css'
+import { useEffect, useState } from "react"
 
-const Layout = () =>{
-    return(
+const Layout = () => {
+    const [isAdmin, setIsAdmin] = useState(false);
+
+    useEffect(() => {
+        const token = localStorage.getItem("token"); 
+
+        fetch("http://localhost:3000/auth/isAdmin", {
+            method: "GET", 
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log("Response:", data);
+                if (data.ok) setIsAdmin(true);
+            })
+            .catch(err => console.error("Error:", err));
+    }, []);
+    return (
         <div className="content">
             <header>
                 <nav>
                     <div className="nav-logo">
                         <i className="fi fi-ss-asterik"></i>
-                        <h1>Clínica TPI</h1>
                     </div>
                     <div>
                         <ul>
@@ -21,16 +40,21 @@ const Layout = () =>{
                                 <Link className="nav-link" to="specialists">Especialistas</Link>
                             </li>
                             <li>
-                                <Link className="nav-link" to="contact_us">Contáctanos</Link>
-                            </li>
-                            <li>
                                 <Link className="nav-link" to="appointment">Turnos</Link>
                             </li>
+                            <li>
+                                <Link className="nav-link" to="contact_us">Contáctanos</Link>
+                            </li>
+                            {isAdmin ? 
+                            <li>
+                                <Link className="nav-link" style={{background: "green"}} to="administration">Panel de administración</Link>
+                            </li> : null
+                            }
                         </ul>
                     </div>
                     <div className="nav-login">
-                        <Link to="login" style={{ textDecoration: "none"}}> {/* linkea a login con la foto */}
-                                <i className="fi fi-rs-private-account"></i>
+                        <Link to="login" style={{ textDecoration: "none" }}> {/* linkea a login con la foto */}
+                            <i className="fi fi-rs-private-account"></i>
                         </Link>
                     </div>
                 </nav>
@@ -46,17 +70,18 @@ const Layout = () =>{
                             <ul className="nav-ul">
                                 <li><Link className="nav-redirection" to="">Inicio</Link></li>
                                 <li><Link className="nav-redirection" to="specialists">Especialistas</Link></li>
+                                <li><Link className="nav-redirection" to="appointment">Turnos</Link></li>
                                 <li><Link className="nav-redirection" to="contact_us">Contáctanos</Link></li>
                             </ul>
                         </nav>
                     </article>
                     <article>
-                        <h4>Seguinos</h4>
+                        <h4>Seguinos en nuestras redes</h4>
                         <nav>
                             <ul className="nav-ul">
-                                <li><a className="nav-redirection" target="_blank" href="https://www.youtube.com"><i className="fi fi-brands-youtube"></i></a></li>
-                                <li><a className="nav-redirection" target="_blank" href="https://www.instagram.com"><i className="fi fi-brands-instagram"></i></a></li>
-                                <li><a className="nav-redirection" target="_blank" href="https://www.x.com"><i className="fi fi-brands-twitter-alt"></i></a></li>
+                                <li><a className="nav-redirection" target="_blank" href="https://www.youtube.com"><i className="fi fi-brands-youtube"></i>Youtube</a></li>
+                                <li><a className="nav-redirection" target="_blank" href="https://www.instagram.com"><i className="fi fi-brands-instagram"></i>Instagram</a></li>
+                                <li><a className="nav-redirection" target="_blank" href="https://www.x.com"><i className="fi fi-brands-twitter-alt"></i>X (ex twitter)</a></li>
                             </ul>
                         </nav>
                     </article>
