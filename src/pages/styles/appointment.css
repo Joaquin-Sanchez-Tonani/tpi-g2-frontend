@@ -1,0 +1,30 @@
+.Appointmen-body{
+    padding: 120px 15%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 40px;
+    min-height: calc(100dvh - 10dvh);
+}
+.input-div-Appointmen{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f0f7fc; /* azul muy suave que combina con el borde */
+    border-radius: 14px; /* para redondear como el formulario */
+    border: 3px solid #cfe2f3; /* borde exterior clarito */
+}
+
+.buttom-Appointment-div{
+    display: flex;
+    justify-content: end;
+    margin-right: 10%;
+
+}
+
+.title-Appointmen{
+    justify-content: end;
+    font-size: 40px;
+    color: var(--bg-color);
+    /* padding-bottom: 30px; */
+}

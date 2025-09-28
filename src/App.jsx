@@ -8,9 +8,10 @@ import ScrollToTop from './components/ScrollToTop';
 import { Specialists } from './pages/Specialists';
 import Contacto from './pages/Contacto';
 import Register from "./pages/Register"
-import Appointment from './components/Appointment';
+import Appointment from "./pages/Appointment"
 import Guard from './components/auth/Guard';
 import Administration from './components/Administration';
+
 
 
 function App() {

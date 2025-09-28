@@ -32,13 +32,13 @@ export const Specialists = () => {
                         <button className="nav-link" value="Vacunación" onClick={(e) => specialityFilter(e.target.value)}>Vacunación</button>
                     </div>
                 </form>
-                <div className="specialist-card">
+                { <div className="specialist-card">
                     {speciality.map((specialist) => <SpecialistCard
                         key={specialist.id}
                         name={specialist.name}
-                        specialty={specialist.speciality}
+                        speciality={specialist.speciality}
                         img={specialist.img} />)}
-                </div>
+                </div> }
             </div>
 
         
