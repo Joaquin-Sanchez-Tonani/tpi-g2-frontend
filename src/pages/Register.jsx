@@ -101,6 +101,7 @@ const Register = () => {
         setRPassword("");
         setEmail("");
         setPassword("");
+        localStorage.clear()
     };
 
     return (

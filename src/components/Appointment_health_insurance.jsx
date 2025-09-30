@@ -1,8 +1,6 @@
+import './styles/appointment.css'
 
-
-import './styles/appointmen.css'
-
-const Appointmen_obraSocial = ({ addObraSocial, addPlanSocial, isRender }) => {
+const Appointment_obraSocial = ({ addObraSocial, addPlanSocial, isRender }) => {
 
   const VALOR_RENDER = 1; 
  
@@ -12,7 +10,6 @@ const Appointmen_obraSocial = ({ addObraSocial, addPlanSocial, isRender }) => {
 
   const handleClickPlan = (event) => {
     addPlanSocial(event.target.value);
-
   };
 
 
@@ -21,8 +18,8 @@ const Appointmen_obraSocial = ({ addObraSocial, addPlanSocial, isRender }) => {
   } else {
      return (
     <div className='appointmen_container'>
-      <select class="form-select appointmen-select" onChange={handleClickObraSocial}>
-        <option value="0" disabled hidden selected>
+      <select defaultValue="0" className="form-select appointmen-select" onChange={handleClickObraSocial}>
+        <option value="0" disabled hidden>
           Elige una obra social:
         </option>
         <option value="Obra social 1">Obra social 1</option>
@@ -31,8 +28,8 @@ const Appointmen_obraSocial = ({ addObraSocial, addPlanSocial, isRender }) => {
         <option value="Obra social 4">Obra social 4</option>
       </select>
 
-      <select  class="form-select appointmen-select" onChange={handleClickPlan}>
-        <option value="0" disabled hidden selected>
+      <select defaultValue="0" className="form-select appointmen-select" onChange={handleClickPlan}>
+        <option value="0" disabled hidden>
           Seleccione plan:
         </option>
         <option value="1">Plan 1</option>
@@ -45,4 +42,4 @@ const Appointmen_obraSocial = ({ addObraSocial, addPlanSocial, isRender }) => {
   }
 };
 
-export default Appointmen_obraSocial;
+export default Appointment_obraSocial;

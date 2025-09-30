@@ -1,7 +1,7 @@
 
-import Appointmen_obraSocial from '../components/Appointmen_obraSocial'
-import Appointmen_medics from '../components/Appointmen_medics'
-import Appointmen_turno from '../components/Appointmen_turno'
+import Appointment_health_insurance from '../components/Appointment_health_insurance'
+import Appointment_doctors from '../components/Appointment_doctors'
+import Appointment_calendar from '../components/Appointment_calendar'
 
 import alertify from "alertifyjs";
 import "alertifyjs/build/css/alertify.css";
@@ -10,7 +10,7 @@ import "alertifyjs/build/css/themes/default.min.css"; // Or another theme like b
 import "../pages/styles/Appointment.css"
 
 
- import { useState } from "react"
+import { useState } from "react"
 
 const Appointment = () => {
 
@@ -22,64 +22,59 @@ const Appointment = () => {
     const [medic, setMedic] = useState("");
     const [speciality, setSpeciality] = useState("");
 
-
+    const [fullData, setFullData] = useState({})
 
     const renderComponents = () => {
-
-        if(isVisual == 1){
-            console.log(obraSocial);
-            console.log(plan);
-
+        if (isVisual == 1) {
             (obraSocial != "" && plan != "") ? setIsVisual(2) : alertify.error("Debe ingresar sus datos");
-            
-        } else if (isVisual == 2){
-            console.log(medic);
-            console.log(speciality);
-
+        } else if (isVisual == 2) {
             (medic != "") ? setIsVisual(3) : alertify.error("Debe seleccionar un medico");
-        }  
-
-
-        console.log("visual : " + {isVisual})
+        }
+        // falta isVisual 3
     }
 
     const handleAddObraSocial = (value) => {
-            setObraSocial(value)
-            console.log(obraSocial)
+        setObraSocial(value)
+        setFullData(prev => ({ ...prev, health_insurance: value }))
     }
 
     const handlePlanSocial = (value) => {
-            setPlan(value)
-            console.log(plan)
-    }
-
-    const handleAddMedic = (value) => {
-            setMedic(value)
-            console.log(medic)
+        setPlan(value)
+        setFullData(prev => ({ ...prev, plan: value }))
     }
 
     const handleAddSpeciality = (value) => {
-            setSpeciality(value)
-            console.log(speciality)
+        setSpeciality(value)
+        setFullData(prev => ({ ...prev, speciality: value }))
     }
 
-    return (   
+    const handleAddMedic = (value) => {
+        setMedic(value)
+        setFullData(prev => ({ ...prev, doctor: value }))
+    }
+
+    return (
         <>
-        <div className='Appointmen-body'>
-                    <h1 className="title-Appointmen">Consulta por nuestros turnos</h1>
-                    <p>Ingrese sus datos</p>
-                        <div className="input-div-Appointmen">
-                            <Appointmen_obraSocial addObraSocial={handleAddObraSocial} addPlanSocial={handlePlanSocial} isRender={isVisual}/>
-                            <Appointmen_medics addMedic={handleAddMedic} addEspecialidad={handleAddSpeciality} isRender={isVisual}/>
-                            <Appointmen_turno isRender={isVisual}/>
-                        </div>
-                    
-            
+            <div className='Appointmen-body'>
+                <h1 className="title-Appointmen">Consulta por nuestros turnos</h1>
+                <p>Ingrese sus datos</p>
+                <div className="input-div-Appointmen">
+                    <Appointment_health_insurance addObraSocial={handleAddObraSocial} addPlanSocial={handlePlanSocial} isRender={isVisual} />
+                    <Appointment_doctors addMedic={handleAddMedic} addEspecialidad={handleAddSpeciality} isRender={isVisual} />
+                    <Appointment_calendar isRender={isVisual} />
+                </div>
+
+
 
                 <div className="buttom-Appointment-div">
                     <button className="nav-link" onClick={renderComponents}>Seleccionar</button>
                 </div>
-        </div>
+                {
+                    <h1>{Object.entries(fullData).map(([keys, value]) =>
+                        <li key={keys}>{keys}: {value}</li>
+                    )}</h1> ?? <h1>Nada</h1>
+                }
+            </div>
         </>
     )
 
