@@ -10,9 +10,14 @@ import "alertifyjs/build/css/themes/default.min.css"; // Or another theme like b
 import "../pages/styles/Appointment.css"
 
 
- import { useState } from "react"
+ import { useEffect, useState } from "react"
 
 const Appointment = () => {
+
+
+
+
+
 
     const [isVisual, setIsVisual] = useState(1);
 
@@ -63,6 +68,33 @@ const Appointment = () => {
             console.log(speciality)
     }
 
+    useEffect(() => {
+    if (!medic) return; 
+
+    fetch("http://localhost:3000/appointment/appointment", {
+        method: "POST",
+        body: JSON.stringify({ medic_id: medic }),
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+        .then((res) => {
+            if (!res.ok) {
+                throw new Error("Error en la petición: " + res.status);
+            }
+            return res.json();
+        })
+        .then((data) => console.log("Respuesta del servidor:", data))
+        .catch((error) => console.error("Error:", error));
+}, [medic]);
+
+
+
+
+
+
+
+
     return (   
         <>
         <div className='Appointmen-body'>
@@ -87,4 +119,4 @@ const Appointment = () => {
 }
 
 
-export default Appointment
+export default Appointment;
