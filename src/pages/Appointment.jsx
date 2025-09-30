@@ -31,6 +31,25 @@ const Appointment = () => {
 
     const renderComponents = () => {
 
+
+        //Verificacion de usuario logueado
+    () => fetch("http://localhost:3000/appointment/appointment", {
+        method: "GET",
+
+    })
+        .then((res) => {
+            if (!res.ok) {
+                throw new Error("Error en la petición: " + res.status);
+            }
+            return res.json();
+        })
+        .then((data) => console.log("Respuesta del servidor:", data))
+        .catch((error) => console.error("Error:", error));
+ 
+        
+
+
+
         if(isVisual == 1){
             console.log(obraSocial);
             console.log(plan);
