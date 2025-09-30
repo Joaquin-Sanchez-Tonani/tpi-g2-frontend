@@ -10,7 +10,7 @@ import "alertifyjs/build/css/themes/default.min.css"; // Or another theme like b
 import "../pages/styles/Appointment.css"
 
 
-import { useState } from "react"
+import { use, useState } from "react"
 
 const Appointment = () => {
 
@@ -21,6 +21,8 @@ const Appointment = () => {
 
     const [medic, setMedic] = useState("");
     const [speciality, setSpeciality] = useState("");
+
+    const [date, setDate] = useState("");
 
     const [fullData, setFullData] = useState({})
 
@@ -53,6 +55,24 @@ const Appointment = () => {
         setFullData(prev => ({ ...prev, doctor: value }))
     }
 
+    const handleSchedule = async (value) => {
+        const onlyDate = value.toLocaleDateString("en-CA"); // formato YYYY-MM-DD
+        setDate(onlyDate);
+        await fetchBusyAppointments(onlyDate, medic)
+        setFullData(prev => ({ ...prev, date: onlyDate }));
+    }
+
+    const [busyAppointment, setBusyAppointment] = useState([])
+
+    async function fetchBusyAppointments(date, specialist_id) {
+        fetch(`http://localhost:3000/appointment/busy?date=${date}&specialist_id=${specialist_id}`)
+            .then(data => data.json())
+            .then(res => {
+                console.log(res)
+                setBusyAppointment(res.appointments)
+            })
+    }
+
     return (
         <>
             <div className='Appointmen-body'>
@@ -61,19 +81,22 @@ const Appointment = () => {
                 <div className="input-div-Appointmen">
                     <Appointment_health_insurance addObraSocial={handleAddObraSocial} addPlanSocial={handlePlanSocial} isRender={isVisual} />
                     <Appointment_doctors addMedic={handleAddMedic} addEspecialidad={handleAddSpeciality} isRender={isVisual} />
-                    <Appointment_calendar isRender={isVisual} />
+                    <Appointment_calendar date={date} busyAppointment={busyAppointment} addSchedule={handleSchedule} isRender={isVisual} />
+                    <div className="buttom-Appointment-div">
+                        <button className="nav-link" onClick={renderComponents}>Seleccionar</button>
+                    </div>
+                </div>
+                <div>
+                    <h2>Resumen de turno</h2>
+                    <ul>
+                        {Object.entries(fullData).map(([key, value]) => (
+                            <li key={key}>
+                                {key}: {String(value)}
+                            </li>
+                        ))}
+                    </ul>
                 </div>
 
-
-
-                <div className="buttom-Appointment-div">
-                    <button className="nav-link" onClick={renderComponents}>Seleccionar</button>
-                </div>
-                {
-                    <h1>{Object.entries(fullData).map(([keys, value]) =>
-                        <li key={keys}>{keys}: {value}</li>
-                    )}</h1> ?? <h1>Nada</h1>
-                }
             </div>
         </>
     )

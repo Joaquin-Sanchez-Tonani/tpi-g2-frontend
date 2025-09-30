@@ -1,29 +1,51 @@
-
-
-import './styles/appointment.css'
+import { useEffect, useState } from 'react';
+import './styles/appointment.css';
 import Calendar from 'react-calendar';
-import { useState } from 'react';
-
-
 import 'react-calendar/dist/Calendar.css';
 
-const Appointment_calendar = ({ isRender }) => {
-
+const AppointmentCalendar = ({date, busyAppointment, addSchedule, isRender }) => {
   const VALOR_RENDER = 3;
 
-  const [value, onChange] = useState(new Date());
-
-  if (isRender != VALOR_RENDER) {
-    return null
-  } else {
-    return (
-      <div className='appointmen_container'>
-
-
-        <Calendar onChange={onChange} value={value} />
-      </div>
-    );
+  if (isRender !== VALOR_RENDER) {
+    return null;
   }
+
+  const [times, setTimes] = useState({ times: [] });
+
+  async function fetchTimes() {
+    const data = await fetch(`http://localhost:3000/appointment/times`);
+    const res = await data.json();
+    setTimes(res);
+  }
+
+  useEffect(() => {
+    fetchTimes();
+  }, []);
+
+
+
+
+  return (
+    <div className="appointment_container">
+      <Calendar
+        onChange={addSchedule}
+        tileDisabled={({ date }) => {
+          const fechaConUnDia = new Date(date);
+          fechaConUnDia.setDate(fechaConUnDia.getDate() - 1);
+          return fechaConUnDia < new Date().setHours(0, 0, 0, 0);
+        }}
+      />
+
+      <select defaultValue="0" disabled={!date}>
+        <option value="0" disabled>Elegir horario</option>
+        {times.times.map(({ id, time }) => (
+          <option disabled={busyAppointment.some((ap) => ap.time_id == id) ? true : false} key={id} value={id}>
+            {time}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
 };
 
-export default Appointment_calendar;
+export default AppointmentCalendar;
