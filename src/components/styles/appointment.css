@@ -1,0 +1,25 @@
+.appointmen_container{
+    width:90%;
+    display: flex;
+}
+
+.appointmen-select{
+   margin: 2%;
+}
+
+.react-calendar{
+    background-color: rgba(115, 82, 168, 0.541)!important;
+    color: rgb(223, 223, 223);
+    border: 3px solid white !important;
+    border-radius: 20px;
+    padding: 5px 10px;
+}
+
+.react-calendar__month-view__days__day { 
+    color: rgb(252, 252, 252);
+}
+
+.react-calendar button:hover{
+    background-color: rgb(59, 151, 41) !important;
+}
+

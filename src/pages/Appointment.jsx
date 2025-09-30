@@ -1,7 +1,7 @@
 
-import Appointmen_obraSocial from '../components/Appointmen_obraSocial'
-import Appointmen_medics from '../components/Appointmen_medics'
-import Appointmen_turno from '../components/Appointmen_turno'
+import Appointment_health_insurance from '../components/Appointment_health_insurance'
+import Appointment_doctors from '../components/Appointment_doctors'
+import Appointment_calendar from '../components/Appointment_calendar'
 
 import alertify from "alertifyjs";
 import "alertifyjs/build/css/alertify.css";
@@ -10,7 +10,7 @@ import "alertifyjs/build/css/themes/default.min.css"; // Or another theme like b
 import "../pages/styles/Appointment.css"
 
 
- import { useEffect, useState } from "react"
+import { use, useState } from "react"
 
 const Appointment = () => {
 
@@ -27,110 +27,82 @@ const Appointment = () => {
     const [medic, setMedic] = useState("");
     const [speciality, setSpeciality] = useState("");
 
+    const [date, setDate] = useState("");
 
+    const [fullData, setFullData] = useState({})
 
     const renderComponents = () => {
-
-
-        //Verificacion de usuario logueado
-    () => fetch("http://localhost:3000/appointment/appointment", {
-        method: "GET",
-
-    })
-        .then((res) => {
-            if (!res.ok) {
-                throw new Error("Error en la petición: " + res.status);
-            }
-            return res.json();
-        })
-        .then((data) => console.log("Respuesta del servidor:", data))
-        .catch((error) => console.error("Error:", error));
- 
-        
-
-
-
-        if(isVisual == 1){
-            console.log(obraSocial);
-            console.log(plan);
-
+        if (isVisual == 1) {
             (obraSocial != "" && plan != "") ? setIsVisual(2) : alertify.error("Debe ingresar sus datos");
-            
-        } else if (isVisual == 2){
-            console.log(medic);
-            console.log(speciality);
-
+        } else if (isVisual == 2) {
             (medic != "") ? setIsVisual(3) : alertify.error("Debe seleccionar un medico");
-        }  
-
-
-        console.log("visual : " + {isVisual})
+        }
+        // falta isVisual 3
     }
 
     const handleAddObraSocial = (value) => {
-            setObraSocial(value)
-            console.log(obraSocial)
+        setObraSocial(value)
+        setFullData(prev => ({ ...prev, health_insurance: value }))
     }
 
     const handlePlanSocial = (value) => {
-            setPlan(value)
-            console.log(plan)
-    }
-
-    const handleAddMedic = (value) => {
-            setMedic(value)
-            console.log(medic)
+        setPlan(value)
+        setFullData(prev => ({ ...prev, plan: value }))
     }
 
     const handleAddSpeciality = (value) => {
-            setSpeciality(value)
-            console.log(speciality)
+        setSpeciality(value)
+        setFullData(prev => ({ ...prev, speciality: value }))
     }
 
-    useEffect(() => {
-    if (!medic) return; 
+    const handleAddMedic = (value) => {
+        setMedic(value)
+        setFullData(prev => ({ ...prev, doctor: value }))
+    }
 
-    fetch("http://localhost:3000/appointment/appointment", {
-        method: "POST",
-        body: JSON.stringify({ medic_id: medic }),
-        headers: {
-            "Content-Type": "application/json",
-        },
-    })
-        .then((res) => {
-            if (!res.ok) {
-                throw new Error("Error en la petición: " + res.status);
-            }
-            return res.json();
-        })
-        .then((data) => console.log("Respuesta del servidor:", data))
-        .catch((error) => console.error("Error:", error));
-}, [medic]);
+    const handleSchedule = async (value) => {
+        const onlyDate = value.toLocaleDateString("en-CA"); // formato YYYY-MM-DD
+        setDate(onlyDate);
+        await fetchBusyAppointments(onlyDate, medic)
+        setFullData(prev => ({ ...prev, date: onlyDate }));
+    }
 
+    const [busyAppointment, setBusyAppointment] = useState([])
 
+    async function fetchBusyAppointments(date, specialist_id) {
+        fetch(`http://localhost:3000/appointment/busy?date=${date}&specialist_id=${specialist_id}`)
+            .then(data => data.json())
+            .then(res => {
+                console.log(res)
+                setBusyAppointment(res.appointments)
+            })
+    }
 
-
-
-
-
-
-    return (   
+    return (
         <>
-        <div className='Appointmen-body'>
-                    <h1 className="title-Appointmen">Consulta por nuestros turnos</h1>
-                    <p>Ingrese sus datos</p>
-                        <div className="input-div-Appointmen">
-                            <Appointmen_obraSocial addObraSocial={handleAddObraSocial} addPlanSocial={handlePlanSocial} isRender={isVisual}/>
-                            <Appointmen_medics addMedic={handleAddMedic} addEspecialidad={handleAddSpeciality} isRender={isVisual}/>
-                            <Appointmen_turno isRender={isVisual}/>
-                        </div>
-                    
-            
-
-                <div className="buttom-Appointment-div">
-                    <button className="nav-link" onClick={renderComponents}>Seleccionar</button>
+            <div className='Appointmen-body'>
+                <h1 className="title-Appointmen">Consulta por nuestros turnos</h1>
+                <p>Ingrese sus datos</p>
+                <div className="input-div-Appointmen">
+                    <Appointment_health_insurance addObraSocial={handleAddObraSocial} addPlanSocial={handlePlanSocial} isRender={isVisual} />
+                    <Appointment_doctors addMedic={handleAddMedic} addEspecialidad={handleAddSpeciality} isRender={isVisual} />
+                    <Appointment_calendar date={date} busyAppointment={busyAppointment} addSchedule={handleSchedule} isRender={isVisual} />
+                    <div className="buttom-Appointment-div">
+                        <button className="nav-link" onClick={renderComponents}>Seleccionar</button>
+                    </div>
                 </div>
-        </div>
+                <div>
+                    <h2>Resumen de turno</h2>
+                    <ul>
+                        {Object.entries(fullData).map(([key, value]) => (
+                            <li key={key}>
+                                {key}: {String(value)}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+
+            </div>
         </>
     )
 
