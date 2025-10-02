@@ -10,28 +10,31 @@ import "alertifyjs/build/css/themes/default.min.css"; // Or another theme like b
 import "../pages/styles/Appointment.css"
 
 
-import { use, useState } from "react"
-
+import { useState } from "react"
+import { useNavigate } from 'react-router-dom';
+import {isLogin} from "../services/isLogin"
 const Appointment = () => {
 
 
-
-
-
-
     const [isVisual, setIsVisual] = useState(1);
-
     const [obraSocial, setObraSocial] = useState("");
     const [plan, setPlan] = useState("");
-
     const [medic, setMedic] = useState("");
-    const [speciality, setSpeciality] = useState("");
-
+    const [_, setSpeciality] = useState("");
+    const [busyAppointment, setBusyAppointment] = useState([])
     const [date, setDate] = useState("");
-
     const [fullData, setFullData] = useState({})
 
-    const renderComponents = () => {
+     const navTurno = useNavigate();
+
+    const renderComponents = async () => {
+
+        const loginRes = await isLogin();
+        console.log(loginRes)
+         if(!loginRes.ok){
+            navTurno('/login');
+             return;
+         }
         if (isVisual == 1) {
             (obraSocial != "" && plan != "") ? setIsVisual(2) : alertify.error("Debe ingresar sus datos");
         } else if (isVisual == 2) {
@@ -67,7 +70,8 @@ const Appointment = () => {
         setFullData(prev => ({ ...prev, date: onlyDate }));
     }
 
-    const [busyAppointment, setBusyAppointment] = useState([])
+
+
 
     async function fetchBusyAppointments(date, specialist_id) {
         fetch(`http://localhost:3000/appointment/busy?date=${date}&specialist_id=${specialist_id}`)
