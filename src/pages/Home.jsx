@@ -20,7 +20,6 @@ const Home = () =>{
         fetchSpecialties();
     }, []);
 
-    console.log(specialties)
 
 
 
