@@ -10,32 +10,45 @@ import Contacto from './pages/Contacto';
 import Register from "./pages/Register"
 import Appointment from "./pages/Appointment"
 import Guard from './components/auth/Guard';
-import Administration from './components/Administration';
-
+import Administration from './components/admin_panel/Administration';
+import Users from './components/admin_panel/Users';
+import { Welcome } from './components/admin_panel/welcome';
+import { Specialties } from './components/admin_panel/Specialties';
 
 
 function App() {
 
   return (
     <BrowserRouter>
-        <ScrollToTop />
-        <Routes>
-            <Route  path="/" element={<Layout />}>
-                <Route index element={<Home />}/>
-                <Route path="/specialists" element={<Specialists/>}/>
-                <Route path="/appointment" element={<Appointment />} />
-                <Route path="/contact_us" element={<Contacto/>}/>
-                <Route path="/*" element={<PageNotFound />}/>
-            </Route>
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/administration" element={
-              <Guard >
-                <Administration />
-              </Guard>
-            } />
-        </Routes>
-    </BrowserRouter>
+  <ScrollToTop />
+  <Routes>
+    <Route path="/" element={<Layout />}>
+      <Route index element={<Home />} />
+      <Route path="/specialists" element={<Specialists />} />
+      <Route path="/appointment" element={<Appointment />} />
+      <Route path="/contact_us" element={<Contacto />} />
+      <Route path="/*" element={<PageNotFound />} />
+    </Route>
+
+    <Route path="/login" element={<Login />} />
+    <Route path="/register" element={<Register />} />
+
+    <Route
+      path="/administration"
+      element={
+        <Guard>
+          <Administration />
+        </Guard>
+      }
+    >
+      <Route index element={<Welcome />} />
+      <Route path="users" element={<Users />} />
+      <Route path="specialties" element={<Specialties />} />
+      {/*<Route path="appointment" element={<AdminAppointment />} />
+      */}
+    </Route>
+  </Routes>
+</BrowserRouter>
   )
 }
 

@@ -1,11 +1,32 @@
 import { Outlet, Link } from "react-router-dom"
-
+import {isLogin} from "../services/isLogin"
 import './styles/header.css'
 import './styles/footer.css'
 import { useEffect, useState } from "react"
+import Offcanvas from 'react-bootstrap/Offcanvas';
+import Login from "../pages/Login"
 
 const Layout = () => {
     const [isAdmin, setIsAdmin] = useState(false);
+
+    const [log, setLog] = useState(false);
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+
+    async function isLoginFunction ()  {
+        const loginRes = await isLogin();
+        console.log(loginRes)
+         if(loginRes.ok){
+            setLog(true)
+             return;
+         }
+    }
+    isLoginFunction();
+
 
     useEffect(() => {
         const token = localStorage.getItem("token"); 
@@ -14,19 +35,23 @@ const Layout = () => {
             method: "GET", 
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
+                "Authorization": `Bearer ${token}`  
             }
         })
             .then(res => res.json())
             .then(data => {
-                console.log("Response:", data);
                 if (data.ok) setIsAdmin(true);
             })
             .catch(err => console.error("Error:", err));
-    }, []);
+
+                isLoginFunction();
+
+        }, []);
+
+
     return (
         <div className="content">
-            <header>
+            <header className="layout-header">
                 <nav>
                     <div className="nav-logo">
                         <i className="fi fi-ss-asterik"></i>
@@ -53,9 +78,25 @@ const Layout = () => {
                         </ul>
                     </div>
                     <div className="nav-login">
-                        <Link to="login" style={{ textDecoration: "none" }}> {/* linkea a login con la foto */}
-                            <i className="fi fi-rs-private-account"></i>
-                        </Link>
+                        
+                        {!log ?
+                            <Link to="Login" style={{ textDecoration: "none" }} variant="primary"> 
+                                <i className="fi fi-rs-private-account"></i>  
+                            </Link> : 
+                            <Link style={{ textDecoration: "none" }} variant="primary" onClick={handleShow}> 
+                                <i className="fi fi-rs-private-account"></i>  
+                            </Link>}
+
+                            <Offcanvas show={show} onHide={handleClose} placement={"end"}>
+                            <Offcanvas.Header closeButton>
+                            <Offcanvas.Title>Datos del usuario</Offcanvas.Title>
+                            </Offcanvas.Header>
+                            <Offcanvas.Body>
+                            Agregar datos del usuario
+                            </Offcanvas.Body>
+                         </Offcanvas>
+                    
+
                     </div>
                 </nav>
             </header>

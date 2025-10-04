@@ -40,7 +40,7 @@ const Login = () => {
 
       return;
     }
-    if (!password.length || password.length < 8) {
+    if (!password.length || password.length < 7) {
       alertify.error("Contraseña incorrecta");
       passwordRef.current.focus(); // ubica el cursor en la linea de password para que el usuario vuelva a escribir
       return;
