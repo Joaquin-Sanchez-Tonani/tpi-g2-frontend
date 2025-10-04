@@ -26,7 +26,7 @@ const Layout = () => {
     }, []);
     return (
         <div className="content">
-            <header>
+            <header className="layout-header">
                 <nav>
                     <div className="nav-logo">
                         <i className="fi fi-ss-asterik"></i>
