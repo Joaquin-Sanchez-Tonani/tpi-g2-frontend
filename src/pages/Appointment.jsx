@@ -12,7 +12,7 @@ import "../pages/styles/Appointment.css"
 
 import { useState } from "react"
 import { useNavigate } from 'react-router-dom';
-import {isLogin} from "../services/isLogin"
+import { isLogin } from "../services/isLogin.jsx";
 const Appointment = () => {
 
 
@@ -32,6 +32,7 @@ const Appointment = () => {
         const loginRes = await isLogin();
         console.log(loginRes)
          if(!loginRes.ok){
+              alertify.message('Debe ingresar para solicitar un turno');
             navTurno('/login');
              return;
          }
@@ -81,6 +82,8 @@ const Appointment = () => {
                 setBusyAppointment(res.appointments)
             })
     }
+
+    
 
     return (
         <>

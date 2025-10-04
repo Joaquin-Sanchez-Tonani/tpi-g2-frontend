@@ -1,4 +1,4 @@
-async function isLogin() {
+export async function isLogin() {
 
     const token = localStorage.getItem("token"); 
     const res = await fetch("http://localhost:3000/appointment/isLogin", {
@@ -13,4 +13,4 @@ async function isLogin() {
     return data;
 }
 
-export default isLogin;
+

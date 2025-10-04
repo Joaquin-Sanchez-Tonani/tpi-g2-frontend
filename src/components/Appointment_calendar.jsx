@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect  } from "react"
 import './styles/appointment.css';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
@@ -10,6 +10,8 @@ const AppointmentCalendar = ({date, busyAppointment, addSchedule, isRender }) =>
     return null;
   }
 
+  
+
   const [times, setTimes] = useState({ times: [] });
 
   async function fetchTimes() {
@@ -18,9 +20,9 @@ const AppointmentCalendar = ({date, busyAppointment, addSchedule, isRender }) =>
     setTimes(res);
   }
 
-  useEffect(() => {
-    fetchTimes();
-  }, []);
+    useEffect(() => {
+      fetchTimes();
+    }, []);
 
 
 
