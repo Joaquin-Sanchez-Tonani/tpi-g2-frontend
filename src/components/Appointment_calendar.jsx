@@ -3,7 +3,7 @@ import './styles/appointment.css';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 
-const AppointmentCalendar = ({date, busyAppointment, addSchedule, isRender }) => {
+const AppointmentCalendar = ({addTime ,date, busyAppointment, addSchedule, isRender }) => {
   const VALOR_RENDER = 3;
 
   if (isRender !== VALOR_RENDER) {
@@ -36,7 +36,7 @@ const AppointmentCalendar = ({date, busyAppointment, addSchedule, isRender }) =>
         }}
       />
 
-      <select defaultValue="0" disabled={!date}>
+      <select onChange={addTime} defaultValue="0" disabled={!date}>
         <option value="0" disabled>Elegir horario</option>
         {times.times.map(({ id, time }) => (
           <option disabled={busyAppointment.some((ap) => ap.time_id == id) ? true : false} key={id} value={id}>

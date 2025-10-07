@@ -32,7 +32,7 @@ export default function Administration() {
         return <h2>Loading...</h2>;
     }
 
-    if (isAdmin) {
+    if (!isAdmin) {
         return <PageNotFound />;
     }
 

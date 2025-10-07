@@ -24,6 +24,8 @@ const Layout = () => {
             })
             .catch(err => console.error("Error:", err));
     }, []);
+
+    // Fetch isLogged to clear localstorage if not
     return (
         <div className="content">
             <header className="layout-header">
