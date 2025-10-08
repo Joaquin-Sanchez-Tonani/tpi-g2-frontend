@@ -45,8 +45,9 @@ const Appointment = () => {
     }
 
     const handleAddObraSocial = (value) => {
+        const id = localStorage.getItem("user_id")
         setObraSocial(value)
-        setFullData(prev => ({ ...prev, health_insurance: value }))
+        setFullData(prev => ({ ...prev, health_insurance: value, patient_id: id }))
     }
 
     const handlePlanSocial = (value) => {
@@ -56,12 +57,12 @@ const Appointment = () => {
 
     const handleAddSpeciality = (value) => {
         setSpeciality(value)
-        setFullData(prev => ({ ...prev, speciality: value }))
+        setFullData(prev => ({ ...prev, speciality_id: value }))
     }
 
     const handleAddMedic = (value) => {
         setMedic(value)
-        setFullData(prev => ({ ...prev, doctor: value }))
+        setFullData(prev => ({ ...prev, doctor_id: value }))
     }
 
     const handleSchedule = async (value) => {
@@ -71,8 +72,11 @@ const Appointment = () => {
         setFullData(prev => ({ ...prev, date: onlyDate }));
     }
 
+    const handleTime = (value) =>{
+        setFullData(prev => ({ ...prev, time_id: value.target.value }));
+    }
 
-
+    const [busyAppointment, setBusyAppointment] = useState([])
 
     async function fetchBusyAppointments(date, specialist_id) {
         fetch(`http://localhost:3000/appointment/busy?date=${date}&specialist_id=${specialist_id}`)
@@ -93,7 +97,7 @@ const Appointment = () => {
                 <div className="input-div-Appointmen">
                     <Appointment_health_insurance addObraSocial={handleAddObraSocial} addPlanSocial={handlePlanSocial} isRender={isVisual} />
                     <Appointment_doctors addMedic={handleAddMedic} addEspecialidad={handleAddSpeciality} isRender={isVisual} />
-                    <Appointment_calendar date={date} busyAppointment={busyAppointment} addSchedule={handleSchedule} isRender={isVisual} />
+                    <Appointment_calendar addTime={handleTime} date={date} busyAppointment={busyAppointment} addSchedule={handleSchedule} isRender={isVisual} />
                     <div className="buttom-Appointment-div">
                         <button className="nav-link" onClick={renderComponents}>Seleccionar</button>
                     </div>

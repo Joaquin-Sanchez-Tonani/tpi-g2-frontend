@@ -6,6 +6,7 @@ import PageNotFound from "../../layout/PageNotFound";
 
 export default function Administration() {
     const [isAdmin, setIsAdmin] = useState(null);
+    const [active,setActive] = useState(null)
     const token = localStorage.getItem("token");
     const navAdmin = useNavigate()    
 
@@ -35,14 +36,18 @@ export default function Administration() {
         return <PageNotFound />;
     }
 
+    const handleActive = (event) =>{
+        const id = event.target.id
+        setActive(id)
+    }
+
     return (
         <main className="administration-main">
             <header className="administration-header">
                 <nav>
                     <ul>
-                        <Link to="users"><li className="administration-li">Users</li></Link>
-                        <Link to="specialties"><li className="administration-li">Specialities</li></Link>
-                        <li className="administration-li">Appointments</li>
+                        <Link to="users"><li id="1" onClick={handleActive} className={active == "1" ? "administration-li active" : "administration-li"}>Users</li></Link>
+                        <Link to="specialties"><li id="2" onClick={handleActive} className={active == "2" ? "administration-li active" : "administration-li"}>Specialities</li></Link>
                     </ul>
                 </nav>
             </header>

@@ -31,10 +31,12 @@ background: linear-gradient(160deg,rgb(41, 40, 65) 0%, rgb(29, 29, 128) 35%, rgb
 .administration-header nav ul {
     display: flex;
     flex-direction: column;
+    gap: 30px;
 }
 
 .administration-li {
     cursor: pointer;
+    font-size: 20px;
     color: var(--primary-color);
     background-color: rgb(32, 32, 32);
     padding: 10px 45px 10px 50px;
@@ -44,9 +46,12 @@ background: linear-gradient(160deg,rgb(41, 40, 65) 0%, rgb(29, 29, 128) 35%, rgb
 }
 
 .administration-li:hover {
-    transform: scale(1.1);
+    background-color: rgba(161, 69, 16, 0.733);
     transition: .5s;
-    background-color: var(--bg-color);
+}
+
+.active{
+    background-color: rgb(161, 69, 16)!important;
 }
 
 tr,
@@ -103,14 +108,14 @@ th {
 
 .handle_order button {
     text-transform: uppercase;
-    background-color: rgb(27, 7, 100);
+    background-color: rgb(32, 32, 32);
     padding: 5px 10px;
     border-radius: 5px;
     transition: .5s;
 }
 
 .handle_order button:hover {
-    background-color: rgb(67, 65, 194);
+    background-color: rgba(161, 69, 16, 0.733);
     transition: .5s;
 }
 
@@ -151,4 +156,43 @@ th {
     color: var(--primary-color);
     font-size: 115px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.article_administration form{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 20px;
+    gap: 10px;
+}
+
+.article_administration form h3{
+    text-transform: uppercase;
+    color: var(--primary-color);
+    font-family: monospace;
+}
+
+.article_administration form input{
+    border: none;
+    padding: 5px 10px;
+    background-color: rgba(240, 248, 255, 0);
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    transition: .5s;
+    outline: none;
+}
+
+.article_administration form div{
+    display: flex;
+    gap: 20px;
+}
+
+.article_administration form div input[type="submit"]:hover{
+    transition: .5s;
+    background-color: var(--bg-color);
+}
+
+.article_administration form div input::placeholder{
+    color: var(--primary-color);
+    opacity: .5;
 }

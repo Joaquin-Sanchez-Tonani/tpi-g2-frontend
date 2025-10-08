@@ -55,7 +55,12 @@ const Login = () => {
     })
       .then((res) => res.json())
       .then((data) => {!data.ok ? alertify.error(data.message) : alertify.success(data.message); return data;})
-      .then((result) => {localStorage.setItem("token",result.token); result.ok && navTurno("/");})
+      .then((result) => {
+        localStorage.setItem("token",result.token);
+        localStorage.setItem("user_id", result.user.id);
+        localStorage.setItem("user_name", result.user.name);
+        localStorage.setItem("user_lastName", result.user.lastName);
+        result.ok && navTurno("/");})
       .catch((error) => console.error("Error:", error))
     setEmail("");
     setPassword("");

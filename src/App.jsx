@@ -44,8 +44,6 @@ function App() {
       <Route index element={<Welcome />} />
       <Route path="users" element={<Users />} />
       <Route path="specialties" element={<Specialties />} />
-      {/*<Route path="appointment" element={<AdminAppointment />} />
-      */}
     </Route>
   </Routes>
 </BrowserRouter>
