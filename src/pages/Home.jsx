@@ -1,9 +1,30 @@
 import ServiceCard from '../components/ServiceCard'
 import initial from '../assets/initial.jpg'
+import Spinner from 'react-bootstrap/Spinner';
 
 import './styles/home.css'
 
+import { useEffect, useState } from "react";
+
+
 const Home = () =>{
+
+    const [specialties, setSpecialties] = useState([]);
+
+    useEffect(() => {
+        async function fetchSpecialties() {
+            const response = await fetch('http://localhost:3000/appointment/specialties');
+            const data = await response.json();
+            setSpecialties(data.specialties);
+        }
+        fetchSpecialties();
+    }, []);
+
+
+
+
+
+
     return(
         <main>
             <div className='welcome-card'>
@@ -21,29 +42,21 @@ const Home = () =>{
                     <h3>en cada especialidad.</h3>
                 </div>
                 <section className='service-card-section'>
-                    <ServiceCard 
-                        image={initial}
-                        title={"Odontología"}
-                        description={"Cuidamos tu salud bucal con tecnología moderna y profesionales especializados. Realizamos limpiezas, tratamientos y rehabilitaciones para mantener tu sonrisa sana y estética."}
-                        icon={<i className="fi fi-sr-tooth"></i>} /* Flaticon */
-                    />
-                    <ServiceCard 
-                        image={initial}
-                        title={"Cardiología"}
-                        description={"Atendemos tu corazón con estudios precisos y especialistas en enfermedades cardiovasculares. Te acompañamos en prevención, diagnóstico y tratamiento integral."}
-                        icon={<i className="fi fi-sr-pulse"></i>}
-                    /><ServiceCard 
-                        image={initial}
-                        title={"Pediatría"}
-                        description={"Cuidamos la salud de tus hijos desde recién nacidos hasta adolescentes. Ofrecemos controles, vacunas y atención personalizada para cada etapa de crecimiento."}
-                        icon={<i className="fi fi-sr-puzzle-piece"></i>}
-                    />
-                    <ServiceCard 
-                        image={initial}
-                        title={"Vacunación e Inmunización"}
-                        description={"Protegemos la salud de la comunidad aplicando vacunas seguras y efectivas para prevenir enfermedades. Nuestro equipo capacitado garantiza una atención rápida y confiable para todas las edades."}
-                        icon={<i className="fi fi-ss-syringe-injection-blood"></i>}
-                    />
+
+                    {!specialties || specialties.length === 0 ? (
+                                <Spinner animation="border" variant="secondary" />
+                                ) : (
+                                specialties.map((e) => (
+                                    <ServiceCard 
+                                    key={e.id}
+                                    image={initial}
+                                    title={e.specialty}
+                                    description={e.description}
+                                    icon={<i className="fi fi-sr-tooth"></i>}
+                                    />
+                                ))
+                                )}
+
                 </section>
             </div>
         </main>
