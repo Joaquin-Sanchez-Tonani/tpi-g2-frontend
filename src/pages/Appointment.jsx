@@ -30,7 +30,6 @@ const Appointment = () => {
     const renderComponents = async () => {
 
         const loginRes = await isLogin();
-        console.log(loginRes)
          if(!loginRes.ok){
               alertify.message('Debe ingresar para solicitar un turno');
             navTurno('/login');
@@ -75,8 +74,6 @@ const Appointment = () => {
     const handleTime = (value) =>{
         setFullData(prev => ({ ...prev, time_id: value.target.value }));
     }
-
-    const [busyAppointment, setBusyAppointment] = useState([])
 
     async function fetchBusyAppointments(date, specialist_id) {
         fetch(`http://localhost:3000/appointment/busy?date=${date}&specialist_id=${specialist_id}`)

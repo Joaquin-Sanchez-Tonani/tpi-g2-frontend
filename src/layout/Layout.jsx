@@ -25,7 +25,6 @@ const Layout = () => {
              return;
          }
     }
-    isLoginFunction();
 
 
     useEffect(() => {
@@ -44,7 +43,6 @@ const Layout = () => {
             })
             .catch(err => console.error("Error:", err));
 
-                isLoginFunction();
 
         }, []);
 
