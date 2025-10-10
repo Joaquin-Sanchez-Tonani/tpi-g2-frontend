@@ -31,6 +31,7 @@ const Appointment = () => {
 
         const loginRes = await isLogin();
          if(!loginRes.ok){
+            console.log(loginRes,111)
               alertify.message('Debe ingresar para solicitar un turno');
             navTurno('/login');
              return;
