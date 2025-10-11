@@ -44,6 +44,17 @@ const Appointment = () => {
         // falta isVisual 3
     }
 
+       async function fetchBusyAppointments(date, specialist_id) {
+        fetch(`http://localhost:3000/appointment/busy?date=${date}&specialist_id=${specialist_id}`)
+            .then(data => data.json())
+            .then(res => {
+                console.log(res)
+                setBusyAppointment(res.appointments)
+            })
+    }
+
+
+
     const handleAddObraSocial = (value) => {
         const id = localStorage.getItem("user_id")
         setObraSocial(value)
@@ -76,16 +87,8 @@ const Appointment = () => {
         setFullData(prev => ({ ...prev, time_id: value.target.value }));
     }
 
-    const [busyAppointment, setBusyAppointment] = useState([])
 
-    async function fetchBusyAppointments(date, specialist_id) {
-        fetch(`http://localhost:3000/appointment/busy?date=${date}&specialist_id=${specialist_id}`)
-            .then(data => data.json())
-            .then(res => {
-                console.log(res)
-                setBusyAppointment(res.appointments)
-            })
-    }
+ 
 
     
 

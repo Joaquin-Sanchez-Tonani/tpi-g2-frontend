@@ -66,11 +66,9 @@ const Appointment_medics = ({ addMedic, addEspecialidad, isRender }) => {
           <option value="0" disabled hidden>
             Seleccione un medico
           </option>
-<<<<<<< HEAD
-          {specialists ? specialists.map(med => <option key={med.id} value={med.id}>{med.name + " " + med.lastName} </option>)
-=======
+
           {specialists ? specialists.map(med => <option key={med.id} value={med.id}>{`${med.name} ${med.lastName}`}</option>)
->>>>>>> 28b63dc7158f3f778d7a249bce9d8ebab16d35a4
+
             : null
           }
         </select>
