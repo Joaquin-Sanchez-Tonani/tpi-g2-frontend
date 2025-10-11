@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, act } from "react";
 import '../styles/administration.css'
 
 export default function Users() {
@@ -6,6 +6,7 @@ export default function Users() {
     const [usersResave, setUsersResave] = useState(null);
     const [specialties, setSpecialties] = useState(null);
     const [disable, setDisable] = useState({ id: null, status: true });
+    const [active,setActive] = useState(null)
     const token = localStorage.getItem("token");
     const OPTIONS = (method, body) => {
         return {
@@ -68,6 +69,7 @@ export default function Users() {
 
     const handleOrder = (event) => {
         const id = event.target.id
+        setActive(id)
         if (id == "id") {
             return setUsers((prevUsers) => [...prevUsers].sort((a, b) => a.id - b.id))
         }
@@ -90,9 +92,9 @@ export default function Users() {
             <nav className="fixed_nav">
                 <input onChange={handleSearch} className="search-by-name" placeholder="Buscar por nombre" type="search" name="search" id="" />
                 <ul className="handle_order">
-                    <li><button id="id" onClick={handleOrder}>Ordenar por id</button></li>
-                    <li><button id="specialty" onClick={handleOrder}>Ordenar por especialidad</button></li>
-                    <li><button id="role" onClick={handleOrder}>Ordenar por role</button></li>
+                    <li><button className={active == "id" ? "active" : ""} id="id" onClick={handleOrder}>Ordenar por id</button></li>
+                    <li><button className={active == "specialty" ? "active" : ""} id="specialty" onClick={handleOrder}>Ordenar por especialidad</button></li>
+                    <li><button className={active == "role" ? "active" : ""} id="role" onClick={handleOrder}>Ordenar por role</button></li>
                 </ul>
             </nav>
             <table>
