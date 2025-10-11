@@ -55,7 +55,8 @@ const Login = () => {
     })
       .then((res) => res.json())
       .then((data) => {!data.ok ? alertify.error(data.message) : alertify.success(data.message); return data;})
-      .then((result) => {localStorage.setItem("token",result.token); result.ok && navTurno("/");})
+      .then((data) => {if(data.ok){localStorage.setItem("token",data.token); navTurno("/")}})
+      .then((result) => {console.log(result)})
       .catch((error) => console.error("Error:", error))
     setEmail("");
     setPassword("");
