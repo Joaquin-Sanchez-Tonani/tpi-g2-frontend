@@ -1,0 +1,95 @@
+.profile{
+    display: flex;
+    justify-content: space-between;
+    margin: 120px auto;
+    width: 70%;
+    gap: 50px;
+}
+
+.profile aside nav{
+    background-color: var(--bg-color);
+    width: max-content;
+    padding: 20px;
+    width: 300px;
+    color: var(--primary-color);
+}
+
+.profile aside nav ul{
+    display: flex;
+    flex-direction: column;
+}
+
+.profile aside nav ul li div{
+    display: flex;
+    align-items: center; 
+    gap: 10px;
+}
+
+.profile aside nav ul li{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 15px;
+    cursor: pointer;
+    padding: 20px;
+    transition: .5s;
+}
+
+.profile aside nav ul li:hover{
+    color: rgb(149, 149, 196);
+    transition: .5s;
+}
+
+
+
+.profile aside nav ul li div i{
+    font-size: 25px;
+    transition: transform 0.7s;
+    color: rgb(255, 255, 255);
+}
+
+.profile aside nav ul li i{
+    font-size: 12px;
+    transition: transform 0.7s;
+    color: rgb(221, 221, 221);
+}
+
+.profile-card{
+    background-color: rgb(59, 59, 59);
+    padding: 30px;
+    backdrop-filter: blur(3px);
+    color: var(--primary-color);
+    width: 700px;
+}
+
+.user-profile-card{
+    padding: 10px 0;
+}
+
+.info-profile-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: 10px;
+}
+
+.info-profile-card li{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+}
+
+.line{
+    width: 100%;
+    border: 1px solid black;
+}
+
+.active-i{
+    transform: rotateY(180deg);
+    transition: ease-in-out .5s;
+}
+
+.no-active-i{
+    transform: rotateY(0deg);
+    transition: ease-in-out .5s;
+}

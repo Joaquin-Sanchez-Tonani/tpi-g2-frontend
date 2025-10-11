@@ -14,6 +14,7 @@ import Administration from './components/admin_panel/Administration';
 import Users from './components/admin_panel/Users';
 import { Welcome } from './components/admin_panel/welcome';
 import { Specialties } from './components/admin_panel/Specialties';
+import Profile from './pages/Profile';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
       <Route path="/specialists" element={<Specialists />} />
       <Route path="/appointment" element={<Appointment />} />
       <Route path="/contact_us" element={<Contacto />} />
+      <Route path="/profile" element={<Profile />} />
       <Route path="/*" element={<PageNotFound />} />
     </Route>
 
