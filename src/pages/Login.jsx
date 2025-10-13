@@ -52,22 +52,15 @@ const Login = () => {
       },
     })
       .then((res) => res.json())
-      .then((data) => {
-        if (!data.ok) {
-          alertify.error(data.message);
-        } else {
-          alertify.success(data.message);
-        }
-        return data;
-      })
-      .then((result) => {
-        if (result.ok) {
-          localStorage.setItem("token", result.token);
-          navTurno("/");
-        }
-      })
-      .catch((error) => console.error("Error:", error));
 
+      .then((data) => {!data.ok ? alertify.error(data.message) : alertify.success(data.message); return data;})
+      .then((result) => {
+        localStorage.setItem("token",result.token);
+        localStorage.setItem("user_id", result.user.id);
+        localStorage.setItem("user_name", result.user.name);
+        localStorage.setItem("user_lastName", result.user.lastName);
+        result.ok && navTurno("/");})
+      .catch((error) => console.error("Error:", error))
     setEmail("");
     setPassword("");
   };

@@ -1,6 +1,6 @@
 
 import './styles/appointment.css'
-import { use, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 
 
 const Appointment_medics = ({ addMedic, addEspecialidad, isRender }) => {
@@ -66,7 +66,7 @@ const Appointment_medics = ({ addMedic, addEspecialidad, isRender }) => {
           <option value="0" disabled hidden>
             Seleccione un medico
           </option>
-          {specialists ? specialists.map(med => <option key={med.id} value={med.id}>{med.name}</option>)
+          {specialists ? specialists.map(med => <option key={med.id} value={med.id}>{`${med.name} ${med.lastName}`}</option>)
             : null
           }
         </select>

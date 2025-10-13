@@ -21,7 +21,7 @@ html {
   scroll-behavior: smooth;
 }
 
-*,ul,h1{
+*,ul,h1,h2,h3,h4,a{
   margin: 0;
   padding: 0;
   list-style: none;
@@ -33,3 +33,7 @@ h1{
   margin: 0;
 }
 
+button{
+  border: none;
+  background-color: rgba(240, 248, 255, 0);
+}

@@ -11,20 +11,30 @@ import "../pages/styles/Appointment.css"
 
 
 import { useState } from "react"
-
+import { useNavigate } from 'react-router-dom';
+import { isLogin } from "../services/isLogin.jsx";
 const Appointment = () => {
 
-    const [isVisual, setIsVisual] = useState(1);
 
+    const [isVisual, setIsVisual] = useState(1);
     const [obraSocial, setObraSocial] = useState("");
     const [plan, setPlan] = useState("");
-
     const [medic, setMedic] = useState("");
-    const [speciality, setSpeciality] = useState("");
-
+    const [_, setSpeciality] = useState("");
+    const [busyAppointment, setBusyAppointment] = useState([])
+    const [date, setDate] = useState("");
     const [fullData, setFullData] = useState({})
 
-    const renderComponents = () => {
+     const navTurno = useNavigate();
+
+    const renderComponents = async () => {
+
+        const loginRes = await isLogin();
+         if(!loginRes.ok){
+              alertify.message('Debe ingresar para solicitar un turno');
+            navTurno('/login');
+             return;
+         }
         if (isVisual == 1) {
             (obraSocial != "" && plan != "") ? setIsVisual(2) : alertify.error("Debe ingresar sus datos");
         } else if (isVisual == 2) {
@@ -34,8 +44,9 @@ const Appointment = () => {
     }
 
     const handleAddObraSocial = (value) => {
+        const id = localStorage.getItem("user_id")
         setObraSocial(value)
-        setFullData(prev => ({ ...prev, health_insurance: value }))
+        setFullData(prev => ({ ...prev, health_insurance: value, patient_id: id }))
     }
 
     const handlePlanSocial = (value) => {
@@ -45,13 +56,35 @@ const Appointment = () => {
 
     const handleAddSpeciality = (value) => {
         setSpeciality(value)
-        setFullData(prev => ({ ...prev, speciality: value }))
+        setFullData(prev => ({ ...prev, speciality_id: value }))
     }
 
     const handleAddMedic = (value) => {
         setMedic(value)
-        setFullData(prev => ({ ...prev, doctor: value }))
+        setFullData(prev => ({ ...prev, doctor_id: value }))
     }
+
+    const handleSchedule = async (value) => {
+        const onlyDate = value.toLocaleDateString("en-CA"); // formato YYYY-MM-DD
+        setDate(onlyDate);
+        await fetchBusyAppointments(onlyDate, medic)
+        setFullData(prev => ({ ...prev, date: onlyDate }));
+    }
+
+    const handleTime = (value) =>{
+        setFullData(prev => ({ ...prev, time_id: value.target.value }));
+    }
+
+    async function fetchBusyAppointments(date, specialist_id) {
+        fetch(`http://localhost:3000/appointment/busy?date=${date}&specialist_id=${specialist_id}`)
+            .then(data => data.json())
+            .then(res => {
+                console.log(res)
+                setBusyAppointment(res.appointments)
+            })
+    }
+
+    
 
     return (
         <>
@@ -61,19 +94,22 @@ const Appointment = () => {
                 <div className="input-div-Appointmen">
                     <Appointment_health_insurance addObraSocial={handleAddObraSocial} addPlanSocial={handlePlanSocial} isRender={isVisual} />
                     <Appointment_doctors addMedic={handleAddMedic} addEspecialidad={handleAddSpeciality} isRender={isVisual} />
-                    <Appointment_calendar isRender={isVisual} />
+                    <Appointment_calendar addTime={handleTime} date={date} busyAppointment={busyAppointment} addSchedule={handleSchedule} isRender={isVisual} />
+                    <div className="buttom-Appointment-div">
+                        <button className="nav-link" onClick={renderComponents}>Seleccionar</button>
+                    </div>
+                </div>
+                <div>
+                    <h2>Resumen de turno</h2>
+                    <ul>
+                        {Object.entries(fullData).map(([key, value]) => (
+                            <li key={key}>
+                                {key}: {String(value)}
+                            </li>
+                        ))}
+                    </ul>
                 </div>
 
-
-
-                <div className="buttom-Appointment-div">
-                    <button className="nav-link" onClick={renderComponents}>Seleccionar</button>
-                </div>
-                {
-                    <h1>{Object.entries(fullData).map(([keys, value]) =>
-                        <li key={keys}>{keys}: {value}</li>
-                    )}</h1> ?? <h1>Nada</h1>
-                }
             </div>
         </>
     )
@@ -82,4 +118,4 @@ const Appointment = () => {
 }
 
 
-export default Appointment
+export default Appointment;
