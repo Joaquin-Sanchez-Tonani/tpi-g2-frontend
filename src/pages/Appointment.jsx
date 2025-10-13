@@ -2,6 +2,9 @@
 import Appointment_health_insurance from '../components/Appointment_health_insurance'
 import Appointment_doctors from '../components/Appointment_doctors'
 import Appointment_calendar from '../components/Appointment_calendar'
+import Appointment_resume from "../components/Appointment_resume.jsx"
+
+import {DATAtimes} from "../Data/timeData.js"
 
 import alertify from "alertifyjs";
 import "alertifyjs/build/css/alertify.css";
@@ -25,23 +28,29 @@ const Appointment = () => {
     const [date, setDate] = useState("");
     const [fullData, setFullData] = useState({})
 
-     const navTurno = useNavigate();
+    const navTurno = useNavigate();
+
+
 
     const renderComponents = async () => {
 
         const loginRes = await isLogin();
-        console.log(loginRes)
          if(!loginRes.ok){
+            console.log(loginRes,111)
               alertify.message('Debe ingresar para solicitar un turno');
             navTurno('/login');
              return;
          }
+
         if (isVisual == 1) {
             (obraSocial != "" && plan != "") ? setIsVisual(2) : alertify.error("Debe ingresar sus datos");
         } else if (isVisual == 2) {
             (medic != "") ? setIsVisual(3) : alertify.error("Debe seleccionar un medico");
+        } else if (isVisual == 3){
+            (!fullData.time_id) ? alertify.error("Debes seleccionar un horario") : setIsVisual(4)
         }
         // falta isVisual 3
+
     }
 
        async function fetchBusyAppointments(date, specialist_id) {
@@ -84,13 +93,12 @@ const Appointment = () => {
     }
 
     const handleTime = (value) =>{
+        console.log(value.target.value)
+        console.log(DATAtimes.filter((id) => id.id == value.target.value));
         setFullData(prev => ({ ...prev, time_id: value.target.value }));
     }
 
 
- 
-
-    
 
     return (
         <>
@@ -98,9 +106,14 @@ const Appointment = () => {
                 <h1 className="title-Appointmen">Consulta por nuestros turnos</h1>
                 <p>Ingrese sus datos</p>
                 <div className="input-div-Appointmen">
+                    <div> 
+                        {isVisual != 1 ? <button className={"nav-link"} onClick={() =>setIsVisual(isVisual - 1)}>Volver</button> : null}
+                    </div>
                     <Appointment_health_insurance addObraSocial={handleAddObraSocial} addPlanSocial={handlePlanSocial} isRender={isVisual} />
                     <Appointment_doctors addMedic={handleAddMedic} addEspecialidad={handleAddSpeciality} isRender={isVisual} />
                     <Appointment_calendar addTime={handleTime} date={date} busyAppointment={busyAppointment} addSchedule={handleSchedule} isRender={isVisual} />
+                    {/* const Appointment_resume = ({obraSocial, plan, name, lastName,speciality, medic, date, time, isRender }) => { */}
+                    <Appointment_resume obraSocial={}/>
                     <div className="buttom-Appointment-div">
                         <button className="nav-link" onClick={renderComponents}>Seleccionar</button>
                     </div>

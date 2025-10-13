@@ -1,62 +1,38 @@
 import { Outlet, Link } from "react-router-dom"
-import {isLogin} from "../services/isLogin"
-import {isAdmin} from "../services/isAdmin"
-
+import { isLogin } from "../services/isLogin"
 import './styles/header.css'
 import './styles/footer.css'
-import {  useEffect, useState } from "react"
-import Offcanvas from 'react-bootstrap/Offcanvas';
-import Login from "../pages/Login"
-import {Button } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react"
 
 
 const Layout = () => {
-    const [Admin, setAdmin] = useState(false);
-    const [log, setLog] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [isLogged, setIsLogged] = useState(false)
 
-    const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
-
-    async function apiCall(){
-        try{
-         
-            Promise.all([ isAdmin(),isLogin()]).then((values) => {
-
-                setAdmin(values[0].admin)
-                setLog(values[1].ok)
-                if(values[1].ok){
-                localStorage.setItem("nombreUsuario", values[1].user.name);
-                 localStorage.setItem('apellidoUsuario', values[1].user.lastName)
-              }
-            });
-
-        }catch(e){ 
-            console.log(e)
-               
+    async function isLoginFunction() {
+        const loginRes = await isLogin();
+        setIsLogged(loginRes.ok)
     }
-    }
-    
+
+
     useEffect(() => {
-    apiCall();
+        const token = localStorage.getItem("token");
+        isLoginFunction()
+        fetch("http://localhost:3000/auth/isAdmin", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.ok) setIsAdmin(true);
+            })
+            .catch(err => console.error("Error:", err));
+
+
     }, []);
-
-    
-
-
-        const navTurno = useNavigate();
-
-        const cerrarSesion = () => {
-            localStorage.removeItem('token')
-            localStorage.removeItem('nombreUsuario')
-            localStorage.removeItem('apellidoUsuario')
-            setLog(false);
-            navTurno("/login")
-        }
-
 
 
     return (
@@ -80,38 +56,24 @@ const Layout = () => {
                             <li>
                                 <Link className="nav-link" to="contact_us">Contáctanos</Link>
                             </li>
-                            {Admin ? 
-                            <li>
-                                <Link className="nav-link" style={{background: "green"}} to="administration">Panel de administración</Link>
-                            </li> : null
+                            {isAdmin ?
+                                <li>
+                                    <Link className="nav-link" style={{ background: "green" }} to="administration">Panel de administración</Link>
+                                </li> : null
                             }
                         </ul>
                     </div>
                     <div className="nav-login">
-                        
-                        {!log ?
-                            <Link to="Login" style={{ textDecoration: "none" }} variant="primary"> 
-                                <i className="fi fi-rr-lock"></i>  
-                            </Link> : 
-                            <Link style={{ textDecoration: "none" }} variant="primary" onClick={handleShow}> 
-                                <i className="fi fi-sr-user"></i>  
-                            </Link>}
 
-                            <Offcanvas show={show} onHide={handleClose} placement={"end"}>
-                            <Offcanvas.Header closeButton>
-                            </Offcanvas.Header>
-                            <Offcanvas.Body>
-                                <h3>sesion inicializada como:</h3>
-                                <br />
-                               
-                                <Offcanvas.Title>{localStorage.getItem('nombreUsuario') + " " + localStorage.getItem('apellidoUsuario')}</Offcanvas.Title>
-                                <hr />
+                        {!isLogged ?
+                            <Link to="login" style={{ textDecoration: "none" }} variant="primary">
+                                <i className="fi fi-rs-private-account"></i>
+                            </Link>
+                            : <Link to="profile" style={{ textDecoration: "none" }} variant="primary">
+                                <i className="fi fi-rs-circle-user"></i>
+                            </Link>
+                        }
 
-                                <Button onClick={cerrarSesion}>cerrar sesion</Button>
-                            </Offcanvas.Body>
-                            
-                         </Offcanvas>
-                    
 
                     </div>
                 </nav>
