@@ -13,7 +13,7 @@ import {
   validateName,
   validateLastName,
   validatePassword,
-  validateRepeatPassword,
+  // validateRepeatPassword,
 } from "../components/contactForm";
 
 const Register = () => {
@@ -69,12 +69,17 @@ const Register = () => {
       return;
     }
 
-    const repeatPasswordError = validateRepeatPassword(password, rPassword);
-    if (repeatPasswordError) {
-      alertify.error(repeatPasswordError);
-      rPasswordRef.current.focus();
-      return;
-    }
+        if (!password.length || password.length < 8) {
+            alertify.error('Contraseña incorrecta')
+            passwordRef.current.focus(); 
+            return;
+        }
+
+        if (rPassword != password) {
+            alertify.error('Contraseña distinta')
+            passwordRef.current.focus(); 
+            return;
+        }
 
     fetch("http://localhost:3000/auth/register", {
       method: "POST",

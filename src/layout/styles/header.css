@@ -66,8 +66,8 @@ header nav ul li{
 }
 
 .nav-link:hover{
-    background-color: rgba(25, 108, 185, 0.712);
-    transition: ease-out .5s;
+    background-color: rgba(7, 99, 185, 0.712);
+    transition: .5s;
     color: var(--primary-color);
 }
 

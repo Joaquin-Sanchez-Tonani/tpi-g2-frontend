@@ -10,8 +10,6 @@ const AppointmentCalendar = ({addTime ,date, busyAppointment, addSchedule, isRen
     return null;
   }
 
-  
-
   const [times, setTimes] = useState({ times: [] });
 
   async function fetchTimes() {
@@ -19,13 +17,9 @@ const AppointmentCalendar = ({addTime ,date, busyAppointment, addSchedule, isRen
     const res = await data.json();
     setTimes(res);
   }
-
     useEffect(() => {
       fetchTimes();
     }, []);
-
-
-
 
   return (
     <div className="appointment_container">

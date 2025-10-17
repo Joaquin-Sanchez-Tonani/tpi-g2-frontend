@@ -1,10 +1,25 @@
-.specialist-div-buttoms{
+.specialist-div-buttons{
+    position: sticky;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    left: 0;
+    top: 120px;
 }
 
 .specialist-label{
     display: flex;
     justify-content: center;
 
+}
+
+.specialist-card-div form{
+    display: flex;
+}
+
+.sticky-content{
+    position: relative;
+}
+
+.active2{
+    background-color: rgba(7, 99, 185, 0.712);
 }

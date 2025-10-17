@@ -1,37 +1,29 @@
 import { Outlet, Link } from "react-router-dom";
-import { useLanguage } from "../components/context/LanguageContext";
 import { isLogin } from "../services/isLogin";
-import './styles/header.css';
-import './styles/footer.css';
+import "./styles/header.css";
+import "./styles/footer.css";
 import { useEffect, useState } from "react";
-import Offcanvas from 'react-bootstrap/Offcanvas';
+import { useLanguage } from "../components/context/LanguageContext";
 
 const Layout = () => {
-  const { language, onToggleLanguage, t } = useLanguage();
-
   const [isAdmin, setIsAdmin] = useState(false);
-  const [log, setLog] = useState(false);
-  const [show, setShow] = useState(false);
+  const [isLogged, setIsLogged] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const { language, onToggleLanguage, t } = useLanguage();
 
   async function isLoginFunction() {
     const loginRes = await isLogin();
-    if (loginRes.ok) {
-      setLog(true);
-      return;
-    }
+    setIsLogged(loginRes.ok);
   }
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-
+    isLoginFunction();
     fetch("http://localhost:3000/auth/isAdmin", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((res) => res.json())
@@ -83,56 +75,43 @@ const Layout = () => {
               ) : null}
             </ul>
           </div>
-
           <div className="nav-login">
-            <Offcanvas show={show} onHide={handleClose} placement={"end"}>
-              <Offcanvas.Header closeButton>
-                <Offcanvas.Title>
-                  {t("user_data") || "Datos del usuario"}
-                </Offcanvas.Title>
-              </Offcanvas.Header>
-              <Offcanvas.Body>
-                {t("add_user_data") || "Agregar datos del usuario"}
-              </Offcanvas.Body>
-            </Offcanvas>
+            {/* Botón de idioma */}
+            <button
+              onClick={onToggleLanguage}
+              style={{
+                background: "transparent",
+                border: "none",
+                cursor: "pointer",
+                marginRight: "10px",
+                fontSize: "16px",
+              }}
+            >
+              {language === "es" ? "es" : "en"}
+            </button>
 
-            <div className="nav-login">
-              <button
-                onClick={onToggleLanguage}
-                style={{
-                  background: "transparent",
-                  border: "none",
-                  cursor: "pointer",
-                  marginRight: "10px",
-                  fontSize: "16px",
-                }}
+            {!isLogged ? (
+              <Link
+                to="login"
+                style={{ textDecoration: "none" }}
+                variant="primary"
               >
-                {language === "es" ? "EN" : "ES"}
-              </button>
-
-              {!log ? (
-                <Link
-                  to="Login"
-                  style={{ textDecoration: "none" }}
-                  variant="primary"
-                >
-                  <i className="fi fi-rs-private-account"></i>
-                </Link>
-              ) : (
-                <Link
-                  style={{ textDecoration: "none" }}
-                  variant="primary"
-                  onClick={handleShow}
-                >
-                  <i className="fi fi-rs-private-account"></i>
-                </Link>
-              )}
-            </div>
+                <i className="fi fi-rs-private-account"></i>
+              </Link>
+            ) : (
+              <Link
+                to="profile"
+                style={{ textDecoration: "none" }}
+                variant="primary"
+              >
+                <i className="fi fi-rs-circle-user"></i>
+              </Link>
+            )}
           </div>
         </nav>
       </header>
 
-      <Outlet />
+      <Outlet /> {/* Render child pages */}
 
       <iframe
         className="iframe"
@@ -170,7 +149,6 @@ const Layout = () => {
               </ul>
             </nav>
           </article>
-
           <article>
             <h4>{t("follow_us") || "Seguinos en nuestras redes"}</h4>
             <nav>
@@ -199,20 +177,19 @@ const Layout = () => {
                     target="_blank"
                     href="https://www.x.com"
                   >
-                    <i className="fi fi-brands-twitter-alt"></i> X (ex Twitter)
+                    <i className="fi fi-brands-twitter-alt"></i> X (ex twitter)
                   </a>
                 </li>
               </ul>
             </nav>
           </article>
         </section>
-
         <div>
           <div className="lines"></div>
           <div className="polities">
             <p>
-              © {new Date().getFullYear()} Clinica TPI.{" "}
-              {t("rights_reserved") || "Todos los derechos reservados."}
+              © {new Date().getFullYear()} {t("clinic_name") || "Clinica TPI"}.
+              {t("all_rights_reserved") || " Todos los derechos reservados."}
             </p>
             <p>
               {t("privacy_policy") || "Política de Privacidad"} ||{" "}
