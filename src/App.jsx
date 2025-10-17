@@ -28,7 +28,11 @@ function App() {
       <Route path="/specialists" element={<Specialists />} />
       <Route path="/appointment" element={<Appointment />} />
       <Route path="/contact_us" element={<Contacto />} />
-      <Route path="/profile" element={<Profile />} />
+      <Route path="/profile" element={
+        <Guard>
+          <Profile />
+        </Guard>
+      } />
       <Route path="/*" element={<PageNotFound />} />
     </Route>
 

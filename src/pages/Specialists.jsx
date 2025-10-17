@@ -28,7 +28,8 @@ export const Specialists = () => {
         const id = e.target.value
         const response = await fetch(`http://localhost:3000/appointment/specialists/${id}`);
         const res = await response.json();
-        SetMedics(res.specialists)
+        if(res.ok) SetMedics(res.specialists)
+        else  SetMedics([{}])
     }
 
     return (
@@ -73,7 +74,7 @@ export const Specialists = () => {
                                         licenseNumber={med.licenseNumber}
                                         email={med.email}
                                     />
-                                    : ""))
+                                    : "No se encontraron especialistas."))
                         }
 
                     </div>
