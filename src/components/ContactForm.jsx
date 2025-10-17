@@ -9,7 +9,7 @@ import {
   validateEmail,
   validateSubject,
   validateMessage,
-} from "./contactForm"; // tu archivo contactForm.js
+} from "./contactForm"; 
 
 const ContactForm = () => {
   const [form, setForm] = useState({
@@ -21,13 +21,11 @@ const ContactForm = () => {
 
   const [errors, setErrors] = useState({});
 
-  // 🟡 Configuramos posición de alertify (arriba a la derecha)
   alertify.set("notifier", "position", "top-right");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // Validación dinámica mientras escribe
     if (name === "name") {
       const filtered = value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, "");
       setForm((prev) => ({ ...prev, name: filtered }));
@@ -59,7 +57,6 @@ const ContactForm = () => {
 
     const hasErrors = Object.values(newErrors).some((err) => err !== "");
     if (hasErrors) {
-      // Enfocar el primer campo con error
       const firstErrorField = Object.keys(newErrors).find((k) => newErrors[k]);
       if (firstErrorField) {
         document.querySelector(`[name="${firstErrorField}"]`)?.focus();
@@ -69,10 +66,8 @@ const ContactForm = () => {
       return;
     }
 
-    // Enviar formulario (simulado)
     alertify.success("Formulario enviado correctamente");
 
-    // Limpiar
     setForm({ name: "", email: "", subject: "", message: "" });
     setErrors({});
   };
