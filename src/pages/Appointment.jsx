@@ -23,9 +23,10 @@ const Appointment = () => {
     const [obraSocial, setObraSocial] = useState("");
     const [plan, setPlan] = useState("");
     const [medic, setMedic] = useState("");
-    const [_, setSpeciality] = useState("");
+    const [speciality, setSpeciality] = useState("");
     const [busyAppointment, setBusyAppointment] = useState([])
     const [date, setDate] = useState("");
+    const [time, setTimes] = useState("");
     const [fullData, setFullData] = useState({})
 
     const navTurno = useNavigate();
@@ -47,13 +48,17 @@ const Appointment = () => {
         } else if (isVisual == 2) {
             (medic != "") ? setIsVisual(3) : alertify.error("Debe seleccionar un medico");
         } else if (isVisual == 3){
-            (!fullData.time_id) ? alertify.error("Debes seleccionar un horario") : setIsVisual(4)
+            (!time) ? alertify.error("Debes seleccionar un horario") : setIsVisual(4)
         }
-        // falta isVisual 3
+        else if (isVisual == 4){
+//Enviar el turno a la bd
+
+        }
 
     }
 
        async function fetchBusyAppointments(date, specialist_id) {
+        console.log(specialist_id)
         fetch(`http://localhost:3000/appointment/busy?date=${date}&specialist_id=${specialist_id}`)
             .then(data => data.json())
             .then(res => {
@@ -76,26 +81,29 @@ const Appointment = () => {
     }
 
     const handleAddSpeciality = (value) => {
-        setSpeciality(value)
-        setFullData(prev => ({ ...prev, speciality_id: value }))
+        console.log(value)
+        setSpeciality(value.special_name)
+        console.log(speciality)
+        setFullData(prev => ({ ...prev, speciality_id: value.id }))
     }
 
     const handleAddMedic = (value) => {
         setMedic(value)
-        setFullData(prev => ({ ...prev, doctor_id: value }))
+        setFullData(prev => ({ ...prev, doctor_id: medic.id }))
     }
 
     const handleSchedule = async (value) => {
         const onlyDate = value.toLocaleDateString("en-CA"); // formato YYYY-MM-DD
         setDate(onlyDate);
-        await fetchBusyAppointments(onlyDate, medic)
+        await fetchBusyAppointments(onlyDate, medic.id)
         setFullData(prev => ({ ...prev, date: onlyDate }));
     }
 
     const handleTime = (value) =>{
-        console.log(value.target.value)
-        console.log(DATAtimes.filter((id) => id.id == value.target.value));
-        setFullData(prev => ({ ...prev, time_id: value.target.value }));
+        const timeFilter = DATAtimes.filter((id) => id.id == value.target.value)
+        setTimes(timeFilter[0])
+        console.log(time.id)
+        setFullData(prev => ({ ...prev, time_id: time.id }));
     }
 
 
@@ -113,20 +121,11 @@ const Appointment = () => {
                     <Appointment_doctors addMedic={handleAddMedic} addEspecialidad={handleAddSpeciality} isRender={isVisual} />
                     <Appointment_calendar addTime={handleTime} date={date} busyAppointment={busyAppointment} addSchedule={handleSchedule} isRender={isVisual} />
                     {/* const Appointment_resume = ({obraSocial, plan, name, lastName,speciality, medic, date, time, isRender }) => { */}
-                    <Appointment_resume obraSocial={}/>
+                    <Appointment_resume obraSocial={obraSocial} plan={plan}  name={localStorage.getItem("name")}
+                        speciality={speciality} medic={medic} date={date} time={time} isRender={isVisual}/>
                     <div className="buttom-Appointment-div">
                         <button className="nav-link" onClick={renderComponents}>Seleccionar</button>
                     </div>
-                </div>
-                <div>
-                    <h2>Resumen de turno</h2>
-                    <ul>
-                        {Object.entries(fullData).map(([key, value]) => (
-                            <li key={key}>
-                                {key}: {String(value)}
-                            </li>
-                        ))}
-                    </ul>
                 </div>
 
             </div>
