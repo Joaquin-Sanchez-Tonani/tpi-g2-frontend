@@ -104,23 +104,20 @@ export default function Users() {
                         <th>Name</th>
                         <th>Lastname</th>
                         <th>Email</th>
-                        <th>Password</th>
                         <th>Specialty</th>
                         <th>L. Number</th>
                         <th>Role</th>
                         <th>Created At</th>
-                        <th>Updated At</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {users ? users.map(({ id, name, lastName, email, password, licenseNumber, specialty_id, role_id, createdAt, updatedAt }) => {
+                    {users ? users.map(({ id, name, lastName, email, licenseNumber, cellphone, specialty_id, role_id, createdAt }) => {
                         return (
                             <tr key={id}>
                                 <td>{id}</td>
                                 <td>{name}</td>
                                 <td>{lastName}</td>
                                 <td>{email}</td>
-                                <td>{password}</td>
                                 <td>
                                     <select
                                         type="text"
@@ -142,7 +139,8 @@ export default function Users() {
                                         defaultValue={licenseNumber}
                                         disabled={disable.id === id ? disable.status : true}
                                         ref={el => useRefs.current.license[id] = el}
-                                    /></td>
+                                    />
+                                </td>
                                 <td>
                                     <select
                                         type="text"
@@ -155,8 +153,7 @@ export default function Users() {
                                         <option value="3">Admin</option>
                                     </select>
                                 </td>
-                                <td>{createdAt}</td>
-                                <td>{updatedAt}</td>
+                                <td>{createdAt.split("T")[0]}</td>
                                 <td className="actions">
                                     <button title="Eliminar usuario" onClick={() => handleDeleteUser(id)}><i className="fi fi-sr-rectangle-xmark"></i></button>
                                     <button title="Modificar campo" onClick={() => handleInput(id)}><i className="fi fi-sr-pen-square"></i></button>

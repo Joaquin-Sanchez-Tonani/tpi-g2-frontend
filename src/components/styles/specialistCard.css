@@ -1,31 +1,16 @@
 .specialist-card {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
     gap: 40px;
     justify-content: center;
     align-items: stretch;
-    max-width: 100%; /* 3 columnas de 400px aprox */
+    max-width: 1200px;
     margin: 0 auto;
+    padding: 20px;
 }
 
-.specialist-card-article {
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-    justify-content: center;
-    flex: 1 1;
-    background-color: white;
-    border-radius: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.212);
-    width: 250px;
-    margin: 0 auto;
-}
-
-.specialist-card-img {
-    width: 100%;
-    object-fit: contain;
-    max-height: 150px;
-    border-bottom: 1px solid rgb(192, 192, 192);
+.title-specialist-card{
+    color: var(--bg-color);
 }
 
 .specialist-card-div {
@@ -37,35 +22,62 @@
     min-height: calc(100dvh - 10dvh);
 }
 
-.title-specialist-card {
-    font-size: 40px;
-    color: var(--bg-color);
+.specialist-card-article {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    flex: 1 1 calc(33.333% - 40px); 
+    max-width: 400px;
+    min-width: fit-content;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    box-sizing: border-box;
 }
 
-.specialist-card-div li {
-    font-size: 15px;
-    font-weight: 500;
-    font-family :Verdana, Geneva, Tahoma, sans-serif;
-    color: rgb(99, 99, 99);
-    text-transform: lowercase;
+.specialist-card-article:hover {
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px);
 }
 
-.specialist-card-div h2{
-    font-size: 20px;
-    color: rgb(43, 43, 43);
+.specialist-card-content {
+    display: flex;
+    flex-direction: column;
 }
 
-.specialist-card div{
-    padding: 15px;
-    height: 40%;
+.specialist-name {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 12px;
 }
 
-.specialist-article-buttom{
-    background-color: rgba(66, 170, 66, 0.664);
-    /* border-radius: 40%; */
-    /* display: flex; */
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    /* margin: 0px 20px 0px 20px; */
+.specialist-info {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.specialist-info li {
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+    color: #4b5563;
+}
+
+.nav-link{
+    border-radius: 0;
+    background-color: #4b5563;
+}
+
+@media (max-width: 1024px) {
+    .specialist-card-article {
+        flex: 1 1 calc(50% - 40px); 
+    }
+}
+
+@media (max-width: 768px) {
+    .specialist-card-article {
+        flex: 1 1 100%; 
+        max-width: 100%;
+    }
 }

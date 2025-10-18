@@ -36,12 +36,17 @@ const Appointment_medics = ({ addMedic, addEspecialidad, isRender }) => {
 
   const handleClickMedic = (event) => {
     const id = event.target.value
-    addMedic(id);
+    let medic_name;
+    specialists.map((e) => e.id == event.target.value ? medic_name = `${e.name} ${e.lastName}` : null);
+    // console.log(medic_name)
+    addMedic({"id" : id, "name" : medic_name});
   };
 
   const handleTipoEspecialidad = (event) => {
+  
+    const special_name = specialties.filter((e) => e.id == event.target.value)
     const id = event.target.value
-    addEspecialidad(id);
+    addEspecialidad({"id" : id, "special_name": special_name[0].specialty});
     GetSpecialists(id)
   };
 
@@ -66,7 +71,9 @@ const Appointment_medics = ({ addMedic, addEspecialidad, isRender }) => {
           <option value="0" disabled hidden>
             Seleccione un medico
           </option>
+
           {specialists ? specialists.map(med => <option key={med.id} value={med.id}>{`${med.name} ${med.lastName}`}</option>)
+
             : null
           }
         </select>

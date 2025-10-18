@@ -10,8 +10,6 @@ const AppointmentCalendar = ({addTime ,date, busyAppointment, addSchedule, isRen
     return null;
   }
 
-  
-
   const [times, setTimes] = useState({ times: [] });
 
   async function fetchTimes() {
@@ -19,13 +17,9 @@ const AppointmentCalendar = ({addTime ,date, busyAppointment, addSchedule, isRen
     const res = await data.json();
     setTimes(res);
   }
-
     useEffect(() => {
       fetchTimes();
     }, []);
-
-
-
 
   return (
     <div className="appointment_container">
@@ -38,7 +32,7 @@ const AppointmentCalendar = ({addTime ,date, busyAppointment, addSchedule, isRen
         }}
       />
 
-      <select onChange={addTime} defaultValue="0" disabled={!date}>
+      <select className="nav-link calendar-select" onChange={addTime} defaultValue="0" disabled={!date}>
         <option value="0" disabled>Elegir horario</option>
         {times.times.map(({ id, time }) => (
           <option disabled={busyAppointment.some((ap) => ap.time_id == id) ? true : false} key={id} value={id}>

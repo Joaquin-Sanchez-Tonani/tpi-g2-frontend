@@ -118,10 +118,7 @@ main{
 
 .service-card-section{
     display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-wrap: wrap;
-    align-items: stretch;
-    gap: 40px;
-    row-gap: 40px;
+    flex-direction: column;
+   
+ 
 }
