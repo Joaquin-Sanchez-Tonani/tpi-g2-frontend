@@ -7,6 +7,7 @@ import alertify from 'alertifyjs';
 import 'alertifyjs/build/css/alertify.css';
 import 'alertifyjs/build/css/themes/default.min.css'; // Or another theme like bootstrap.min.css
 
+
 const Register = () => {
     const [email, setEmail] = useState("");
     const [name,setName] = useState("")
@@ -102,6 +103,7 @@ const Register = () => {
         setEmail("");
         setPassword("");
         localStorage.clear()
+
     };
 
     return (

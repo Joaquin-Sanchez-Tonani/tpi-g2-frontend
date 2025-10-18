@@ -11,12 +11,15 @@ const Home = () =>{
 
     const [specialties, setSpecialties] = useState([]);
 
-    useEffect(() => {
         async function fetchSpecialties() {
             const response = await fetch('http://localhost:3000/appointment/specialties');
             const data = await response.json();
+            console.log(data)
             setSpecialties(data.specialties);
         }
+
+    useEffect(() => {
+
         fetchSpecialties();
     }, []);
 
@@ -49,10 +52,8 @@ const Home = () =>{
                                 specialties.map((e) => (
                                     <ServiceCard 
                                     key={e.id}
-                                    image={initial}
                                     title={e.specialty}
                                     description={e.description}
-                                    icon={<i className="fi fi-sr-tooth"></i>}
                                     />
                                 ))
                                 )}
