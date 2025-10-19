@@ -51,7 +51,17 @@ const Appointment = () => {
             (!time) ? alertify.error("Debes seleccionar un horario") : setIsVisual(4)
         }
         else if (isVisual == 4){
-//Enviar el turno a la bd
+            
+            console.log({date: date, time: time.id, medic: Number(medic.id)})
+
+             fetch("http://localhost:3000/appointment/create", {
+                method:"POST",
+                body: JSON.stringify({date: date, time_id: time.id, specialist_id: Number(medic.id), patient_id: localStorage.getItem("id")}),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+             }).then((res) => res.json())
+               .then((data) => console.log(data))
 
         }
 
@@ -121,7 +131,7 @@ const Appointment = () => {
                     <Appointment_doctors addMedic={handleAddMedic} addEspecialidad={handleAddSpeciality} isRender={isVisual} />
                     <Appointment_calendar addTime={handleTime} date={date} busyAppointment={busyAppointment} addSchedule={handleSchedule} isRender={isVisual} />
                     {/* const Appointment_resume = ({obraSocial, plan, name, lastName,speciality, medic, date, time, isRender }) => { */}
-                    <Appointment_resume obraSocial={obraSocial} plan={plan}  name={localStorage.getItem("name")}
+                    <Appointment_resume obraSocial={obraSocial} plan={plan} 
                         speciality={speciality} medic={medic} date={date} time={time} isRender={isVisual}/>
                     <div className="buttom-Appointment-div">
                         <button className="nav-link" onClick={renderComponents}>Seleccionar</button>

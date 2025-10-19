@@ -10,14 +10,16 @@ import "alertifyjs/build/css/themes/default.min.css";
 
 
 
-const Login = () => {
+const Login = (handleId) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const id="";
 
   const navTurno = useNavigate();
 
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
+
 
   const handleEmail = (event) => {
     setEmail(event.target.value);
@@ -55,6 +57,8 @@ const Login = () => {
 
       .then((data) => {!data.ok ? alertify.error(data.message) : alertify.success(data.message); return data;})
       .then((result) => {
+        console.log(result)
+        localStorage.setItem("id", result.user.id);
         localStorage.setItem("token",result.token);
         localStorage.setItem("user_name", result.user.name);
         localStorage.setItem("user_lastName", result.user.lastName);
