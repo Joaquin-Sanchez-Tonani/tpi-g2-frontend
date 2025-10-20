@@ -4,7 +4,7 @@ import Appointment_doctors from '../components/Appointment_doctors'
 import Appointment_calendar from '../components/Appointment_calendar'
 import Appointment_resume from "../components/Appointment_resume.jsx"
 
-import {DATAtimes} from "../Data/timeData.js"
+import { DATAtimes } from "../Data/timeData.js"
 
 import alertify from "alertifyjs";
 import "alertifyjs/build/css/alertify.css";
@@ -34,30 +34,42 @@ const Appointment = () => {
 
 
     const renderComponents = async () => {
-
+        const token = localStorage.getItem("token")
         const loginRes = await isLogin();
-         if(!loginRes.ok){
-            console.log(loginRes,111)
-              alertify.message('Debe ingresar para solicitar un turno');
+        if (!loginRes.ok) {
+            console.log(loginRes, 111)
+            alertify.message('Debe ingresar para solicitar un turno');
             navTurno('/login');
-             return;
-         }
+            return;
+        }
 
         if (isVisual == 1) {
             (obraSocial != "" && plan != "") ? setIsVisual(2) : alertify.error("Debe ingresar sus datos");
         } else if (isVisual == 2) {
             (medic != "") ? setIsVisual(3) : alertify.error("Debe seleccionar un medico");
-        } else if (isVisual == 3){
+        } else if (isVisual == 3) {
             (!time) ? alertify.error("Debes seleccionar un horario") : setIsVisual(4)
         }
-        else if (isVisual == 4){
-//Enviar el turno a la bd
-
+        else if (isVisual == 4) {
+            await fetch("http://localhost:3000/appointment/create/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    "date": fullData.date,
+                    "time_id": fullData.time_id,
+                    "specialist_id": fullData.doctor_id
+                })
+            })
+            .then(res => res.json())
+            .then(data => console.log(data))
         }
 
     }
 
-       async function fetchBusyAppointments(date, specialist_id) {
+    async function fetchBusyAppointments(date, specialist_id) {
         console.log(specialist_id)
         fetch(`http://localhost:3000/appointment/busy?date=${date}&specialist_id=${specialist_id}`)
             .then(data => data.json())
@@ -89,7 +101,7 @@ const Appointment = () => {
 
     const handleAddMedic = (value) => {
         setMedic(value)
-        setFullData(prev => ({ ...prev, doctor_id: medic.id }))
+        setFullData(prev => ({ ...prev, doctor_id: parseInt(value.id) }))
     }
 
     const handleSchedule = async (value) => {
@@ -99,11 +111,11 @@ const Appointment = () => {
         setFullData(prev => ({ ...prev, date: onlyDate }));
     }
 
-    const handleTime = (value) =>{
+    const handleTime = (value) => {
         const timeFilter = DATAtimes.filter((id) => id.id == value.target.value)
         setTimes(timeFilter[0])
         console.log(time.id)
-        setFullData(prev => ({ ...prev, time_id: time.id }));
+        setFullData(prev => ({ ...prev, time_id: timeFilter[0].id }));
     }
 
 
@@ -114,15 +126,15 @@ const Appointment = () => {
                 <h1 className="title-Appointmen">Consulta por nuestros turnos</h1>
                 <p>Ingrese sus datos</p>
                 <div className="input-div-Appointmen">
-                    <div> 
-                        {isVisual != 1 ? <button className={"nav-link"} onClick={() =>setIsVisual(isVisual - 1)}>Volver</button> : null}
+                    <div>
+                        {isVisual != 1 ? <button className={"nav-link"} onClick={() => setIsVisual(isVisual - 1)}>Volver</button> : null}
                     </div>
                     <Appointment_health_insurance addObraSocial={handleAddObraSocial} addPlanSocial={handlePlanSocial} isRender={isVisual} />
                     <Appointment_doctors addMedic={handleAddMedic} addEspecialidad={handleAddSpeciality} isRender={isVisual} />
                     <Appointment_calendar addTime={handleTime} date={date} busyAppointment={busyAppointment} addSchedule={handleSchedule} isRender={isVisual} />
                     {/* const Appointment_resume = ({obraSocial, plan, name, lastName,speciality, medic, date, time, isRender }) => { */}
-                    <Appointment_resume obraSocial={obraSocial} plan={plan}  name={localStorage.getItem("name")}
-                        speciality={speciality} medic={medic} date={date} time={time} isRender={isVisual}/>
+                    <Appointment_resume obraSocial={obraSocial} plan={plan} name={localStorage.getItem("name")}
+                        speciality={speciality} medic={medic} date={date} time={time} isRender={isVisual} />
                     <div className="buttom-Appointment-div">
                         <button className="nav-link" onClick={renderComponents}>Seleccionar</button>
                     </div>

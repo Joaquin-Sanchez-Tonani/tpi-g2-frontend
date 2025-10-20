@@ -2,7 +2,7 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 
 import '../styles/administration.css'
 import { useEffect, useState } from "react";
-import PageNotFound from "../../layout/PageNotFound";
+import Forbidden from "../../layout/Forbidden";
 
 export default function Administration() {
     const [isAdmin, setIsAdmin] = useState(null);
@@ -33,7 +33,7 @@ export default function Administration() {
     }
 
     if (!isAdmin) {
-        return <PageNotFound />;
+        return <Forbidden />;
     }
 
     const handleActive = (event) =>{

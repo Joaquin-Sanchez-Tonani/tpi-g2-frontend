@@ -85,10 +85,6 @@ export default function Profile() {
             alertify.error("Ingrese su apellido");
             return;
         }
-        if (!EMAILREGEX.test(newUserData.email)) {
-            alertify.error("Ingrese un email válido");
-            return;
-        }
 
         fetch("http://localhost:3000/profile/user/", {
             method: "PATCH",
@@ -103,6 +99,7 @@ export default function Profile() {
                 console.log(res)
                 alertify.success("Cambios confirmados")
                 setUserData(newUserData)
+                localStorage.setItem("user_name", newUserData.name)
                 return res
             })
             .catch(e => console.log(e))

@@ -39,7 +39,7 @@ export const validateMessage = (message) => {
 
 export const validatePassword = (password) => {
   if (!password.trim()) return "La contraseña es obligatoria";
-  if (password.length < 8) return "La contraseña debe tener al menos 8 caracteres";
+  if (password.length < 7) return "La contraseña debe tener al menos 8 caracteres";
   return "";
 };
 

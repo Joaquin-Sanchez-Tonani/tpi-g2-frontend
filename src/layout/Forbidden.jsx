@@ -1,14 +1,14 @@
 import './styles/pagenotfound.css'
 
-const PageNotFound = () => {
+const Forbidden = () => {
     return(
         <div className='error-content-bg'>
             <div className='error-content'>
-                <h1>404 Page not found</h1>
+                <h1>403 Forbidden</h1>
                 <p>Lo sentimos, la página que buscas no existe.</p>
             </div>
         </div>
     )
 }
 
-export default PageNotFound
+export default Forbidden
