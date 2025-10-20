@@ -1,4 +1,3 @@
-//name
 export const validateName = (name) => {
   if (!name.trim()) return "El nombre es obligatorio";
   if (name.length < 3) return "El nombre debe tener al menos 3 letras";
@@ -14,14 +13,14 @@ export const validateLastName = (lastName) => {
   return "";
 };
 
-// Email
+
 export const validateEmail = (email) => {
   if (!email.trim()) return "El email es obligatorio";
   const regex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
   if (!regex.test(email)) return "El email ingresado no es valido";
   return "";
 };
-//asunto
+
 export const validateSubject = (subject) => {
   if (!subject.trim()) return "El asunto es obligatorio";
   if (subject.length < 3) return "El asunto debe tener al menos 3 caracteres";
@@ -29,7 +28,7 @@ export const validateSubject = (subject) => {
   return "";
 };
 
-// Mensaje
+
 export const validateMessage = (message) => {
   if (!message.trim()) return "El mensaje es obligatorio";
   if (message.length < 10) return "El mensaje debe tener al menos 10 caracteres";
@@ -39,7 +38,7 @@ export const validateMessage = (message) => {
 
 export const validatePassword = (password) => {
   if (!password.trim()) return "La contraseña es obligatoria";
-  if (password.length < 7) return "La contraseña debe tener al menos 8 caracteres";
+  if (password.length < 6) return "La contraseña debe tener al menos 8 caracteres";
   return "";
 };
 

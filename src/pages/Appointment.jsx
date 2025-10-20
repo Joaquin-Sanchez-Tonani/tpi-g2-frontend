@@ -1,4 +1,3 @@
-
 import Appointment_health_insurance from '../components/Appointment_health_insurance'
 import Appointment_doctors from '../components/Appointment_doctors'
 import Appointment_calendar from '../components/Appointment_calendar'
@@ -13,11 +12,12 @@ import "alertifyjs/build/css/themes/default.min.css"; // Or another theme like b
 import "../pages/styles/Appointment.css"
 
 
+import { useLanguage } from "../components/context/LanguageContext"
 import { useState } from "react"
 import { useNavigate } from 'react-router-dom';
 import { isLogin } from "../services/isLogin.jsx";
 const Appointment = () => {
-
+    const { t } = useLanguage();
 
     const [isVisual, setIsVisual] = useState(1);
     const [obraSocial, setObraSocial] = useState("");
@@ -123,8 +123,8 @@ const Appointment = () => {
     return (
         <>
             <div className='Appointmen-body'>
-                <h1 className="title-Appointmen">Consulta por nuestros turnos</h1>
-                <p>Ingrese sus datos</p>
+                <h1 className="title-Appointmen">{t("appointment_title")}</h1>
+                <p>{t("enter_your_data")}</p>
                 <div className="input-div-Appointmen">
                     <div>
                         {isVisual != 1 ? <button className={"nav-link"} onClick={() => setIsVisual(isVisual - 1)}>Volver</button> : null}
@@ -136,7 +136,7 @@ const Appointment = () => {
                     <Appointment_resume obraSocial={obraSocial} plan={plan} name={localStorage.getItem("name")}
                         speciality={speciality} medic={medic} date={date} time={time} isRender={isVisual} />
                     <div className="buttom-Appointment-div">
-                        <button className="nav-link" onClick={renderComponents}>Seleccionar</button>
+                        <button className="nav-link" onClick={renderComponents}>{t("select")}</button>
                     </div>
                 </div>
 

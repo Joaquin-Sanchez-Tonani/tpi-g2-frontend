@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef, act } from "react";
 import '../styles/administration.css'
-
+import { useLanguage } from "../context/LanguageContext";
 export default function Users() {
     const [users, setUsers] = useState(null);
     const [usersResave, setUsersResave] = useState(null);
@@ -8,6 +8,7 @@ export default function Users() {
     const [disable, setDisable] = useState({ id: null, status: true });
     const [active,setActive] = useState(null)
     const token = localStorage.getItem("token");
+    const { t } = useLanguage();
     const OPTIONS = (method, body) => {
         return {
             method: `${method}`,
@@ -90,24 +91,24 @@ export default function Users() {
     return (
         <article className="article_administration">
             <nav className="fixed_nav">
-                <input onChange={handleSearch} className="search-by-name" placeholder="Buscar por nombre" type="search" name="search" id="" />
+                <input onChange={handleSearch} className="search-by-name" placeholder={t("search")||"Buscar por nombre"} type="search" name="search" id="" />
                 <ul className="handle_order">
-                    <li><button className={active == "id" ? "active" : ""} id="id" onClick={handleOrder}>Ordenar por id</button></li>
-                    <li><button className={active == "specialty" ? "active" : ""} id="specialty" onClick={handleOrder}>Ordenar por especialidad</button></li>
-                    <li><button className={active == "role" ? "active" : ""} id="role" onClick={handleOrder}>Ordenar por role</button></li>
+                    <li><button className={active == "id" ? "active" : ""} id="id" onClick={handleOrder}>{t("order_id")||"Ordenar por id"}</button></li>
+                    <li><button className={active == "specialty" ? "active" : ""} id="specialty" onClick={handleOrder}>{t("order_spe")|| "ordenar por especialidad"}</button></li>
+                    <li><button className={active == "role" ? "active" : ""} id="role" onClick={handleOrder}>{t("order_rol")||"Ordenar por role"}</button></li>
                 </ul>
             </nav>
             <table>
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Name</th>
-                        <th>Lastname</th>
+                        <th>{t("name") || "Nombre"}</th>
+                        <th>{t("lastname")|| "Apellido"}</th>
                         <th>Email</th>
-                        <th>Specialty</th>
-                        <th>L. Number</th>
+                        <th>{t("Specialty")|| "Especialidad"}</th>
+                        <th>L. {t("number")|| "Numero"}</th>
                         <th>Role</th>
-                        <th>Created At</th>
+                        <th>{t("Created_At") || "Creado en"}</th>
                     </tr>
                 </thead>
                 <tbody>

@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from 'react'
 import '../pages/styles/profile.css'
 import { data, useNavigate } from 'react-router-dom'
 import alertify from 'alertifyjs';
-
+import { useLanguage } from "../components/context/LanguageContext"
 export default function Profile() {
+    const { t } = useLanguage();
     const EMAILREGEX = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
     const navigate = useNavigate()
     const [userData, setUserData] = useState({
@@ -109,10 +110,10 @@ export default function Profile() {
             <aside>
                 <nav>
                     <ul>
-                        <li role='button' onClick={() => handleArticles(1)}><div><i className="fi fi-sr-user-vneck-hair"></i><p>My profile</p></div><i className={articleId == 1 ? "fi fi-sr-angle-right active-i" : "fi fi-sr-angle-right no-active-i"}></i></li>
-                        <li role='button' onClick={() => handleArticles(2)}><div><i className="fi fi-ss-clipboard-list"></i><p>Appointments</p></div><i className={articleId == 2 ? "fi fi-sr-angle-right active-i" : "fi fi-sr-angle-right no-active-i"}></i></li>
-                        <li role='button' onClick={() => handleArticles(3)}><div><i className="fi fi-ss-clipboard-list"></i><p>Preferences</p></div><i className={articleId == 3 ? "fi fi-sr-angle-right active-i" : "fi fi-sr-angle-right no-active-i"}></i></li>
-                        <li role='button' onClick={() => handleArticles(4)}><div><i className="fi fi-sc-sign-out-alt"></i><p>Log out</p></div></li>
+                        <li role='button' onClick={() => handleArticles(1)}><div><i className="fi fi-sr-user-vneck-hair"></i><p>{t("my_profile") || "My profile"}</p></div><i className={articleId == 1 ? "fi fi-sr-angle-right active-i" : "fi fi-sr-angle-right no-active-i"}></i></li>
+                        <li role='button' onClick={() => handleArticles(2)}><div><i className="fi fi-ss-clipboard-list"></i><p>{t("appointments") || "Appointments"}</p></div><i className={articleId == 2 ? "fi fi-sr-angle-right active-i" : "fi fi-sr-angle-right no-active-i"}></i></li>
+                        <li role='button' onClick={() => handleArticles(3)}><div><i className="fi fi-ss-clipboard-list"></i><p>{t("preferences") || "Preferences"}</p></div><i className={articleId == 3 ? "fi fi-sr-angle-right active-i" : "fi fi-sr-angle-right no-active-i"}></i></li>
+                        <li role='button' onClick={() => handleArticles(4)}><div><i className="fi fi-sc-sign-out-alt"></i><p>{t("logout") || "Log out"}</p></div></li>
                     </ul>
                 </nav>
             </aside>
@@ -125,21 +126,21 @@ export default function Profile() {
                         </div>
                         <ul className='info-profile-card'>
                             <span className='lines'></span>
-                            <li><strong>Name</strong><input name='name' onChange={handleUserData} type="text" value={newUserData.name} disabled={isActive} /></li>
+                            <li><strong>{t("name")}</strong><input name='name' onChange={handleUserData} type="text" value={newUserData.name} disabled={isActive} /></li>
                             <span className='lines'></span>
-                            <li><strong>LastName</strong><input name='lastName' onChange={handleUserData} type="text" value={newUserData.lastName} disabled={isActive} /></li>
+                            <li><strong>{t("lastname")}</strong><input name='lastName' onChange={handleUserData} type="text" value={newUserData.lastName} disabled={isActive} /></li>
                         </ul>
-                        <input type='button' value="Editar campos" onClick={handleIsActive} />
-                        <input type='button' value="Aceptar cambios" onClick={handleAcceptChanges} />
+                        <input type='button' value={t("edit") ||"Editar campos"} onClick={handleIsActive} />
+                        <input type='button' value={t("aceptar")||"Aceptar cambios"} onClick={handleAcceptChanges} />
                     </article>
                     :
                     articleId == 2 ?
                         <article>
-                            Appointments
+                            {t("appointments")}
                         </article>
                         :
                         <article>
-                            Preferences
+                            {t("preferences")}
                         </article>
             }
         </section>
