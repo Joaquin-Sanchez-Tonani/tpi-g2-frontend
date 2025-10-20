@@ -9,7 +9,9 @@ import {
   validateEmail,
   validateSubject,
   validateMessage,
-} from "./contactForm"; // tu archivo contactForm.js
+} from "./contactForm"; 
+
+import { useLanguage } from "./context/LanguageContext";
 
 const ContactForm = () => {
   const [form, setForm] = useState({
@@ -20,14 +22,13 @@ const ContactForm = () => {
   });
 
   const [errors, setErrors] = useState({});
+  const { t } = useLanguage();
 
-  // 🟡 Configuramos posición de alertify (arriba a la derecha)
   alertify.set("notifier", "position", "top-right");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // Validación dinámica mientras escribe
     if (name === "name") {
       const filtered = value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, "");
       setForm((prev) => ({ ...prev, name: filtered }));
@@ -59,20 +60,17 @@ const ContactForm = () => {
 
     const hasErrors = Object.values(newErrors).some((err) => err !== "");
     if (hasErrors) {
-      // Enfocar el primer campo con error
       const firstErrorField = Object.keys(newErrors).find((k) => newErrors[k]);
       if (firstErrorField) {
         document.querySelector(`[name="${firstErrorField}"]`)?.focus();
       }
 
-      alertify.error("Por favor corrige los errores antes de enviar.");
+      alertify.error(t("contact_error")); 
       return;
     }
 
-    // Enviar formulario (simulado)
-    alertify.success("Formulario enviado correctamente");
+    alertify.success(t("contact_success")); 
 
-    // Limpiar
     setForm({ name: "", email: "", subject: "", message: "" });
     setErrors({});
   };
@@ -81,12 +79,12 @@ const ContactForm = () => {
     <div className="contact-form-container">
       <form className="contact-form" onSubmit={handleSubmit} noValidate>
         <div className="mb-3">
-          <label className="form-label">Nombre</label>
+          <label className="form-label">{t("contact_name")}</label>
           <input
             name="name"
             type="text"
             className={`form-control ${errors.name ? "is-invalid" : ""}`}
-            placeholder="Ingresa tu nombre"
+            placeholder={t("contact_name_placeholder")}
             value={form.name}
             onChange={handleChange}
           />
@@ -94,12 +92,12 @@ const ContactForm = () => {
         </div>
 
         <div className="mb-3">
-          <label className="form-label">Email</label>
+          <label className="form-label">{t("contact_email")}</label>
           <input
             name="email"
             type="email"
             className={`form-control ${errors.email ? "is-invalid" : ""}`}
-            placeholder="ejemplo@gmail.com"
+            placeholder={t("contact_email_placeholder")}
             value={form.email}
             onChange={handleChange}
           />
@@ -109,12 +107,12 @@ const ContactForm = () => {
         </div>
 
         <div className="mb-3">
-          <label className="form-label">Asunto</label>
+          <label className="form-label">{t("contact_subject")}</label>
           <input
             name="subject"
             type="text"
             className={`form-control ${errors.subject ? "is-invalid" : ""}`}
-            placeholder="Escribe el asunto"
+            placeholder={t("contact_subject_placeholder")}
             value={form.subject}
             onChange={handleChange}
           />
@@ -124,11 +122,11 @@ const ContactForm = () => {
         </div>
 
         <div className="mb-3">
-          <label className="form-label">Mensaje</label>
+          <label className="form-label">{t("contact_message")}</label>
           <textarea
             name="message"
             className={`form-control ${errors.message ? "is-invalid" : ""}`}
-            placeholder="Escribe tu mensaje aquí..."
+            placeholder={t("contact_message_placeholder")}
             rows={4}
             value={form.message}
             onChange={handleChange}
@@ -140,7 +138,7 @@ const ContactForm = () => {
 
         <div className="d-grid">
           <button type="submit" className="buttonSubmit">
-            Enviar
+            {t("contact_send")}
           </button>
         </div>
       </form>

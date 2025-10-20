@@ -1,9 +1,10 @@
 
 import './styles/appointment.css'
 import { useEffect, useState } from "react"
-
+import { useLanguage } from "../components/context/LanguageContext"
 
 const Appointment_medics = ({ addMedic, addEspecialidad, isRender }) => {
+  const { t } = useLanguage();
   const [specialties, setSpecialties] = useState([])
   const [specialists, setSpecialists] = useState([])
 
@@ -59,7 +60,7 @@ const Appointment_medics = ({ addMedic, addEspecialidad, isRender }) => {
       <div className='appointmen_container'>
         <select defaultValue="0" className="form-select appointmen-select" onChange={handleTipoEspecialidad}>
           <option value="0" disabled hidden>
-            Seleccione una especialidad:
+            {t("select_esp")||"Debe seleccionar una especialidad"}:
           </option>
           {specialties ? specialties.map(med =>
             <option key={med.id} value={med.id}>{med.specialty}</option>)
@@ -69,7 +70,7 @@ const Appointment_medics = ({ addMedic, addEspecialidad, isRender }) => {
         </select>
         <select defaultValue="0"  className="form-select appointmen-select" onChange={handleClickMedic}>
           <option value="0" disabled hidden>
-            Seleccione un medico
+            {t("select_med")|| "Debe seleccionar un medico"}
           </option>
 
           {specialists ? specialists.map(med => <option key={med.id} value={med.id}>{`${med.name} ${med.lastName}`}</option>)

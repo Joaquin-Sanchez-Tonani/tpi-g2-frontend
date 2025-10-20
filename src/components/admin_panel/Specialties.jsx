@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
-
+import { useLanguage } from "../context/LanguageContext"
 export const Specialties = () => {
     const [specialties, setSpecialties] = useState(null)
     const token = localStorage.getItem("token");
-
+    const { t } = useLanguage();
     useEffect(() => {
         fetch("http://localhost:3000/appointment/specialties/")
             .then(res => res.json())
@@ -48,10 +48,10 @@ export const Specialties = () => {
     return (
         <article className="article_administration">
             <form onSubmit={createSpecialty}>
-                <h3>Crear Especialidad</h3>
+                <h3>{t("create_esp")||"Crear Especialidad"}</h3>
                 <div>
-                    <input placeholder="Ingrese especialidad" required type="text" name="specialty" />
-                    <input placeholder="Ingrese descripción" required type="text" name="desc" />
+                    <input placeholder={t("enter_esp")||"Ingrese especialidad"} required type="text" name="specialty" />
+                    <input placeholder={t("enter_desc") || "Ingrese descripción"} required type="text" name="desc" />
                     <input type="submit" />
                 </div>
             </form>
@@ -59,10 +59,10 @@ export const Specialties = () => {
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Specialty</th>
-                        <th>Description</th>
-                        <th>Created At</th>
-                        <th>Updated At</th>
+                        <th>{t("Specialty")|| "Especialidad"}</th>
+                        <th>{t("desc")||"Descripcion"}</th>
+                        <th>{t("Created_At")||"Creado en"}</th>
+                        <th>{t("Update_At")||"Actualizado en"}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -80,7 +80,7 @@ export const Specialties = () => {
                                 <td>{createdAt}</td>
                                 <td>{updatedAt}</td>
                                 <td className="actions">
-                                    <button title="Eliminar especialidad" onClick={() => handleDeleteSpecialty(id)}><i className="fi fi-sr-rectangle-xmark"></i></button>
+                                    <button title={t("del_esp")||"eleminar especialidad"}onClick={() => handleDeleteSpecialty(id)}><i className="fi fi-sr-rectangle-xmark"></i></button>
                                 </td>
                             </tr>
                         )

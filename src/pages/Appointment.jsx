@@ -1,4 +1,3 @@
-
 import Appointment_health_insurance from '../components/Appointment_health_insurance'
 import Appointment_doctors from '../components/Appointment_doctors'
 import Appointment_calendar from '../components/Appointment_calendar'
@@ -13,11 +12,12 @@ import "alertifyjs/build/css/themes/default.min.css"; // Or another theme like b
 import "../pages/styles/Appointment.css"
 
 
+import { useLanguage } from "../components/context/LanguageContext"
 import { useState } from "react"
 import { useNavigate } from 'react-router-dom';
 import { isLogin } from "../services/isLogin.jsx";
 const Appointment = () => {
-
+    const { t } = useLanguage();
 
     const [isVisual, setIsVisual] = useState(1);
     const [obraSocial, setObraSocial] = useState("");
@@ -35,21 +35,27 @@ const Appointment = () => {
 
     const renderComponents = async () => {
 
-        const loginRes = await isLogin();
-         if(!loginRes.ok){
-            console.log(loginRes,111)
-              alertify.message('Debe ingresar para solicitar un turno');
-            navTurno('/login');
-             return;
-         }
+const loginRes = await isLogin();
+if(!loginRes.ok){
+    console.log(loginRes,111)
+    alertify.message(t("must_login_message") || 'Debe ingresar para solicitar un turno');
+    navTurno('/login');
+    return;
+}
 
-        if (isVisual == 1) {
-            (obraSocial != "" && plan != "") ? setIsVisual(2) : alertify.error("Debe ingresar sus datos");
-        } else if (isVisual == 2) {
-            (medic != "") ? setIsVisual(3) : alertify.error("Debe seleccionar un medico");
-        } else if (isVisual == 3){
-            (!time) ? alertify.error("Debes seleccionar un horario") : setIsVisual(4)
-        }
+if (isVisual == 1) {
+    (obraSocial != "" && plan != "") 
+        ? setIsVisual(2) 
+        : alertify.error(t("must_enter_data") || "Debe ingresar sus datos");
+} else if (isVisual == 2) {
+    (medic != "") 
+        ? setIsVisual(3) 
+        : alertify.error(t("must_select_doctor") || "Debe seleccionar un medico");
+} else if (isVisual == 3){
+    (!time) 
+        ? alertify.error(t("must_select_time") || "Debes seleccionar un horario") 
+        : setIsVisual(4)
+}
         else if (isVisual == 4){
 //Enviar el turno a la bd
 
@@ -111,8 +117,8 @@ const Appointment = () => {
     return (
         <>
             <div className='Appointmen-body'>
-                <h1 className="title-Appointmen">Consulta por nuestros turnos</h1>
-                <p>Ingrese sus datos</p>
+                <h1 className="title-Appointmen">{t("appointment_title")}</h1>
+                <p>{t("enter_your_data")}</p>
                 <div className="input-div-Appointmen">
                     <div> 
                         {isVisual != 1 ? <button className={"nav-link"} onClick={() =>setIsVisual(isVisual - 1)}>Volver</button> : null}
@@ -124,7 +130,7 @@ const Appointment = () => {
                     <Appointment_resume obraSocial={obraSocial} plan={plan}  name={localStorage.getItem("name")}
                         speciality={speciality} medic={medic} date={date} time={time} isRender={isVisual}/>
                     <div className="buttom-Appointment-div">
-                        <button className="nav-link" onClick={renderComponents}>Seleccionar</button>
+                        <button className="nav-link" onClick={renderComponents}>{t("select")}</button>
                     </div>
                 </div>
 
