@@ -7,13 +7,13 @@ import alertify from "alertifyjs";
 import "alertifyjs/build/css/alertify.css";
 import "alertifyjs/build/css/themes/default.min.css";
 
+import { useLanguage } from "../components/context/LanguageContext.jsx"; 
 
 import {
   validateEmail,
   validateName,
   validateLastName,
   validatePassword,
-  // validateRepeatPassword,
 } from "../components/contactForm";
 
 const Register = () => {
@@ -22,6 +22,8 @@ const Register = () => {
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [rPassword, setRPassword] = useState("");
+
+  const { t } = useLanguage(); 
 
   const navTurno = useNavigate();
 
@@ -39,7 +41,6 @@ const Register = () => {
 
   const handleRegister = (e) => {
     e.preventDefault();
-
 
     const emailError = validateEmail(email);
     if (emailError) {
@@ -69,17 +70,17 @@ const Register = () => {
       return;
     }
 
-        if (!password.length || password.length < 8) {
-            alertify.error('Contraseña incorrecta')
-            passwordRef.current.focus(); 
-            return;
-        }
+    if (!password.length || password.length < 8) {
+      alertify.error(t("password_incorrect") || "Contraseña incorrecta");
+      passwordRef.current.focus();
+      return;
+    }
 
-        if (rPassword != password) {
-            alertify.error('Contraseña distinta')
-            passwordRef.current.focus(); 
-            return;
-        }
+    if (rPassword !== password) {
+      alertify.error(t("password_not_match") || "Contraseña distinta");
+      passwordRef.current.focus();
+      return;
+    }
 
     fetch("http://localhost:3000/auth/register", {
       method: "POST",
@@ -95,7 +96,9 @@ const Register = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        !data.ok ? alertify.error(data.message) : alertify.success(data.message);
+        !data.ok
+          ? alertify.error(data.message || t("register_error"))
+          : alertify.success(data.message || t("register_success"));
         return data;
       })
       .then((result) => {
@@ -125,74 +128,77 @@ const Register = () => {
               <Button className="toRegister" onClick={() => navTurno("/")}>
                 <i className="fi fi-tr-insert-alt"></i>
               </Button>
-              <h2>Registrate</h2>
+              <h2>{t("register_title") || "Registrate"}</h2>
             </Row>
             <Form onSubmit={handleRegister}>
               <FormGroup className="box-input-container" noValidate>
-                <Form.Label>Email</Form.Label>
+                <Form.Label>{t("email_label") || "Email"}</Form.Label>
                 <Form.Control
                   className="box-input"
                   type="text"
                   ref={emailRef}
-                  placeholder="Ingrese su email"
+                  placeholder={t("email_placeholder") || "Ingrese su email"}
                   onChange={handleEmail}
                   value={email}
                 />
               </FormGroup>
 
               <FormGroup className="box-input-container">
-                <Form.Label>Nombre</Form.Label>
+                <Form.Label>{t("name_label") || "Nombre"}</Form.Label>
                 <Form.Control
                   className="box-input"
                   type="text"
                   ref={nameRef}
-                  placeholder="Nombre"
+                  placeholder={t("name_placeholder") || "Nombre"}
                   onChange={handleName}
                   value={name}
                 />
               </FormGroup>
 
               <FormGroup className="box-input-container">
-                <Form.Label>Apellido</Form.Label>
+                <Form.Label>{t("lastname_label") || "Apellido"}</Form.Label>
                 <Form.Control
                   className="box-input"
                   type="text"
                   ref={lastNameRef}
-                  placeholder="Apellido"
+                  placeholder={t("lastname_placeholder") || "Apellido"}
                   onChange={handleLastName}
                   value={lastName}
                 />
               </FormGroup>
 
               <FormGroup className="box-input-container">
-                <Form.Label>Contraseña</Form.Label>
+                <Form.Label>{t("password_label") || "Contraseña"}</Form.Label>
                 <Form.Control
                   className="box-input"
                   type="password"
                   ref={passwordRef}
-                  placeholder="Contraseña"
+                  placeholder={t("password_placeholder") || "Contraseña"}
                   onChange={handlePassword}
                   value={password}
                 />
               </FormGroup>
 
               <FormGroup className="box-input-container">
-                <Form.Label>Repetir contraseña</Form.Label>
+                <Form.Label>
+                  {t("repeat_password_label") || "Repetir contraseña"}
+                </Form.Label>
                 <Form.Control
                   className="box-input"
                   type="password"
                   ref={rPasswordRef}
-                  placeholder="Contraseña"
+                  placeholder={t("repeat_password_placeholder") || "Contraseña"}
                   onChange={handleRPassword}
                   value={rPassword}
                 />
               </FormGroup>
 
               <Button className="boton-submit" type="submit">
-                Registrarse
+                {t("register_button") || "Registrarse"}
               </Button>
               <Button className="toRegister" onClick={() => navTurno("/login")}>
-                <i className="fi fi-rr-arrow-small-right"></i>Iniciar sesión
+                <i className="fi fi-rr-arrow-small-right"></i>
+                {t("login_redirect") || "Iniciar sesión"}
               </Button>
             </Form>
           </Card.Body>
