@@ -28,6 +28,11 @@ export const translation_dictionary = {
     { key: "must_login_for_appointment", value: "Debe ingresar para solicitar un turno" },
     { key: "must_enter_data", value: "Debe ingresar sus datos" },
     { key: "must_select_doctor", value: "Debe seleccionar un médico" },
+    { key: "must_login_message", value: "Debe ingresar para solicitar un turno" },
+    { key: "must_enter_data", value: "Debe ingresar sus datos" },
+    { key: "must_select_doctor", value: "Debe seleccionar un médico" },
+    { key: "must_select_time", value: "Debes seleccionar un horario" },
+    { key: "select", value: "seleccionar" },
     //1
     { key: "choose_health_insurance", value: "Elige una obra social:" },
     { key: "select_plan", value: "Seleccione plan:" },
@@ -157,6 +162,14 @@ export const translation_dictionary = {
     { key: "must_login_for_appointment", value: "You must log in to request an appointment" },
     { key: "must_enter_data", value: "You must enter your data" },
     { key: "must_select_doctor", value: "You must select a doctor" },
+    { key: "must_login_message", value: "You must log in to request an appointment" },
+    { key: "must_enter_data", value: "You must enter your information" },
+    { key: "must_select_doctor", value: "You must select a doctor" },
+    { key: "must_select_time", value: "You must select a time" },
+    { key: "select", value: "Select" },
+    { key: "select_esp", value: "you must select a specialty" },
+    { key: "select_med", value: "you must select a doctor" },
+    
     //1
     { key: "choose_health_insurance", value: "Choose a health insurance:" },
     { key: "select_plan", value: "Select a plan:" },

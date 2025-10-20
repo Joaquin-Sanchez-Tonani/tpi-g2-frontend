@@ -1,6 +1,7 @@
 .appointmen_container{
     width:90%;
     display: flex;
+
 }
 
 .appointmen-select{
@@ -23,3 +24,49 @@
     background-color: rgb(59, 151, 41) !important;
 }
 
+.calendar-select{
+    margin-top: 20px;
+    width: 100%;
+    height: 100%;
+}
+
+.appointmen-resume{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+
+.appointmen-resume-title{
+    color: white;
+    margin-bottom: 20px;
+}
+
+.appointmen-section{
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.appointmen-p-title{
+    color: white;
+    font-size: 20px;
+        margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+.appointmen-p-data{
+    width: 50%;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    background-color: white;
+    font-size: 18px;
+
+    padding-left: 10px; 
+}
+
+.appointmen-section-div{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}

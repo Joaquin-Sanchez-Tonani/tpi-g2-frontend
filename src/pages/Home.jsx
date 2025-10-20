@@ -6,20 +6,25 @@ import './styles/home.css'
 
 import { useEffect, useState } from "react";
 import { useLanguage } from "../components/context/LanguageContext.jsx";
-
 const Home = () => {
 
     const [specialties, setSpecialties] = useState([]);
     const { t } = useLanguage();
+    async function fetchSpecialties() {
+        const response = await fetch('http://localhost:3000/appointment/specialties');
+        const data = await response.json();
+        console.log(data)
+        setSpecialties(data.specialties);
+    }
 
     useEffect(() => {
-        async function fetchSpecialties() {
-            const response = await fetch('http://localhost:3000/appointment/specialties');
-            const data = await response.json();
-            setSpecialties(data.specialties);
-        }
+
         fetchSpecialties();
     }, []);
+
+
+
+
 
     return (
         <main>
@@ -50,17 +55,15 @@ const Home = () => {
                         specialties.map((e) => (
                             <ServiceCard
                                 key={e.id}
-                                image={initial}
                                 title={e.specialty}
-                                description={e.description}
-                                icon={<i className="fi fi-sr-tooth"></i>}
-                            />
+                                description={e.description} />
                         ))
                     )}
+
                 </section>
             </div>
         </main>
-    );
+    )
 }
 
-export default Home;
+export default Home
