@@ -39,7 +39,6 @@ const Appointment_medics = ({ addMedic, addEspecialidad, isRender }) => {
     const id = event.target.value
     let medic_name;
     specialists.map((e) => e.id == event.target.value ? medic_name = `${e.name} ${e.lastName}` : null);
-    // console.log(medic_name)
     addMedic({"id" : id, "name" : medic_name});
   };
 

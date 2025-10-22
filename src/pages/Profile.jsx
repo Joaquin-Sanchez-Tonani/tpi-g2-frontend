@@ -130,8 +130,10 @@ export default function Profile() {
                             <span className='lines'></span>
                             <li><strong>{t("lastname")}</strong><input name='lastName' onChange={handleUserData} type="text" value={newUserData.lastName} disabled={isActive} /></li>
                         </ul>
-                        <input type='button' value={t("edit") ||"Editar campos"} onClick={handleIsActive} />
-                        <input type='button' value={t("aceptar")||"Aceptar cambios"} onClick={handleAcceptChanges} />
+                        <div className='div_profile_buttons'>
+                            <input className='profile_buttons' type='button' value={t("edit") ||"Editar campos"} onClick={handleIsActive} />
+                            <input className='profile_buttons' type='button' value={t("aceptar")||"Aceptar cambios"} onClick={handleAcceptChanges} />
+                        </div>
                     </article>
                     :
                     articleId == 2 ?

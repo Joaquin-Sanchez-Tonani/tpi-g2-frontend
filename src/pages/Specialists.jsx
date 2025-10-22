@@ -52,7 +52,7 @@ export const Specialists = () => {
                                     value={e.id}
                                     onClick={handleSpecialistsFiltered}
                                 >
-                                    {t(e.specialty_key)} {/* Usamos key para traducción */}
+                                    {e.specialty} {/* Usamos key para traducción */}
                                 </button>
                             ))
                         )}
@@ -60,7 +60,7 @@ export const Specialists = () => {
                 </div>
 
                 <div className="specialist-card">
-                    {!medics.length ? (
+                    {!medics.length || !specialties.length ? (
                         <Spinner animation="border" variant="secondary" />
                     ) : (
                         medics.map((med) =>
@@ -68,11 +68,11 @@ export const Specialists = () => {
                                 <SpecialistCard
                                     key={med.id}
                                     name={med.name + " " + med.lastName}
-                                    specialty={t(specialties.find((e) => e.id === med.specialty_id).specialty_key)}
+                                        specialty={specialties.find((e) => e.id == med.specialty_id).specialty}
                                     licenseNumber={med.licenseNumber}
                                     email={med.email}
                                 />
-                                : <p>{t("no_specialists")}</p>
+                                : <p key={1}>{t("no_specialists")}</p>
                         )
                     )}
                 </div>

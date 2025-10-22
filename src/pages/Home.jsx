@@ -13,7 +13,6 @@ const Home = () => {
     async function fetchSpecialties() {
         const response = await fetch('http://localhost:3000/appointment/specialties');
         const data = await response.json();
-        console.log(data)
         setSpecialties(data.specialties);
     }
 
@@ -32,7 +31,8 @@ const Home = () => {
                 <img className='welcome-card-img' src={initial} alt="doctores img" />
                 <div className='welcome-card-content'>
                     <h2 className='welcome-card-content-h2'>
-                        {t("home_title") || "Clínica Vita Nova"}
+                        {t("home_title") || "Clinica"}
+                        <strong>{t("home_title_1") || "Vita Nova"}</strong>
                     </h2>
                     <p className='welcome-card-content-p'>
                         {t("home_intro") || "Brindamos atención médica de calidad, con confianza, calidez y compromiso, porque tu salud merece lo mejor en cada visita."}

@@ -37,7 +37,6 @@ const Appointment = () => {
         const token = localStorage.getItem("token")
         const loginRes = await isLogin();
         if (!loginRes.ok) {
-            console.log(loginRes, 111)
             alertify.message('Debe ingresar para solicitar un turno');
             navTurno('/login');
             return;
@@ -64,19 +63,35 @@ const Appointment = () => {
                 })
             })
             .then(res => res.json())
-            .then(data => console.log(data))
+            .then(data => {
+                data.ok && navTurno("/profile");
+                data.error == 1 && alertify.error(t("busy_appointment_by_specialist"));
+                data.error == 2 && alertify.error(t("busy_appointment_by_patient"));
+                if(data.error == 1 || data.error == 2){
+                    setIsVisual(isVisual - 2)
+                    setFullData({})
+                    setMedic("")    
+                    setTimes(null)            
+            }
+                return data;
+            })
+            .then(data =>{
+                data.ok && navTurno("/profile");
+                data.ok && alertify.success(t("appointment_create"));
+                return data;
+            })
+            .catch(error => console.log(error))
         }
 
     }
 
     async function fetchBusyAppointments(date, specialist_id) {
-        console.log(specialist_id)
         fetch(`http://localhost:3000/appointment/busy?date=${date}&specialist_id=${specialist_id}`)
             .then(data => data.json())
             .then(res => {
-                console.log(res)
                 setBusyAppointment(res.appointments)
             })
+            .catch(error => console.log(error))
     }
 
 
@@ -93,9 +108,7 @@ const Appointment = () => {
     }
 
     const handleAddSpeciality = (value) => {
-        console.log(value)
         setSpeciality(value.special_name)
-        console.log(speciality)
         setFullData(prev => ({ ...prev, speciality_id: value.id }))
     }
 
@@ -114,7 +127,6 @@ const Appointment = () => {
     const handleTime = (value) => {
         const timeFilter = DATAtimes.filter((id) => id.id == value.target.value)
         setTimes(timeFilter[0])
-        console.log(time.id)
         setFullData(prev => ({ ...prev, time_id: timeFilter[0].id }));
     }
 
