@@ -121,7 +121,7 @@ if (isVisual == 1) {
                 <p>{t("enter_your_data")}</p>
                 <div className="input-div-Appointmen">
                     <div> 
-                        {isVisual != 1 ? <button className={"nav-link"} onClick={() =>setIsVisual(isVisual - 1)}>Volver</button> : null}
+                        {isVisual != 1 ? <button className={"nav-link"} onClick={() =>setIsVisual(isVisual - 1)}>{t("back")||"Volver"}</button> : null}
                     </div>
                     <Appointment_health_insurance addObraSocial={handleAddObraSocial} addPlanSocial={handlePlanSocial} isRender={isVisual} />
                     <Appointment_doctors addMedic={handleAddMedic} addEspecialidad={handleAddSpeciality} isRender={isVisual} />
