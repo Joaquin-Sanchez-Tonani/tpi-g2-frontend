@@ -3,22 +3,6 @@ import './styles/appointment.css'
 const Appointment_resume = ({obraSocial, plan,speciality, medic, date, time, isRender }) => {
 
   const VALOR_RENDER = 4; 
- 
-    console.log(obraSocial);
-      console.log(plan);
-
-        console.log(localStorage.getItem("user_lastName"));
-
-         console.log(localStorage.getItem("user_name"));
-
-          console.log(speciality);
-
-             console.log(medic.name);
-
-                console.log(date);
-               console.log(time.value)
-
-
 
   if(isRender != VALOR_RENDER){
     return null

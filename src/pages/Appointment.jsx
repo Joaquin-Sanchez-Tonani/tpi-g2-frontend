@@ -3,7 +3,7 @@ import Appointment_doctors from '../components/Appointment_doctors'
 import Appointment_calendar from '../components/Appointment_calendar'
 import Appointment_resume from "../components/Appointment_resume.jsx"
 
-import {DATAtimes} from "../Data/timeData.js"
+import { DATAtimes } from "../Data/timeData.js"
 
 import alertify from "alertifyjs";
 import "alertifyjs/build/css/alertify.css";
@@ -34,43 +34,64 @@ const Appointment = () => {
 
 
     const renderComponents = async () => {
+        const token = localStorage.getItem("token")
+        const loginRes = await isLogin();
+        if (!loginRes.ok) {
+            alertify.message('Debe ingresar para solicitar un turno');
+            navTurno('/login');
+            return;
+        }
 
-const loginRes = await isLogin();
-if(!loginRes.ok){
-    console.log(loginRes,111)
-    alertify.message(t("must_login_message") || 'Debe ingresar para solicitar un turno');
-    navTurno('/login');
-    return;
-}
-
-if (isVisual == 1) {
-    (obraSocial != "" && plan != "") 
-        ? setIsVisual(2) 
-        : alertify.error(t("must_enter_data") || "Debe ingresar sus datos");
-} else if (isVisual == 2) {
-    (medic != "") 
-        ? setIsVisual(3) 
-        : alertify.error(t("must_select_doctor") || "Debe seleccionar un medico");
-} else if (isVisual == 3){
-    (!time) 
-        ? alertify.error(t("must_select_time") || "Debes seleccionar un horario") 
-        : setIsVisual(4)
-}
-        else if (isVisual == 4){
-//Enviar el turno a la bd
-
+        if (isVisual == 1) {
+            (obraSocial != "" && plan != "") ? setIsVisual(2) : alertify.error("Debe ingresar sus datos");
+        } else if (isVisual == 2) {
+            (medic != "") ? setIsVisual(3) : alertify.error("Debe seleccionar un medico");
+        } else if (isVisual == 3) {
+            (!time) ? alertify.error("Debes seleccionar un horario") : setIsVisual(4)
+        }
+        else if (isVisual == 4) {
+            await fetch("http://localhost:3000/appointment/create/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    "date": fullData.date,
+                    "time_id": fullData.time_id,
+                    "specialist_id": fullData.doctor_id
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                data.ok && navTurno("/profile");
+                data.error == 1 && alertify.error(t("busy_appointment_by_specialist"));
+                data.error == 2 && alertify.error(t("busy_appointment_by_patient"));
+                if(data.error == 1 || data.error == 2){
+                    setIsVisual(isVisual - 2)
+                    setFullData({})
+                    setMedic("")    
+                    setTimes(null)            
+            }
+                return data;
+            })
+            .then(data =>{
+                data.ok && navTurno("/profile");
+                data.ok && alertify.success(t("appointment_create"));
+                return data;
+            })
+            .catch(error => console.log(error))
         }
 
     }
 
-       async function fetchBusyAppointments(date, specialist_id) {
-        console.log(specialist_id)
+    async function fetchBusyAppointments(date, specialist_id) {
         fetch(`http://localhost:3000/appointment/busy?date=${date}&specialist_id=${specialist_id}`)
             .then(data => data.json())
             .then(res => {
-                console.log(res)
                 setBusyAppointment(res.appointments)
             })
+            .catch(error => console.log(error))
     }
 
 
@@ -87,15 +108,13 @@ if (isVisual == 1) {
     }
 
     const handleAddSpeciality = (value) => {
-        console.log(value)
         setSpeciality(value.special_name)
-        console.log(speciality)
         setFullData(prev => ({ ...prev, speciality_id: value.id }))
     }
 
     const handleAddMedic = (value) => {
         setMedic(value)
-        setFullData(prev => ({ ...prev, doctor_id: medic.id }))
+        setFullData(prev => ({ ...prev, doctor_id: parseInt(value.id) }))
     }
 
     const handleSchedule = async (value) => {
@@ -105,11 +124,10 @@ if (isVisual == 1) {
         setFullData(prev => ({ ...prev, date: onlyDate }));
     }
 
-    const handleTime = (value) =>{
+    const handleTime = (value) => {
         const timeFilter = DATAtimes.filter((id) => id.id == value.target.value)
         setTimes(timeFilter[0])
-        console.log(time.id)
-        setFullData(prev => ({ ...prev, time_id: time.id }));
+        setFullData(prev => ({ ...prev, time_id: timeFilter[0].id }));
     }
 
 
@@ -127,8 +145,8 @@ if (isVisual == 1) {
                     <Appointment_doctors addMedic={handleAddMedic} addEspecialidad={handleAddSpeciality} isRender={isVisual} />
                     <Appointment_calendar addTime={handleTime} date={date} busyAppointment={busyAppointment} addSchedule={handleSchedule} isRender={isVisual} />
                     {/* const Appointment_resume = ({obraSocial, plan, name, lastName,speciality, medic, date, time, isRender }) => { */}
-                    <Appointment_resume obraSocial={obraSocial} plan={plan}  name={localStorage.getItem("name")}
-                        speciality={speciality} medic={medic} date={date} time={time} isRender={isVisual}/>
+                    <Appointment_resume obraSocial={obraSocial} plan={plan} name={localStorage.getItem("name")}
+                        speciality={speciality} medic={medic} date={date} time={time} isRender={isVisual} />
                     <div className="buttom-Appointment-div">
                         <button className="nav-link" onClick={renderComponents}>{t("select")}</button>
                     </div>

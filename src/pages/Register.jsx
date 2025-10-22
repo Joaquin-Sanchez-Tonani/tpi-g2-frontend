@@ -82,12 +82,7 @@ const Register = () => {
       return;
     } fetch("http://localhost:3000/auth/register", {
       method: "POST",
-      body: JSON.stringify({
-        email,
-        name,
-        lastName,
-        password,
-      }),
+      body: JSON.stringify({ email, name, lastName, password }),
       headers: {
         "Content-Type": "application/json",
       },

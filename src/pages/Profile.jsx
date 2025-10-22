@@ -86,10 +86,6 @@ export default function Profile() {
             alertify.error("Ingrese su apellido");
             return;
         }
-        if (!EMAILREGEX.test(newUserData.email)) {
-            alertify.error("Ingrese un email válido");
-            return;
-        }
 
         fetch("http://localhost:3000/profile/user/", {
             method: "PATCH",
@@ -104,6 +100,7 @@ export default function Profile() {
                 console.log(res)
                 alertify.success("Cambios confirmados")
                 setUserData(newUserData)
+                localStorage.setItem("user_name", newUserData.name)
                 return res
             })
             .catch(e => console.log(e))
@@ -133,8 +130,10 @@ export default function Profile() {
                             <span className='lines'></span>
                             <li><strong>{t("lastname")}</strong><input name='lastName' onChange={handleUserData} type="text" value={newUserData.lastName} disabled={isActive} /></li>
                         </ul>
-                        <input type='button' value={t("edit") ||"Editar campos"} onClick={handleIsActive} />
-                        <input type='button' value={t("aceptar")||"Aceptar cambios"} onClick={handleAcceptChanges} />
+                        <div className='div_profile_buttons'>
+                            <input className='profile_buttons' type='button' value={t("edit") ||"Editar campos"} onClick={handleIsActive} />
+                            <input className='profile_buttons' type='button' value={t("aceptar")||"Aceptar cambios"} onClick={handleAcceptChanges} />
+                        </div>
                     </article>
                     :
                     articleId == 2 ?

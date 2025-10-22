@@ -21,6 +21,8 @@ export const translation_dictionary = {
     { key: "clinic_name", value: "Clinica tpi" },
     { key: "all_rights_reserved", value: "Todos los derechos reservados" },
     // Appointments
+      { key: "select_esp", value: "Ingresar especialidad"},
+    { key: "select_med", value: "Ingresar especialista:"},
     { key: "appointment_title", value: "Consulta por nuestros turnos" },
     { key: "enter_your_data", value: "Ingrese sus datos" },
     { key: "select_button", value: "Seleccionar" },
@@ -35,6 +37,9 @@ export const translation_dictionary = {
     { key: "select_esp", value: "Debe seleccionar un especialista" },
     { key: "select_med", value: "Debe seleccionar un medico" },
     { key: "select", value: "seleccionar" },
+    { key: "appointment_create", value: "Turno creado con éxito"},
+    { key: "busy_appointment_by_patient", value: "Ya tenés un turno en ese horario"},
+    { key: "busy_appointment_by_specialist", value: "Turno ya reservado con ese especialista"},
     { key: "hours", value: "Seleccionar horario" },
 
     //1
@@ -49,7 +54,8 @@ export const translation_dictionary = {
     { key: "plan_3", value: "Plan 3" },
     { key: "plan_4", value: "Plan 4" },
     //home
-    { key: "home_title", value: "Clínica Vita Nova" },
+    { key: "home_title", value: "Clínica" },
+    { key: "home_title_1", value: "Vita Nova" },
     { key: "home_intro", value: "Brindamos atención médica de calidad, con confianza, calidez y compromiso, porque tu salud merece lo mejor en cada visita." },
     { key: "home_services_label", value: "Nuestros Servicios" },
     { key: "home_care_line_1", value: "Cuidamos de vos," },
@@ -93,6 +99,7 @@ export const translation_dictionary = {
     { key: "Oftalmología", value: "Oftalmología" },
     { key: "Endocrinología", value: "Endocrinología" },
     { key: "back", value: "Volver" },
+    { key: "nro_mtc", value: "Matrícula"},
     //register
      { key: "register_title", value: "Registrate" },
     { key: "email_label", value: "Email" },
@@ -218,7 +225,9 @@ export const translation_dictionary = {
     { key: "select_med", value: "you must select a doctor" },
     { key: "hours", value: "select schedule" },
 
-    
+    { key: "appointment_create", value: "Appointment successful"},
+    { key: "busy_appointment_by_patient", value: "You already have an appointment at that time" },
+    { key: "busy_appointment_by_specialist", value: "Appointment already booked with that specialist" },
     //1
     { key: "choose_health_insurance", value: "Choose a health insurance:" },
     { key: "select_plan", value: "Select a plan:" },
@@ -231,7 +240,8 @@ export const translation_dictionary = {
     { key: "plan_3", value: "Plan 3" },
     { key: "plan_4", value: "Plan 4" },
     //home
-    { key: "home_title", value: "Clinic Vita Nova " },
+    { key: "home_title", value: "Clinic" },
+    { key: "home_title_1", value: "Vita Nova" },
     { key: "home_intro", value: "We provide quality medical care with trust, warmth, and commitment, because your health deserves the best at every visit." },
     { key: "home_services_label", value: "Our Services" },
     { key: "home_care_line_1", value: "We take care of you," },
@@ -264,6 +274,7 @@ export const translation_dictionary = {
     { key: "specialists_title_line1", value: "The best professionals," },
     { key: "specialists_title_line2", value: "always at your service" },
     { key: "no_specialists", value: "No specialists found." },
+    { key: "nro_mtc", value: "License Number"},
     { key: "Cardiology", value: "Cardiology" },
     { key: "Dermatology", value: "Dermatology" },
     { key: "Neurología", value: "Neurology" },

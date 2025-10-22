@@ -78,14 +78,8 @@ const Layout = () => {
           <div className="nav-login">
             {/* Botón de idioma */}
             <button
+            className="language_button"
               onClick={onToggleLanguage}
-              style={{
-                background: "transparent",
-                border: "none",
-                cursor: "pointer",
-                marginRight: "10px",
-                fontSize: "16px",
-              }}
             >
               {language === "es" ? "es" : "en"}
             </button>

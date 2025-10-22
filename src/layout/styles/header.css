@@ -74,3 +74,17 @@ header nav ul li{
 .nav-link:focus{
     color: var(--primary-color);
 }
+
+.language_button{
+    padding: 0 15px;
+    margin-right: 15px;
+    text-transform: uppercase;
+    border: 1px solid var(--primary-color);
+    border-radius: 15px;
+    transition: .5s;
+}
+
+.language_button:hover{
+    transition: .5s;
+    background-color: rgb(54, 54, 54);
+}
