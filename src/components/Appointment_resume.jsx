@@ -4,8 +4,6 @@ const Appointment_resume = ({obraSocial, plan,speciality, medic, date, time, isR
 
   const VALOR_RENDER = 4; 
 
-
-
   if(isRender != VALOR_RENDER){
     return null
   } else {
