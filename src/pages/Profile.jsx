@@ -3,6 +3,10 @@ import '../pages/styles/profile.css'
 import { data, useNavigate } from 'react-router-dom'
 import alertify from 'alertifyjs';
 import { useLanguage } from "../components/context/LanguageContext"
+import Appointment from './Appointment';
+import { Specialists } from './Specialists';
+import AppointmenCard from '../components/appointmenCard'
+
 export default function Profile() {
     const { t } = useLanguage();
     const EMAILREGEX = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
@@ -14,10 +18,13 @@ export default function Profile() {
     const [articleId, setArticleId] = useState(1)
     const [isActive, setIsActive] = useState(true)
     const [newUserData, setNewUserData] = useState(userData)
+    const [appointmen, SetAppointmen] = useState({})
+    const [specialtiesDATA, setSpecialtiesDATA] = useState([]);
+
+
 
     useEffect(() => {
         const token = localStorage.getItem("token");
-
         Promise.all([
             fetch("http://localhost:3000/profile/user/", {
                 method: "GET",
@@ -32,13 +39,22 @@ export default function Profile() {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`
                 },
+            }),
+            fetch('http://localhost:3000/appointment/specialties', {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
             })
         ])
-            .then(async ([userRes, appointmentsRes]) => {
+            .then(async ([userRes, appointmentsRes, specialtiesRes]) => {
                 const userData = await userRes.json();
                 const appointmentsData = await appointmentsRes.json();
+                const specialtiesData = await specialtiesRes.json();
 
                 if (userData.ok) {
+
                     setUserData(userData.user);
                     setNewUserData(userData.user);
                 } else {
@@ -46,10 +62,20 @@ export default function Profile() {
                 }
 
                 if (appointmentsData.ok) {
-                    console.log("Turnos:", appointmentsData);
+                    SetAppointmen(appointmentsData.appointments)
+                    console.log(appointmentsData.appointmen)
                 } else {
                     console.log("Error en appointments:", appointmentsData);
                 }
+
+                if (specialtiesData.ok) {
+
+                    setSpecialtiesDATA(specialtiesData.specialties);
+                    console.log(appointmen)
+                } else {
+                    console.log("Error en specialties:", specialtiesData);
+                }
+                
             })
             .catch(e => console.error(e));
     }, []);
@@ -139,7 +165,16 @@ export default function Profile() {
                     articleId == 2 ?
                         <article>
                             {t("appointments")}
-                        </article>
+                             {appointmen.length != 0 ? 
+                            appointmen.map((e) => (
+                            <AppointmenCard
+                                key={e.id}
+                                time={e.time_id}
+                                date={e.date}
+                                specialti={specialtiesDATA.filter((i) => i.id == e.specialist.specialty_id)}
+                                specialist={e.specialist}/>
+                                
+                        )) : " no hay turnos "}                         </article>
                         :
                         <article>
                             {t("preferences")}

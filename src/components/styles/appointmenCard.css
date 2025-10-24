@@ -1,0 +1,14 @@
+.appointmen_div{
+   background-color: rgb(59, 59, 59);
+    padding: 30px;
+    backdrop-filter: blur(3px);
+    color: var(--primary-color);
+    width: 500px;
+    margin-bottom: 10px;
+
+}
+
+.line{
+    width: 100%;
+    border: 1px solid black;
+}

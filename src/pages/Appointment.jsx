@@ -27,7 +27,7 @@ const Appointment = () => {
     const [busyAppointment, setBusyAppointment] = useState([])
     const [date, setDate] = useState("");
     const [time, setTimes] = useState("");
-    const [_, setFullData] = useState({})
+    const [fullData, setFullData] = useState({})
 
     const navTurno = useNavigate();
 
