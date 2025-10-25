@@ -34,10 +34,14 @@ export const translation_dictionary = {
     { key: "must_enter_data", value: "Debe ingresar sus datos" },
     { key: "must_select_doctor", value: "Debe seleccionar un médico" },
     { key: "must_select_time", value: "Debes seleccionar un horario" },
+    { key: "select_esp", value: "Debe seleccionar un especialista" },
+    { key: "select_med", value: "Debe seleccionar un medico" },
     { key: "select", value: "seleccionar" },
     { key: "appointment_create", value: "Turno creado con éxito"},
     { key: "busy_appointment_by_patient", value: "Ya tenés un turno en ese horario"},
     { key: "busy_appointment_by_specialist", value: "Turno ya reservado con ese especialista"},
+    { key: "hours", value: "Seleccionar horario" },
+
     //1
     { key: "choose_health_insurance", value: "Elige una obra social:" },
     { key: "select_plan", value: "Seleccione plan:" },
@@ -84,6 +88,17 @@ export const translation_dictionary = {
     { key: "specialists_title_line1", value: "Los mejores profesionales," },
     { key: "specialists_title_line2", value: "siempre a tu disposicion" },
     { key: "no_specialists", value: "No se encontraron especialistas." },
+    { key: "Cardiology", value: "Cardiología" },
+    { key: "Dermatology", value: "Dermatología" },
+    { key: "Neurología", value: "Neurología" },
+    { key: "Pediatrics", value: "Pediatría" },
+    { key: "Ginecología", value: "Ginecología" },
+    { key: "Psiquiatría", value: "Psiquiatría" },
+    { key: "Oncología", value: "Oncología" },
+    { key: "Ortopedia", value: "Ortopedia" },
+    { key: "Oftalmología", value: "Oftalmología" },
+    { key: "Endocrinología", value: "Endocrinología" },
+    { key: "back", value: "Volver" },
     { key: "nro_mtc", value: "Matrícula"},
     //register
      { key: "register_title", value: "Registrate" },
@@ -132,6 +147,7 @@ export const translation_dictionary = {
     { key: "enter_desc", value:"Ingrese descripcion"},
     { key: "desc", value:"Descripcion"},
     { key: "Update_At", value:"Actualizado en"},
+    { key: "nro_mtc", value:"Numero de matricula"},
     //profile
     { key: "my_profile", value: "Mi perfil" },
     { key: "appointments", value: "Turnos" },
@@ -139,6 +155,37 @@ export const translation_dictionary = {
     { key: "logout", value: "Cerrar sesion" },
     { key: "edit", value: "Editar campos" },
     { key: "aceptar", value: "Aceptar cambios" },
+    //service card
+    { key: "specialty_cardiology", value: "Cardiología" },
+    { key: "specialty_cardiology_desc", value: "Estudio y tratamiento del corazón." },
+
+    { key: "specialty_dermatology", value: "Dermatología" },
+    { key: "specialty_dermatology_desc", value: "Cuidado y tratamiento de la piel." },
+
+    { key: "specialty_neurology", value: "Neurología" },
+    { key: "specialty_neurology_desc", value: "Diagnóstico y tratamiento del sistema nervioso." },
+
+    { key: "specialty_pediatrics", value: "Pediatría" },
+    { key: "specialty_pediatrics_desc", value: "Atención médica de niños y adolescentes." },
+
+    { key: "specialty_gynecology", value: "Ginecología" },
+    { key: "specialty_gynecology_desc", value: "Salud del sistema reproductivo femenino." },
+
+    { key: "specialty_psychiatry", value: "Psiquiatría" },
+    { key: "specialty_psychiatry_desc", value: "Atención de trastornos mentales y emocionales." },
+
+    { key: "specialty_oncology", value: "Oncología" },
+    { key: "specialty_oncology_desc", value: "Estudio y tratamiento del cáncer." },
+
+    { key: "specialty_orthopedics", value: "Ortopedia" },
+    { key: "specialty_orthopedics_desc", value: "Diagnóstico y tratamiento del sistema musculoesquelético." },
+
+    { key: "specialty_ophthalmology", value: "Oftalmología" },
+    { key: "specialty_ophthalmology_desc", value: "Atención de los problemas visuales y oculares." },
+
+    { key: "specialty_endocrinology", value: "Endocrinología" },
+    { key: "specialty_endocrinology_desc", value: "Estudio de las glándulas y hormonas del cuerpo." },
+    
   ],
   en: [
     { key: "login", value: "Login" },
@@ -176,6 +223,8 @@ export const translation_dictionary = {
     { key: "select", value: "Select" },
     { key: "select_esp", value: "you must select a specialty" },
     { key: "select_med", value: "you must select a doctor" },
+    { key: "hours", value: "select schedule" },
+
     { key: "appointment_create", value: "Appointment successful"},
     { key: "busy_appointment_by_patient", value: "You already have an appointment at that time" },
     { key: "busy_appointment_by_specialist", value: "Appointment already booked with that specialist" },
@@ -226,6 +275,18 @@ export const translation_dictionary = {
     { key: "specialists_title_line2", value: "always at your service" },
     { key: "no_specialists", value: "No specialists found." },
     { key: "nro_mtc", value: "License Number"},
+    { key: "Cardiology", value: "Cardiology" },
+    { key: "Dermatology", value: "Dermatology" },
+    { key: "Neurología", value: "Neurology" },
+    { key: "Pediatrics", value: "Pediatrics" },
+    { key: "Ginecología", value: "Gynecology" },
+    { key: "Psiquiatría", value: "Psychiatry" },
+    { key: "Oncología", value: "Oncology" },
+    { key: "Ortopedia", value: "Orthopedics" },
+    { key: "Oftalmología", value: "Ophthalmology" },
+    { key: "Endocrinología", value: "Endocrinology" },
+    { key: "back", value: "back" },
+    
     //register
       { key: "register_title", value: "Sign up" },
     { key: "email_label", value: "Email" },
@@ -283,5 +344,38 @@ export const translation_dictionary = {
     { key: "logout", value: "Log out" },
     { key: "edit", value: "edit fields"},
     { key: "aceptar", value: "accept changes" },
+    { key: "Cardiología", value: "Cardiology" },
+    { key: "Pediatría", value: "Pediatrics" },
+    { key: "Dermatología", value: "Dermatology" },
+    //descripcion especialidades service card
+    { key: "specialty_cardiology", value: "Cardiology" },
+    { key: "specialty_cardiology_desc", value: "Study and treatment of the heart." },
+
+    { key: "specialty_dermatology", value: "Dermatology" },
+    { key: "specialty_dermatology_desc", value: "Care and treatment of the skin." },
+
+    { key: "specialty_neurology", value: "Neurology" },
+    { key: "specialty_neurology_desc", value: "Diagnosis and treatment of the nervous system." },
+
+    { key: "specialty_pediatrics", value: "Pediatrics" },
+    { key: "specialty_pediatrics_desc", value: "Medical care for children and teenagers." },
+
+    { key: "specialty_gynecology", value: "Gynecology" },
+    { key: "specialty_gynecology_desc", value: "Health of the female reproductive system." },
+
+    { key: "specialty_psychiatry", value: "Psychiatry" },
+    { key: "specialty_psychiatry_desc", value: "Care for mental and emotional disorders." },
+
+    { key: "specialty_oncology", value: "Oncology" },
+    { key: "specialty_oncology_desc", value: "Study and treatment of cancer." },
+
+    { key: "specialty_orthopedics", value: "Orthopedics" },
+    { key: "specialty_orthopedics_desc", value: "Diagnosis and treatment of the musculoskeletal system." },
+
+    { key: "specialty_ophthalmology", value: "Ophthalmology" },
+    { key: "specialty_ophthalmology_desc", value: "Care for visual and eye problems." },
+
+    { key: "specialty_endocrinology", value: "Endocrinology" },
+    { key: "specialty_endocrinology_desc", value: "Study of glands and body hormones." },
   ],
 };

@@ -52,7 +52,7 @@ export const Specialists = () => {
                                     value={e.id}
                                     onClick={handleSpecialistsFiltered}
                                 >
-                                    {e.specialty} {/* Usamos key para traducción */}
+                                    {t(e.specialty)}
                                 </button>
                             ))
                         )}

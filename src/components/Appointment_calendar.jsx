@@ -2,9 +2,10 @@ import { useState, useEffect  } from "react"
 import './styles/appointment.css';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-
+import { useLanguage } from "../components/context/LanguageContext.jsx";
 const AppointmentCalendar = ({addTime ,date, busyAppointment, addSchedule, isRender }) => {
   const VALOR_RENDER = 3;
+  const { t } = useLanguage();
 
   if (isRender !== VALOR_RENDER) {
     return null;
@@ -33,7 +34,7 @@ const AppointmentCalendar = ({addTime ,date, busyAppointment, addSchedule, isRen
       />
 
       <select className="nav-link calendar-select" onChange={addTime} defaultValue="0" disabled={!date}>
-        <option value="0" disabled>Elegir horario</option>
+        <option value="0" disabled>{t("hours")|| "Elegir el horario"}</option>
         {times.times.map(({ id, time }) => (
           <option disabled={busyAppointment.some((ap) => ap.time_id == id) ? true : false} key={id} value={id}>
             {time}
