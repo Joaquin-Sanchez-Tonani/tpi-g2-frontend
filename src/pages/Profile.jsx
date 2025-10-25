@@ -1,10 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import '../pages/styles/profile.css'
-import { data, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import alertify from 'alertifyjs';
 import { useLanguage } from "../components/context/LanguageContext"
-import Appointment from './Appointment';
-import { Specialists } from './Specialists';
 import AppointmenCard from '../components/appointmenCard'
 
 export default function Profile() {
@@ -19,7 +17,6 @@ export default function Profile() {
     const [isActive, setIsActive] = useState(true)
     const [newUserData, setNewUserData] = useState(userData)
     const [appointmen, SetAppointmen] = useState({})
-    const [specialtiesDATA, setSpecialtiesDATA] = useState([]);
 
 
 
@@ -39,22 +36,13 @@ export default function Profile() {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`
                 },
-            }),
-            fetch('http://localhost:3000/appointment/specialties', {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
-                },
             })
         ])
             .then(async ([userRes, appointmentsRes, specialtiesRes]) => {
                 const userData = await userRes.json();
                 const appointmentsData = await appointmentsRes.json();
-                const specialtiesData = await specialtiesRes.json();
 
                 if (userData.ok) {
-
                     setUserData(userData.user);
                     setNewUserData(userData.user);
                 } else {
@@ -63,19 +51,9 @@ export default function Profile() {
 
                 if (appointmentsData.ok) {
                     SetAppointmen(appointmentsData.appointments)
-                    console.log(appointmentsData.appointmen)
                 } else {
                     console.log("Error en appointments:", appointmentsData);
                 }
-
-                if (specialtiesData.ok) {
-
-                    setSpecialtiesDATA(specialtiesData.specialties);
-                    console.log(appointmen)
-                } else {
-                    console.log("Error en specialties:", specialtiesData);
-                }
-                
             })
             .catch(e => console.error(e));
     }, []);
@@ -157,24 +135,24 @@ export default function Profile() {
                             <li><strong>{t("lastname")}</strong><input name='lastName' onChange={handleUserData} type="text" value={newUserData.lastName} disabled={isActive} /></li>
                         </ul>
                         <div className='div_profile_buttons'>
-                            <input className='profile_buttons' type='button' value={t("edit") ||"Editar campos"} onClick={handleIsActive} />
-                            <input className='profile_buttons' type='button' value={t("aceptar")||"Aceptar cambios"} onClick={handleAcceptChanges} />
+                            <input className='profile_buttons' type='button' value={t("edit") || "Editar campos"} onClick={handleIsActive} />
+                            <input className='profile_buttons' type='button' value={t("aceptar") || "Aceptar cambios"} onClick={handleAcceptChanges} />
                         </div>
                     </article>
                     :
                     articleId == 2 ?
                         <article>
-                            {t("appointments")}
-                             {appointmen.length != 0 ? 
-                            appointmen.map((e) => (
-                            <AppointmenCard
-                                key={e.id}
-                                time={e.time_id}
-                                date={e.date}
-                                specialti={specialtiesDATA.filter((i) => i.id == e.specialist.specialty_id)}
-                                specialist={e.specialist}/>
-                                
-                        )) : " no hay turnos "}                         </article>
+                            {appointmen.length != 0 ?
+                                appointmen.map((e) => {
+                                    return (
+                                        <AppointmenCard
+                                            key={e.id}
+                                            time={e.Time}
+                                            date={e.date}
+                                            specialist={e.specialist} />
+
+                                    )
+                                }) : " no hay turnos "}                         </article>
                         :
                         <article>
                             {t("preferences")}

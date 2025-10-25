@@ -15,10 +15,12 @@ Forma parte del proyecto integral de **Clínica Médica UTN**, junto al reposito
 ### Médico
 - Acceso al panel para visualizar sus turnos.
 
-### .Administrador (Super Admin)
+### .Administrador 
+- Visualización y gestión de todos los usuarios.
+
+### .Dueño de clínica 
 - Creación y edición de especialidades.
 - Visualización de todos los usuarios.
-- Control general del sistema.
 
 ---
 
@@ -28,7 +30,7 @@ Forma parte del proyecto integral de **Clínica Médica UTN**, junto al reposito
 |------------|-------------|
 | **Framework principal** | [React.js](https://react.dev/) |
 | **Ruteo** | [React Router](https://reactrouter.com/) |
-| **Comunicación con API** | Fetch / Axios |
+| **Comunicación con API** | Fetch |
 | **Estilos** | CSS, componentes personalizados y componentes Bootstrap |
 | **Gestión de estado** | useState, useEffect, context API |
 | **Control de versiones** | Git + GitHub |

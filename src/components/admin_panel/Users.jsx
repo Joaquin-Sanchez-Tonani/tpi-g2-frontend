@@ -1,12 +1,13 @@
-import { useEffect, useState, useRef, act } from "react";
+import { useEffect, useState, useRef } from "react";
 import '../styles/administration.css'
+import Swal from 'sweetalert2';
 import { useLanguage } from "../context/LanguageContext";
 export default function Users() {
     const [users, setUsers] = useState(null);
     const [usersResave, setUsersResave] = useState(null);
     const [specialties, setSpecialties] = useState(null);
     const [disable, setDisable] = useState({ id: null, status: true });
-    const [active,setActive] = useState(null)
+    const [active, setActive] = useState(null)
     const token = localStorage.getItem("token");
     const { t } = useLanguage();
     const OPTIONS = (method, body) => {
@@ -53,19 +54,45 @@ export default function Users() {
             licenseNumber: useRefs.current.license[id].value,
             role_id: useRefs.current.role[id].value
         };
-        window.confirm("Estás seguro de los cambios?")
+        const result = await Swal.fire({
+            title: 'Modificar usuario?',
+            text: 'Esta acción se puede alternar',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, modificar',
+            cancelButtonText: 'Cancelar'
+        });
+
+        if (!result.isConfirmed) return;
         fetch(`http://localhost:3000/dashboard/users/${id}`, OPTIONS("PATCH", body))
             .then(res => res.json())
-            .then(data => console.log(data));
+            .catch(error => console.log(error));
         setDisable({ id: null, status: true })
     }
 
     const handleDeleteUser = async (id) => {
-        window.confirm("Estás seguro de eliminar este usuario?")
+        const result = await Swal.fire({
+            title: '¿Deshabilitar usuario?',
+            text: 'Esta acción se puede alternar',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, deshabilitar',
+            cancelButtonText: 'Cancelar'
+        });
+
+        if (!result.isConfirmed) return;
         fetch(`http://localhost:3000/dashboard/users/${id}`, OPTIONS("DELETE"))
             .then(res => res.json())
             .then(data => console.log(data));
-        setUsers(usersResave.filter((user) => user.id != id))
+        setUsers(prevData =>
+            prevData.map(user =>
+                user.id === id ? { ...user, isDisabled: !user.isDisabled } : user
+            )
+        );
     }
 
     const handleOrder = (event) => {
@@ -91,11 +118,11 @@ export default function Users() {
     return (
         <article className="article_administration">
             <nav className="fixed_nav">
-                <input onChange={handleSearch} className="search-by-name" placeholder={t("search")||"Buscar por nombre"} type="search" name="search" id="" />
+                <input onChange={handleSearch} className="search-by-name" placeholder={t("search") || "Buscar por nombre"} type="search" name="search" id="" />
                 <ul className="handle_order">
-                    <li><button className={active == "id" ? "active" : ""} id="id" onClick={handleOrder}>{t("order_id")||"Ordenar por id"}</button></li>
-                    <li><button className={active == "specialty" ? "active" : ""} id="specialty" onClick={handleOrder}>{t("order_spe")|| "ordenar por especialidad"}</button></li>
-                    <li><button className={active == "role" ? "active" : ""} id="role" onClick={handleOrder}>{t("order_rol")||"Ordenar por role"}</button></li>
+                    <li><button className={active == "id" ? "active" : ""} id="id" onClick={handleOrder}>{t("order_id") || "Ordenar por id"}</button></li>
+                    <li><button className={active == "specialty" ? "active" : ""} id="specialty" onClick={handleOrder}>{t("order_spe") || "ordenar por especialidad"}</button></li>
+                    <li><button className={active == "role" ? "active" : ""} id="role" onClick={handleOrder}>{t("order_rol") || "Ordenar por role"}</button></li>
                 </ul>
             </nav>
             <table>
@@ -103,16 +130,17 @@ export default function Users() {
                     <tr>
                         <th>ID</th>
                         <th>{t("name") || "Nombre"}</th>
-                        <th>{t("lastname")|| "Apellido"}</th>
+                        <th>{t("lastname") || "Apellido"}</th>
                         <th>Email</th>
-                        <th>{t("Specialty")|| "Especialidad"}</th>
-                        <th>L. {t("number")|| "Numero"}</th>
+                        <th>{t("Specialty") || "Especialidad"}</th>
+                        <th>L. {t("number") || "Numero"}</th>
                         <th>Role</th>
                         <th>{t("Created_At") || "Creado en"}</th>
+                        <th>Estado</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {users ? users.map(({ id, name, lastName, email, licenseNumber, cellphone, specialty_id, role_id, createdAt }) => {
+                    {users ? users.map(({ id, name, lastName, email, licenseNumber, isDisabled, specialty_id, role_id, createdAt }) => {
                         return (
                             <tr key={id}>
                                 <td>{id}</td>
@@ -155,8 +183,9 @@ export default function Users() {
                                     </select>
                                 </td>
                                 <td>{createdAt.split("T")[0]}</td>
+                                <td>{isDisabled ? "Disabled" : "Active"}</td>
                                 <td className="actions">
-                                    <button title="Eliminar usuario" onClick={() => handleDeleteUser(id)}><i className="fi fi-sr-rectangle-xmark"></i></button>
+                                    <button title="Deshabilitar usuario" onClick={() => handleDeleteUser(id)}><i className="fi fi-sr-calendar-shift-swap"></i></button>
                                     <button title="Modificar campo" onClick={() => handleInput(id)}><i className="fi fi-sr-pen-square"></i></button>
                                     <button className={disable.id === id && disable.status === false ? "" : "actions_button_disable"} disabled={disable.id === id && disable.status === false ? false : true} title="Enviar cambios" onClick={() => handleFetchData(id)}><i className="fi fi-sr-move-to-folder"></i></button>
                                 </td>

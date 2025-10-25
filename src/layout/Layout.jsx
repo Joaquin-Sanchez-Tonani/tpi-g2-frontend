@@ -1,4 +1,4 @@
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, useNavigate } from "react-router-dom";
 import { isLogin } from "../services/isLogin";
 import "./styles/header.css";
 import "./styles/footer.css";
@@ -8,7 +8,7 @@ import { useLanguage } from "../components/context/LanguageContext";
 const Layout = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
-
+  const useNav = useNavigate()
   const { language, onToggleLanguage, t } = useLanguage();
 
   async function isLoginFunction() {
