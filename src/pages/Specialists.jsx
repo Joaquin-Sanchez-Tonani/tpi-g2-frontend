@@ -29,8 +29,8 @@ export const Specialists = () => {
         const res = await response.json();
         if (res.ok) SetMedics(res.specialists)
         else SetMedics([{}])
-    }
-
+    };
+    
     return (
         <div className="specialist-card-div">
             <div className="title-specialist-card-div">

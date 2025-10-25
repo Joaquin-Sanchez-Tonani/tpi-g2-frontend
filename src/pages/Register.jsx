@@ -12,7 +12,7 @@ import {
   validateName,
   validateLastName,
   validatePassword,
-  validateRepeatPassword,
+  //validateRepeatPassword,
 } from "../components/contactForm";
 
 const Register = () => {
@@ -114,7 +114,7 @@ const Register = () => {
         setEmail("");
         setPassword("");
         localStorage.clear();
-      });
+      })};
     return (
       <div className="login-card-layout">
         <div className="login-image-container">
@@ -205,6 +205,6 @@ const Register = () => {
         </div>
       </div>
     );
-  }};
+  };
 
   export default Register;
