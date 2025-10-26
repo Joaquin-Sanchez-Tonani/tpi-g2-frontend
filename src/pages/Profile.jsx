@@ -11,7 +11,8 @@ export default function Profile() {
     const navigate = useNavigate()
     const [userData, setUserData] = useState({
         name: "",
-        lastName: ""
+        lastName: "",
+        role_id: ""
     })
     const [articleId, setArticleId] = useState(1)
     const [isActive, setIsActive] = useState(true)
@@ -116,7 +117,6 @@ export default function Profile() {
                     <ul>
                         <li role='button' onClick={() => handleArticles(1)}><div><i className="fi fi-sr-user-vneck-hair"></i><p>{t("my_profile") || "My profile"}</p></div><i className={articleId == 1 ? "fi fi-sr-angle-right active-i" : "fi fi-sr-angle-right no-active-i"}></i></li>
                         <li role='button' onClick={() => handleArticles(2)}><div><i className="fi fi-ss-clipboard-list"></i><p>{t("appointments") || "Appointments"}</p></div><i className={articleId == 2 ? "fi fi-sr-angle-right active-i" : "fi fi-sr-angle-right no-active-i"}></i></li>
-                        <li role='button' onClick={() => handleArticles(3)}><div><i className="fi fi-ss-clipboard-list"></i><p>{t("preferences") || "Preferences"}</p></div><i className={articleId == 3 ? "fi fi-sr-angle-right active-i" : "fi fi-sr-angle-right no-active-i"}></i></li>
                         <li role='button' onClick={() => handleArticles(4)}><div><i className="fi fi-sc-sign-out-alt"></i><p>{t("logout") || "Log out"}</p></div></li>
                     </ul>
                 </nav>
@@ -149,7 +149,9 @@ export default function Profile() {
                                             key={e.id}
                                             time={e.Time}
                                             date={e.date}
-                                            specialist={e.specialist} />
+                                            specialist={newUserData.role_id === 2 ? e.patient : e.specialist}
+                                            role={newUserData.role_id}
+                                            />
 
                                     )
                                 }) : " no hay turnos "}                         </article>

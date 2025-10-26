@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import '../styles/administration.css'
 import Swal from 'sweetalert2';
 import { useLanguage } from "../context/LanguageContext";
+import alertify from "alertifyjs";
 export default function Users() {
     const [users, setUsers] = useState(null);
     const [usersResave, setUsersResave] = useState(null);
@@ -68,6 +69,7 @@ export default function Users() {
         if (!result.isConfirmed) return;
         fetch(`http://localhost:3000/dashboard/users/${id}`, OPTIONS("PATCH", body))
             .then(res => res.json())
+            .then(data => !data.ok ? alertify.error(data.message) : alertify.success(data.message))
             .catch(error => console.log(error));
         setDisable({ id: null, status: true })
     }
@@ -87,12 +89,19 @@ export default function Users() {
         if (!result.isConfirmed) return;
         fetch(`http://localhost:3000/dashboard/users/${id}`, OPTIONS("DELETE"))
             .then(res => res.json())
-            .then(data => console.log(data));
-        setUsers(prevData =>
-            prevData.map(user =>
-                user.id === id ? { ...user, isDisabled: !user.isDisabled } : user
-            )
-        );
+            .then(data => {
+                if (!data.ok) {
+                    alertify.error(data.message)
+                } else {
+                    alertify.success(data.message)
+                    setUsers(prevData =>
+                        prevData.map(user =>
+                            user.id === id ? { ...user, isDisabled: !user.isDisabled } : user
+                        )
+                    );
+                }
+            })
+            .catch(error => console.log(error));
     }
 
     const handleOrder = (event) => {
