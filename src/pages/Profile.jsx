@@ -20,6 +20,12 @@ export default function Profile() {
 
 
 
+
+
+    const [specialtiesDATA, setSpecialtiesDATA] = useState([]);
+
+
+
     useEffect(() => {
         const token = localStorage.getItem("token");
         Promise.all([
@@ -36,13 +42,22 @@ export default function Profile() {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`
                 },
+            }),
+            fetch('http://localhost:3000/appointment/specialties', {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
             })
         ])
             .then(async ([userRes, appointmentsRes, specialtiesRes]) => {
                 const userData = await userRes.json();
                 const appointmentsData = await appointmentsRes.json();
+                const specialtiesData = await specialtiesRes.json();
 
                 if (userData.ok) {
+
                     setUserData(userData.user);
                     setNewUserData(userData.user);
                 } else {
@@ -51,9 +66,18 @@ export default function Profile() {
 
                 if (appointmentsData.ok) {
                     SetAppointmen(appointmentsData.appointments)
+                    console.log(appointmen)
                 } else {
                     console.log("Error en appointments:", appointmentsData);
                 }
+
+                if (specialtiesData.ok) {
+
+                    setSpecialtiesDATA(specialtiesData.specialties);
+                } else {
+                    console.log("Error en specialties:", specialtiesData);
+                }
+                
             })
             .catch(e => console.error(e));
     }, []);
@@ -143,16 +167,23 @@ export default function Profile() {
                     articleId == 2 ?
                         <article>
                             {appointmen.length != 0 ?
-                                appointmen.map((e) => {
+                                <>
+                                {appointmen.map((e) => {
                                     return (
+                                        
                                         <AppointmenCard
                                             key={e.id}
                                             time={e.Time}
                                             date={e.date}
-                                            specialist={e.specialist} />
-
+                                            specialist={e.specialist}
+                                            special = {specialtiesDATA} 
+                                            />
+                                             
                                     )
-                                }) : " no hay turnos "}                         </article>
+                                })}
+                                </>
+                                 : <h1>No tienes turnos</h1>} 
+                        </article>
                         :
                         <article>
                             {t("preferences")}
