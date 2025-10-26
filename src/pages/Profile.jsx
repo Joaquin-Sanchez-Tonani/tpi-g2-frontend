@@ -10,19 +10,15 @@ export default function Profile() {
     const EMAILREGEX = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
     const navigate = useNavigate()
     const [userData, setUserData] = useState({
+        id: "",
         name: "",
-        lastName: ""
+        lastName: "",
+        role_id: ""
     })
     const [articleId, setArticleId] = useState(1)
     const [isActive, setIsActive] = useState(true)
     const [newUserData, setNewUserData] = useState(userData)
     const [appointmen, SetAppointmen] = useState({})
-
-
-
-
-
-    const [specialtiesDATA, setSpecialtiesDATA] = useState([]);
 
 
 
@@ -42,22 +38,13 @@ export default function Profile() {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`
                 },
-            }),
-            fetch('http://localhost:3000/appointment/specialties', {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
-                },
             })
         ])
-            .then(async ([userRes, appointmentsRes, specialtiesRes]) => {
+            .then(async ([userRes, appointmentsRes]) => {
                 const userData = await userRes.json();
                 const appointmentsData = await appointmentsRes.json();
-                const specialtiesData = await specialtiesRes.json();
 
                 if (userData.ok) {
-
                     setUserData(userData.user);
                     setNewUserData(userData.user);
                 } else {
@@ -66,18 +53,9 @@ export default function Profile() {
 
                 if (appointmentsData.ok) {
                     SetAppointmen(appointmentsData.appointments)
-                    console.log(appointmen)
                 } else {
                     console.log("Error en appointments:", appointmentsData);
                 }
-
-                if (specialtiesData.ok) {
-
-                    setSpecialtiesDATA(specialtiesData.specialties);
-                } else {
-                    console.log("Error en specialties:", specialtiesData);
-                }
-                
             })
             .catch(e => console.error(e));
     }, []);
@@ -140,7 +118,6 @@ export default function Profile() {
                     <ul>
                         <li role='button' onClick={() => handleArticles(1)}><div><i className="fi fi-sr-user-vneck-hair"></i><p>{t("my_profile") || "My profile"}</p></div><i className={articleId == 1 ? "fi fi-sr-angle-right active-i" : "fi fi-sr-angle-right no-active-i"}></i></li>
                         <li role='button' onClick={() => handleArticles(2)}><div><i className="fi fi-ss-clipboard-list"></i><p>{t("appointments") || "Appointments"}</p></div><i className={articleId == 2 ? "fi fi-sr-angle-right active-i" : "fi fi-sr-angle-right no-active-i"}></i></li>
-                        <li role='button' onClick={() => handleArticles(3)}><div><i className="fi fi-ss-clipboard-list"></i><p>{t("preferences") || "Preferences"}</p></div><i className={articleId == 3 ? "fi fi-sr-angle-right active-i" : "fi fi-sr-angle-right no-active-i"}></i></li>
                         <li role='button' onClick={() => handleArticles(4)}><div><i className="fi fi-sc-sign-out-alt"></i><p>{t("logout") || "Log out"}</p></div></li>
                     </ul>
                 </nav>
@@ -167,23 +144,20 @@ export default function Profile() {
                     articleId == 2 ?
                         <article>
                             {appointmen.length != 0 ?
-                                <>
-                                {appointmen.map((e) => {
+                                appointmen.map((e) => {
+                                    console.log(userData)
+                                    console.log(e)
                                     return (
-                                        
                                         <AppointmenCard
                                             key={e.id}
                                             time={e.Time}
                                             date={e.date}
-                                            specialist={e.specialist}
-                                            special = {specialtiesDATA} 
+                                            specialist={newUserData.id === e.patient_id ? e.specialist : e.patient}
+                                            role={newUserData.id === e.patient_id ? "medic" : "patient"}
                                             />
-                                             
+
                                     )
-                                })}
-                                </>
-                                 : <h1>No tienes turnos</h1>} 
-                        </article>
+                                }) : " no hay turnos "}                         </article>
                         :
                         <article>
                             {t("preferences")}

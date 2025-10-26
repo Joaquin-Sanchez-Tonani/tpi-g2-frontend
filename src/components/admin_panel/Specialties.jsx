@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useLanguage } from "../context/LanguageContext"
 import Swal from "sweetalert2";
+import alertify from "alertifyjs";
 export const Specialties = () => {
     const [specialties, setSpecialties] = useState(null)
     const token = localStorage.getItem("token");
@@ -23,7 +24,7 @@ export const Specialties = () => {
         });
         
         if (!result.isConfirmed) return;
-        fetch("http://localhost:3000/dashboard/specialty/", {
+        await fetch("http://localhost:3000/dashboard/specialty/", {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
@@ -31,6 +32,9 @@ export const Specialties = () => {
             },
             body: JSON.stringify({ id: id })
         })
+        .then(res => res.json())
+        .then(data => !data.ok ? alertify.error(data.message) : alertify.success(data.message))
+
         setSpecialties((prevStatus) => prevStatus.filter((specialty) => specialty.id != id))
     }
 
@@ -59,6 +63,7 @@ export const Specialties = () => {
             body: JSON.stringify({ specialty, description }),
         });
         const data = await res.json();
+        !data.ok ? alertify.error(data.message) : alertify.success(data.message)
         setSpecialties([
             ...specialties,
             {
@@ -69,6 +74,7 @@ export const Specialties = () => {
                 updatedAt: data.data.updatedAt,
             },
         ]);
+        e.target.reset();
     };
     return (
         <article className="article_administration">
