@@ -1,5 +1,9 @@
 export const translation_dictionary = {
   es: [
+    { key: "date_appointment", value: "Fecha"},
+    { key: "time_appointment", value: "Horario"},
+    { key: "patient_appointment", value: "Paciente"},
+    { key: "specialist_appointment", value: "Especialista"},
     { key: "login", value: "Iniciar sesión" },
     { key: "password", value: "Contraseña" },
     { key: "enter", value: "Ingresar" },
@@ -188,6 +192,10 @@ export const translation_dictionary = {
     
   ],
   en: [
+    { key: "date_appointment", value: "Date" },
+    { key: "time_appointment", value: "Time" },
+    { key: "patient_appointment", value: "Patient" },
+    { key: "specialist_appointment", value: "Specialist" },
     { key: "login", value: "Login" },
     { key: "password", value: "Password" },
     { key: "enter", value: "Enter" },

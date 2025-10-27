@@ -7,7 +7,6 @@ import AppointmenCard from '../components/appointmenCard'
 
 export default function Profile() {
     const { t } = useLanguage();
-    const EMAILREGEX = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
     const navigate = useNavigate()
     const [userData, setUserData] = useState({
         name: "",
@@ -17,8 +16,8 @@ export default function Profile() {
     const [articleId, setArticleId] = useState(1)
     const [isActive, setIsActive] = useState(true)
     const [newUserData, setNewUserData] = useState(userData)
-    const [appointmen, SetAppointmen] = useState({})
-
+    const [appointmen, SetAppointmen] = useState([])
+    const [handleChanges,setHandleChanges] = useState(false)
 
 
     useEffect(() => {
@@ -39,7 +38,7 @@ export default function Profile() {
                 },
             })
         ])
-            .then(async ([userRes, appointmentsRes, specialtiesRes]) => {
+            .then(async ([userRes, appointmentsRes]) => {
                 const userData = await userRes.json();
                 const appointmentsData = await appointmentsRes.json();
 
@@ -51,13 +50,14 @@ export default function Profile() {
                 }
 
                 if (appointmentsData.ok) {
-                    SetAppointmen(appointmentsData.appointments)
+                    const sorted = appointmentsData.appointments.sort((a, b) => new Date(a.date) - new Date(b.date));
+                    SetAppointmen(sorted)
                 } else {
                     console.log("Error en appointments:", appointmentsData);
                 }
             })
             .catch(e => console.error(e));
-    }, []);
+    }, [handleChanges]);
 
 
     function handleArticles(value) {
@@ -141,20 +141,23 @@ export default function Profile() {
                     </article>
                     :
                     articleId == 2 ?
-                        <article>
+                        <article className='appointment-cards'>
                             {appointmen.length != 0 ?
                                 appointmen.map((e) => {
                                     return (
                                         <AppointmenCard
+                                            dependency={setHandleChanges}
+                                            status={e.status}
                                             key={e.id}
+                                            id={e.id}
                                             time={e.Time}
                                             date={e.date}
-                                            specialist={newUserData.role_id === 2 ? e.patient : e.specialist}
-                                            role={newUserData.role_id}
+                                            specialist={newUserData.id !== e.patient_id ? e.patient : e.specialist}
+                                            role={newUserData.id === e.patient_id ? 1 : newUserData.role_id}
                                             />
 
                                     )
-                                }) : " no hay turnos "}                         </article>
+                                }) : "No hay turnos "}                         </article>
                         :
                         <article>
                             {t("preferences")}
