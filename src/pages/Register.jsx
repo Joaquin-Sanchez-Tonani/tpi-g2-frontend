@@ -40,81 +40,54 @@ const Register = () => {
   const handlePassword = (e) => setPassword(e.target.value);
   const handleRPassword = (e) => setRPassword(e.target.value);
 
-  const handleRegister = (e) => {
-    e.preventDefault();
+  const handleRegister = async (e) => {
+  e.preventDefault();
 
-    const emailError = validateEmail(email);
-    if (emailError) {
-      alertify.error(emailError);
-      emailRef.current.focus();
-      return;
-    }
+  const emailError = validateEmail(email);
+  if (emailError) { alertify.error(emailError); emailRef.current.focus(); return; }
 
-    const nameError = validateName(name);
-    if (nameError) {
-      alertify.error(nameError);
-      nameRef.current.focus();
-      return;
-    }
+  const nameError = validateName(name);
+  if (nameError) { alertify.error(nameError); nameRef.current.focus(); return; }
 
-    const lastNameError = validateLastName(lastName);
-    if (lastNameError) {
-      alertify.error(lastNameError);
-      lastNameRef.current.focus();
-      return;
-    }
+  const lastNameError = validateLastName(lastName);
+  if (lastNameError) { alertify.error(lastNameError); lastNameRef.current.focus(); return; }
 
-    const passwordError = validatePassword(password);
-    if (passwordError) {
-      alertify.error(passwordError);
-      passwordRef.current.focus();
-      return;
-    }
-    if (!password.length || password.length < 8) {
-      alertify.error(t("password_incorrect") || "Contraseña incorrecta");
-      passwordRef.current.focus();
-      return;
-    }
+  const passwordError = validatePassword(password);
+  if (passwordError || password.length < 8) { 
+    alertify.error(t("password_incorrect") || "Contraseña incorrecta"); 
+    passwordRef.current.focus(); 
+    return; 
+  }
 
-    if (rPassword !== password) {
-      alertify.error(t("password_not_match") || "Contraseña distinta");
-      passwordRef.current.focus();
-      return;
-    } fetch("http://localhost:3000/auth/register", {
+  if (rPassword !== password) { 
+    alertify.error(t("password_not_match") || "Contraseña distinta"); 
+    passwordRef.current.focus(); 
+    return; 
+  }
+
+  try {
+    const normalizedEmail = email.trim().toLowerCase();
+    const res = await fetch("http://localhost:3000/auth/register", {
       method: "POST",
-      body: JSON.stringify({ email, name, lastName, password }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        !data.ok
-          ? alertify.error(data.message || t("register_error"))
-          : alertify.success(data.message || t("register_success"));
-        return data;
-      })
-      .then((result) => {
-        if (result.ok) {
-          localStorage.clear();
-          navTurno("/");
-        }
-        fetch("http://localhost:3000/auth/register", {
-          method: "POST",
-          body: JSON.stringify({ email: email, name: name, lastName: lastName, password: password }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-          .then((res) => res.json())
-          .then((data) => { !data.ok ? alertify.error(data.message) : alertify.success(data.message); return data; })
-          .then((result) => result.ok && navTurno("/"))
-          .catch((error) => console.error("Error:", error));
-        setRPassword("");
-        setEmail("");
-        setPassword("");
-        localStorage.clear();
-      })};
+      body: JSON.stringify({ email: normalizedEmail, name, lastName, password }),
+      headers: { "Content-Type": "application/json" },
+    });
+
+    const data = await res.json();
+    if (!data.ok) {
+      alertify.error(data.message || t("register_error"));
+    } else {
+      alertify.success(data.message || t("register_success"));
+      setEmail(""); setName(""); setLastName(""); setPassword(""); setRPassword("");
+      localStorage.clear();
+      navTurno("/login");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    alertify.error("Error al registrar usuario");
+  }
+};
+
     return (
       <div className="login-card-layout">
         <div className="login-image-container">

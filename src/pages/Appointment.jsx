@@ -78,6 +78,7 @@ const Appointment = () => {
             .then(data =>{
                 data.ok && navTurno("/profile");
                 data.ok && alertify.success(t("appointment_create"));
+                !data.ok && alertify.error(data.message);
                 return data;
             })
             .catch(error => console.log(error))
