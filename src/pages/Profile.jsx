@@ -10,6 +10,7 @@ export default function Profile() {
     const EMAILREGEX = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
     const navigate = useNavigate()
     const [userData, setUserData] = useState({
+        id: "",
         name: "",
         lastName: "",
         role_id: ""
@@ -39,7 +40,7 @@ export default function Profile() {
                 },
             })
         ])
-            .then(async ([userRes, appointmentsRes, specialtiesRes]) => {
+            .then(async ([userRes, appointmentsRes]) => {
                 const userData = await userRes.json();
                 const appointmentsData = await appointmentsRes.json();
 
@@ -144,13 +145,15 @@ export default function Profile() {
                         <article>
                             {appointmen.length != 0 ?
                                 appointmen.map((e) => {
+                                    console.log(userData)
+                                    console.log(e)
                                     return (
                                         <AppointmenCard
                                             key={e.id}
                                             time={e.Time}
                                             date={e.date}
-                                            specialist={newUserData.role_id === 2 ? e.patient : e.specialist}
-                                            role={newUserData.role_id}
+                                            specialist={newUserData.id === e.patient_id ? e.specialist : e.patient}
+                                            role={newUserData.id === e.patient_id ? "medic" : "patient"}
                                             />
 
                                     )
