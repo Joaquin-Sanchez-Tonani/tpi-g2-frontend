@@ -69,9 +69,13 @@ export default function Users() {
         if (!result.isConfirmed) return;
         fetch(`http://localhost:3000/dashboard/users/${id}`, OPTIONS("PATCH", body))
             .then(res => res.json())
-            .then(data => !data.ok ? alertify.error(data.message) : alertify.success(data.message))
+            .then(data => {if(!data.ok){
+                alertify.error(data.message)
+            }else{
+                alertify.success(data.message)
+                setDisable({ id: null, status: true })
+            }})
             .catch(error => console.log(error));
-        setDisable({ id: null, status: true })
     }
 
     const handleDeleteUser = async (id) => {
